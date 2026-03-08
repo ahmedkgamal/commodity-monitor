@@ -1,0 +1,871 @@
+/* =============================================
+   COMMODITY PRICE MONITOR - CIB Egypt Light Theme
+   Colors: Congress Blue #004A88, Ecstasy Orange #F58420, White #FFFFFF
+   ============================================= */
+
+:root {
+    /* CIB Core Palette */
+    --cib-blue: #004A88;
+    --cib-blue-dark: #003466;
+    --cib-blue-light: #0062b3;
+    --cib-orange: #F58420;
+    --cib-orange-light: #f9a54e;
+    --cib-orange-dark: #d86f10;
+
+    /* Light Theme */
+    --bg-primary: #f4f6f9;
+    --bg-secondary: #eaeff5;
+    --bg-card: #ffffff;
+    --bg-hover: #f0f4f8;
+    --bg-nav: #004A88;
+    --text-primary: #1a2a3a;
+    --text-secondary: #4a5e72;
+    --text-muted: #8295a8;
+    --accent-blue: #004A88;
+    --accent-cyan: #0073cc;
+    --accent-green: #0d9f6e;
+    --accent-red: #dc2626;
+    --accent-yellow: #d97706;
+    --accent-orange: #F58420;
+    --border-color: #d4dce6;
+    --border-light: #e8eef4;
+    --shadow: 0 4px 24px rgba(0, 74, 136, 0.1);
+    --shadow-sm: 0 2px 8px rgba(0, 74, 136, 0.06);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --transition: 0.2s ease;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 70px;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* =============================================
+   NAVIGATION — CIB Blue bar
+   ============================================= */
+#main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--bg-nav);
+    border-bottom: 3px solid var(--cib-orange);
+    box-shadow: 0 2px 12px rgba(0, 74, 136, 0.25);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+}
+
+.nav-brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.nav-icon {
+    color: var(--cib-orange);
+    margin-right: 4px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 4px;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+/* =============================================
+   HEADER — CIB gradient
+   ============================================= */
+#site-header {
+    padding: 100px 24px 40px;
+    text-align: center;
+    background: linear-gradient(180deg, #003d72 0%, #004A88 40%, var(--bg-primary) 100%);
+}
+
+.header-content h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.05rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--cib-orange);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* =============================================
+   SECTIONS
+   ============================================= */
+.section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.section-header {
+    margin-bottom: 28px;
+}
+
+.section-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cib-blue);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+}
+
+/* =============================================
+   COMMODITY GROUPS
+   ============================================= */
+.commodity-group {
+    margin-bottom: 32px;
+}
+
+.group-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cib-orange);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.group-icon {
+    font-size: 1.2rem;
+}
+
+/* =============================================
+   PRICE TABLE
+   ============================================= */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+}
+
+.price-table,
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.price-table thead,
+.reports-table thead {
+    background: var(--cib-blue);
+}
+
+.price-table th,
+.reports-table th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--cib-orange);
+}
+
+.price-table th small,
+.reports-table th small {
+    display: block;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 2px;
+}
+
+.price-table td,
+.reports-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-light);
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.price-table tbody tr:hover,
+.reports-table tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+.price-table tbody tr:last-child td,
+.reports-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Zebra striping for readability */
+.price-table tbody tr:nth-child(even),
+.reports-table tbody tr:nth-child(even) {
+    background: #f8fafb;
+}
+
+.price-table tbody tr:nth-child(even):hover,
+.reports-table tbody tr:nth-child(even):hover {
+    background: var(--bg-hover);
+}
+
+/* Commodity name cell */
+.commodity-name {
+    font-weight: 600;
+    color: var(--cib-blue);
+}
+
+.commodity-type {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* Price cells */
+.price-value {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+}
+
+/* Change indicators */
+.change-positive {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+.change-negative {
+    color: var(--accent-red);
+    font-weight: 600;
+}
+
+.change-neutral {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.change-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.change-badge.positive {
+    background: rgba(13, 159, 110, 0.1);
+    color: var(--accent-green);
+}
+
+.change-badge.negative {
+    background: rgba(220, 38, 38, 0.08);
+    color: var(--accent-red);
+}
+
+/* Info icon for conversion tooltip */
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    cursor: help;
+    margin-left: 4px;
+    border: 1px solid var(--border-color);
+    font-weight: 700;
+    vertical-align: middle;
+    position: relative;
+}
+
+/* Source link */
+.source-link {
+    color: var(--cib-blue-light);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.source-link:hover {
+    text-decoration: underline;
+    color: var(--cib-blue);
+}
+
+/* Sample data badge */
+.sample-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(245, 132, 32, 0.12);
+    color: var(--cib-orange-dark);
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+/* =============================================
+   MOBILE CARDS (hidden on desktop)
+   ============================================= */
+.mobile-cards {
+    display: none;
+}
+
+.mobile-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--cib-blue);
+}
+
+.mobile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.mobile-card-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--cib-blue);
+}
+
+.mobile-card-change {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.mobile-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.mobile-card-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-card-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 2px;
+}
+
+.mobile-card-value {
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* =============================================
+   ANALYSIS SECTION - TABS
+   ============================================= */
+.analysis-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+.tab-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font);
+}
+
+.tab-btn:hover {
+    background: var(--bg-hover);
+    color: var(--cib-blue);
+    border-color: var(--cib-blue);
+}
+
+.tab-btn.active {
+    background: var(--cib-blue);
+    color: #ffffff;
+    border-color: var(--cib-blue);
+}
+
+.analysis-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+}
+
+.analysis-panel {
+    display: none;
+}
+
+.analysis-panel.active {
+    display: block;
+}
+
+.analysis-summary {
+    margin-bottom: 28px;
+}
+
+.analysis-summary h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--cib-blue);
+}
+
+.analysis-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.analysis-summary li {
+    position: relative;
+    padding: 8px 0 8px 20px;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.analysis-summary li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cib-orange);
+}
+
+.chart-container {
+    position: relative;
+    height: 320px;
+    margin-top: 10px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+}
+
+/* =============================================
+   EGYPT NEWS SECTION
+   ============================================= */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.news-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--cib-orange);
+}
+
+.news-card:hover {
+    border-color: var(--cib-blue);
+    border-left-color: var(--cib-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.news-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.news-source {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--cib-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.news-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.news-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.news-category {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: rgba(0, 74, 136, 0.08);
+    color: var(--cib-blue);
+    margin-bottom: 12px;
+    align-self: flex-start;
+}
+
+.news-link {
+    color: var(--cib-blue-light);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-top: auto;
+}
+
+.news-link:hover {
+    text-decoration: underline;
+    color: var(--cib-blue);
+}
+
+.news-note {
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.news-note p {
+    margin-bottom: 6px;
+}
+
+.news-note p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============================================
+   REPORTS TABLE
+   ============================================= */
+.reports-table td {
+    font-size: 0.85rem;
+}
+
+.report-name {
+    font-weight: 600;
+    color: var(--cib-blue);
+}
+
+.report-body {
+    color: var(--cib-orange);
+    font-weight: 500;
+}
+
+.report-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--cib-blue-light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.82rem;
+}
+
+.report-link:hover {
+    text-decoration: underline;
+    color: var(--cib-blue);
+}
+
+.report-frequency {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(0, 74, 136, 0.08);
+    color: var(--cib-blue);
+}
+
+/* =============================================
+   FOOTER — CIB Blue
+   ============================================= */
+#site-footer {
+    margin-top: 40px;
+    padding: 28px 24px;
+    background: var(--cib-blue);
+    border-top: 3px solid var(--cib-orange);
+    text-align: center;
+}
+
+.footer-main {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.82rem;
+    margin-bottom: 6px;
+}
+
+.footer-secondary {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.75rem;
+}
+
+/* =============================================
+   TOOLTIP
+   ============================================= */
+.tooltip {
+    position: fixed;
+    z-index: 9999;
+    background: var(--cib-blue);
+    color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    max-width: 300px;
+    box-shadow: 0 8px 30px rgba(0, 74, 136, 0.3);
+    border: 1px solid var(--cib-blue-dark);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}
+
+/* =============================================
+   LOADING SKELETON
+   ============================================= */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-card) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+    height: 18px;
+    width: 80px;
+    display: inline-block;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 1024px) {
+    .price-table th,
+    .price-table td {
+        padding: 10px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--cib-blue);
+        flex-direction: column;
+        padding: 12px 24px 16px;
+        border-bottom: 3px solid var(--cib-orange);
+        gap: 4px;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    #site-header {
+        padding: 80px 16px 30px;
+    }
+
+    .header-content h1 {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .section {
+        padding: 28px 16px;
+    }
+
+    .section-header h2 {
+        font-size: 1.3rem;
+    }
+
+    /* Hide tables on mobile, show cards */
+    .table-responsive {
+        display: none;
+    }
+
+    .mobile-cards {
+        display: block;
+    }
+
+    .analysis-tabs {
+        gap: 4px;
+    }
+
+    .tab-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .analysis-content {
+        padding: 18px;
+    }
+
+    .chart-container {
+        height: 240px;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.3rem;
+    }
+
+    .mobile-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-tabs {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        text-align: left;
+    }
+}

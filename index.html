@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commodity Price Monitor — Edible Oils, Sugar & Soybeans</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sticky Navigation -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-icon">&#9679;</span> Commodity Monitor
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#dashboard">Price Dashboard</a></li>
+                <li><a href="#analysis">Yearly Analysis</a></li>
+                <li><a href="#egypt-news">Egypt Market</a></li>
+                <li><a href="#reports">Reports Calendar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header id="site-header">
+        <div class="header-content">
+            <h1>Commodity Price Monitor</h1>
+            <p class="subtitle">Edible Oils, Sugar & Soybeans &mdash; Daily Tracker</p>
+            <div class="last-updated" id="lastUpdated">
+                <span class="pulse-dot"></span> Last Updated: <span id="updateTimestamp">Loading...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: Price Dashboard -->
+    <section id="dashboard" class="section">
+        <div class="section-header">
+            <h2>Price Dashboard</h2>
+            <p class="section-subtitle">All prices in USD per Metric Ton. Hover info icons for conversion details.</p>
+        </div>
+
+        <!-- Commodity Group: Edible Oils -->
+        <div class="commodity-group">
+            <h3 class="group-title"><span class="group-icon">&#127758;</span> Edible Oils</h3>
+            <div class="table-responsive">
+                <table class="price-table" id="edibleOilsTable">
+                    <thead>
+                        <tr>
+                            <th>Commodity</th>
+                            <th>Yesterday Close<br><small>(USD/MT)</small></th>
+                            <th>Today<br><small>(USD/MT)</small></th>
+                            <th>Daily Change</th>
+                            <th>Avg This Month<br><small>(USD/MT)</small></th>
+                            <th>Avg Last Month<br><small>(USD/MT)</small></th>
+                            <th>MoM Change %</th>
+                            <th>Avg YTD<br><small>(USD/MT)</small></th>
+                            <th>Avg Last Year<br><small>(USD/MT)</small></th>
+                            <th>YTD Change %</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="edibleOilsBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Commodity Group: Sugar -->
+        <div class="commodity-group">
+            <h3 class="group-title"><span class="group-icon">&#127856;</span> Sugar</h3>
+            <div class="table-responsive">
+                <table class="price-table" id="sugarTable">
+                    <thead>
+                        <tr>
+                            <th>Commodity</th>
+                            <th>Yesterday Close<br><small>(USD/MT)</small></th>
+                            <th>Today<br><small>(USD/MT)</small></th>
+                            <th>Daily Change</th>
+                            <th>Avg This Month<br><small>(USD/MT)</small></th>
+                            <th>Avg Last Month<br><small>(USD/MT)</small></th>
+                            <th>MoM Change %</th>
+                            <th>Avg YTD<br><small>(USD/MT)</small></th>
+                            <th>Avg Last Year<br><small>(USD/MT)</small></th>
+                            <th>YTD Change %</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sugarBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Commodity Group: Soybeans -->
+        <div class="commodity-group">
+            <h3 class="group-title"><span class="group-icon">&#127807;</span> Soybeans</h3>
+            <div class="table-responsive">
+                <table class="price-table" id="soybeansTable">
+                    <thead>
+                        <tr>
+                            <th>Commodity</th>
+                            <th>Yesterday Close<br><small>(USD/MT)</small></th>
+                            <th>Today<br><small>(USD/MT)</small></th>
+                            <th>Daily Change</th>
+                            <th>Avg This Month<br><small>(USD/MT)</small></th>
+                            <th>Avg Last Month<br><small>(USD/MT)</small></th>
+                            <th>MoM Change %</th>
+                            <th>Avg YTD<br><small>(USD/MT)</small></th>
+                            <th>Avg Last Year<br><small>(USD/MT)</small></th>
+                            <th>YTD Change %</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="soybeansBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Mobile Card View (shown on small screens) -->
+        <div class="mobile-cards" id="mobileCards">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Section 2: Yearly Commodity Analysis -->
+    <section id="analysis" class="section">
+        <div class="section-header">
+            <h2>Yearly Commodity Analysis</h2>
+            <p class="section-subtitle">Key price drivers and year-over-year comparison for each commodity.</p>
+        </div>
+
+        <div class="analysis-tabs">
+            <button class="tab-btn active" data-commodity="cpo">Crude Palm Oil</button>
+            <button class="tab-btn" data-commodity="soybean_oil">Soybean Oil</button>
+            <button class="tab-btn" data-commodity="sunflower_oil">Sunflower Oil</button>
+            <button class="tab-btn" data-commodity="raw_sugar">Raw Sugar</button>
+            <button class="tab-btn" data-commodity="white_sugar">White Sugar</button>
+            <button class="tab-btn" data-commodity="soybeans">Soybeans</button>
+            <button class="tab-btn" data-commodity="soybean_meal">Soybean Meal</button>
+        </div>
+
+        <div class="analysis-content" id="analysisContent">
+            <!-- Populated by JS for each commodity -->
+        </div>
+    </section>
+
+    <!-- Section 3: Egyptian Local Market News -->
+    <section id="egypt-news" class="section">
+        <div class="section-header">
+            <h2>Egyptian Local Market News</h2>
+            <p class="section-subtitle">Latest headlines on edible oils, sugar, and soybeans in Egypt.</p>
+        </div>
+
+        <div class="news-grid" id="egyptNewsGrid">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="news-note">
+            <p><strong>Sources:</strong> Daily News Egypt, Ahram Online, Enterprise, CAPMAS, Egypt Supply Ministry</p>
+            <p class="sample-badge">Sample data &mdash; integrate with RSS feeds or news APIs for live updates.</p>
+        </div>
+    </section>
+
+    <!-- Section 4: Key Reports & Release Calendar -->
+    <section id="reports" class="section">
+        <div class="section-header">
+            <h2>Key Reports & Release Calendar</h2>
+            <p class="section-subtitle">Report dates are approximate and subject to change. Check the source for confirmed schedules.</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="reports-table" id="reportsTable">
+                <thead>
+                    <tr>
+                        <th>Report Name</th>
+                        <th>Issuing Body</th>
+                        <th>Commodities Covered</th>
+                        <th>Next Release Date</th>
+                        <th>Frequency</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody id="reportsBody">
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="site-footer">
+        <div class="footer-content">
+            <p class="footer-main">Data sources: USDA, ICE, CME, World Bank, MPOB. Prices are indicative and may be delayed.</p>
+            <p class="footer-secondary">Commodity Price Monitor &copy; 2026. Built for tracking edible oils, sugar & soybean markets.</p>
+        </div>
+    </footer>
+
+    <!-- Tooltip container -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
