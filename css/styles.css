@@ -835,9 +835,34 @@ body {
         font-size: 0.8rem;
     }
 
-    /* Hide tables on mobile, show cards */
-    .table-responsive {
+    /* Hide dashboard tables on mobile, show cards instead */
+    .commodity-group .table-responsive {
         display: none;
+    }
+
+    /* Keep reports table visible and scrollable on mobile */
+    #reports .table-responsive {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -12px;
+        padding: 0 12px;
+    }
+
+    #reports .reports-table {
+        font-size: 0.78rem;
+        min-width: 600px;
+    }
+
+    #reports .reports-table th,
+    #reports .reports-table td {
+        padding: 8px 10px;
+        white-space: nowrap;
+    }
+
+    #reports .reports-table td:nth-child(3) {
+        white-space: normal;
+        min-width: 120px;
     }
 
     .mobile-cards {
