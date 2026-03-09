@@ -76,11 +76,15 @@ const CONFIG = {
             conversionNote: 'IMF benchmark: Malaysia palm oil, 5% bulk, c.i.f. NW Europe, USD/MT',
             myrToUsd: 0.2237,
             source: {
-                name: 'FRED / IMF',
+                name: 'Investing.com',
+                url: 'https://www.investing.com/commodities/palm-oil-usd'
+            },
+            monthlySource: {
+                name: 'FRED/IMF',
                 url: 'https://fred.stlouisfed.org/series/PPOILUSDM'
             },
             fredSeries: 'PPOILUSDM',
-            color: '#F58420'  // CIB Orange
+            color: '#F58420'
         },
         soybean_oil: {
             name: 'Soybean Oil',
@@ -91,11 +95,15 @@ const CONFIG = {
             conversionFactor: 22.0462,
             conversionNote: 'CBOT: cents/lb × 22.0462 = USD/MT. IMF benchmark: Dutch, f.o.b. ex-mill',
             source: {
-                name: 'FRED / IMF',
+                name: 'CME CBOT',
+                url: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-oil.html'
+            },
+            monthlySource: {
+                name: 'FRED/IMF',
                 url: 'https://fred.stlouisfed.org/series/PSOILUSDM'
             },
             fredSeries: 'PSOILUSDM',
-            color: '#004A88'  // CIB Blue
+            color: '#004A88'
         },
         sunflower_oil: {
             name: 'Sunflower Oil',
@@ -106,7 +114,11 @@ const CONFIG = {
             conversionFactor: 1.0,
             conversionNote: 'IMF benchmark: US export price, f.o.b. Gulf of Mexico, USD/MT',
             source: {
-                name: 'FRED / IMF',
+                name: 'Investing.com',
+                url: 'https://www.investing.com/commodities/ncdex-crude-sunflower-oil-c1-futures'
+            },
+            monthlySource: {
+                name: 'FRED/IMF',
                 url: 'https://fred.stlouisfed.org/series/PSUNOUSDM'
             },
             fredSeries: 'PSUNOUSDM',
@@ -121,7 +133,11 @@ const CONFIG = {
             conversionFactor: 22.0462,
             conversionNote: 'ICE No.11: cents/lb × 22.0462 = USD/MT. IMF: ISA daily price, f.o.b. Caribbean',
             source: {
-                name: 'ICE / FRED',
+                name: 'ICE Futures',
+                url: 'https://www.ice.com/products/23/Sugar-No-11-Futures/data'
+            },
+            monthlySource: {
+                name: 'FRED/IMF',
                 url: 'https://fred.stlouisfed.org/series/PSUGAISAUSDM'
             },
             fredSeries: 'PSUGAISAUSDM',
@@ -134,10 +150,14 @@ const CONFIG = {
             group: 'sugar',
             originalUnit: 'USD/MT',
             conversionFactor: 1.0,
-            conversionNote: 'ICE No.5 London. Derived from No.11 + white premium (~$100/MT avg)',
+            conversionNote: 'ICE No.5 London. White premium over No.11 (~$100/MT avg)',
             source: {
-                name: 'ICE Futures Europe',
+                name: 'ICE London',
                 url: 'https://www.ice.com/products/37089080/White-Sugar-Futures/data'
+            },
+            monthlySource: {
+                name: 'Barchart',
+                url: 'https://www.barchart.com/futures/quotes/SW*0/futures-prices'
             },
             color: '#fb923c'
         },
@@ -150,7 +170,11 @@ const CONFIG = {
             conversionFactor: 0.3674,
             conversionNote: 'CBOT: cents/bu ÷ 100 × 36.7437 bu/MT. IMF benchmark: US No.2, c.i.f. Rotterdam',
             source: {
-                name: 'FRED / IMF',
+                name: 'CME CBOT',
+                url: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean.html'
+            },
+            monthlySource: {
+                name: 'FRED/IMF',
                 url: 'https://fred.stlouisfed.org/series/PSOYBUSDM'
             },
             fredSeries: 'PSOYBUSDM',
@@ -165,7 +189,11 @@ const CONFIG = {
             conversionFactor: 1.10231,
             conversionNote: 'CBOT: USD/short ton × 1.10231 = USD/MT. IMF: 44% protein, Hamburg, f.o.b. ex-mill',
             source: {
-                name: 'FRED / IMF',
+                name: 'CME CBOT',
+                url: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html'
+            },
+            monthlySource: {
+                name: 'FRED/IMF',
                 url: 'https://fred.stlouisfed.org/series/PSMEAUSDM'
             },
             fredSeries: 'PSMEAUSDM',

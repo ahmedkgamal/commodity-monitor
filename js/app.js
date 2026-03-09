@@ -257,6 +257,7 @@
                         <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link">
                             ${commodity.source.name}
                         </a>
+                        ${commodity.monthlySource ? `<br><a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="font-size:0.7rem;color:var(--text-muted)">${commodity.monthlySource.name}</a>` : ''}
                     </td>
                 `;
                 tbody.appendChild(row);
