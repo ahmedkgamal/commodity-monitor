@@ -296,21 +296,26 @@
             card.innerHTML = `
                 <div class="mobile-card-header">
                     <div>
-                        <div class="mobile-card-title">${commodity.shortName} ${sampleBadge}</div>
-                        <div style="font-size:0.75rem;color:var(--text-muted)">${commodity.name}</div>
+                        <div class="mobile-card-title">${commodity.shortName}</div>
+                        <div style="font-size:0.72rem;color:var(--text-muted)">${commodity.name}</div>
                     </div>
-                    <div class="mobile-card-change change-${changeClass(dailyChange.percent)}">
-                        ${changeArrow(dailyChange.percent)} ${dailyChange.percent >= 0 ? '+' : ''}${dailyChange.percent.toFixed(2)}%
+                    <div style="text-align:right">
+                        <div style="font-size:1.1rem;font-weight:700;color:var(--text-primary)">${formatPrice(data.today)}</div>
+                        <div class="mobile-card-change change-${changeClass(dailyChange.percent)}" style="font-size:0.8rem">
+                            ${changeArrow(dailyChange.percent)} ${dailyChange.percent >= 0 ? '+' : ''}${dailyChange.percent.toFixed(2)}%
+                        </div>
                     </div>
                 </div>
                 <div class="mobile-card-grid">
                     <div class="mobile-card-item">
-                        <span class="mobile-card-label">Today (USD/MT)</span>
-                        <span class="mobile-card-value">${formatPrice(data.today)}</span>
-                    </div>
-                    <div class="mobile-card-item">
                         <span class="mobile-card-label">Yesterday Close</span>
                         <span class="mobile-card-value">${formatPrice(data.yesterdayClose)}</span>
+                    </div>
+                    <div class="mobile-card-item">
+                        <span class="mobile-card-label">Daily Change</span>
+                        <span class="mobile-card-value change-${changeClass(dailyChange.absolute)}">
+                            ${dailyChange.absolute >= 0 ? '+' : ''}${formatPrice(dailyChange.absolute)}
+                        </span>
                     </div>
                     <div class="mobile-card-item">
                         <span class="mobile-card-label">Avg This Month</span>
@@ -333,16 +338,18 @@
                         </span>
                     </div>
                     <div class="mobile-card-item">
-                        <span class="mobile-card-label">Avg YTD</span>
+                        <span class="mobile-card-label">Avg YTD 2026</span>
                         <span class="mobile-card-value">${formatPrice(data.avgYTD)}</span>
                     </div>
                     <div class="mobile-card-item">
-                        <span class="mobile-card-label">Avg Last Year</span>
+                        <span class="mobile-card-label">Avg 2025</span>
                         <span class="mobile-card-value">${formatPrice(data.avgLastYear)}</span>
                     </div>
                 </div>
-                <div style="margin-top:12px;font-size:0.78rem">
+                <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-light);font-size:0.75rem;display:flex;gap:12px;align-items:center">
+                    <span style="color:var(--text-muted)">Sources:</span>
                     <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link">${commodity.source.name}</a>
+                    ${commodity.monthlySource ? `<a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="color:var(--text-muted)">${commodity.monthlySource.name}</a>` : ''}
                 </div>
             `;
             container.appendChild(card);
