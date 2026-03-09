@@ -68,65 +68,91 @@
     // DATA LOADING
     // =========================================
     function loadData() {
-        // Check if any API is enabled
-        const anyApiEnabled = Object.values(CONFIG.apis).some(api => api.enabled);
+        // Always start with real data from config
+        Object.keys(CONFIG.commodities).forEach(key => {
+            state.commodityData[key] = CONFIG.sampleData[key];
+        });
 
-        if (anyApiEnabled) {
-            fetchLiveData();
-        } else {
-            // Use sample data
-            Object.keys(CONFIG.commodities).forEach(key => {
-                state.commodityData[key] = CONFIG.sampleData[key];
-            });
+        // If FRED API key is configured, fetch latest monthly data
+        if (CONFIG.apis.fred.enabled && CONFIG.apis.fred.apiKey !== 'YOUR_FRED_API_KEY_HERE') {
+            fetchFredData();
         }
     }
 
-    async function fetchLiveData() {
+    async function fetchFredData() {
         // =========================================
-        // WORLD BANK API EXAMPLE
-        // Uncomment and modify when you have API access
+        // FRED API — Free, fetches IMF commodity price data
+        // Register at: https://fred.stlouisfed.org/docs/api/api_key.html
         // =========================================
-        /*
-        if (CONFIG.apis.worldBank.enabled) {
-            try {
-                const { url, indicators, format, perPage } = CONFIG.apis.worldBank;
-                // Example: fetch palm oil data
-                const response = await fetch(
-                    `${url}${indicators.palmOil}?format=${format}&per_page=${perPage}&date=2025:2026`
-                );
-                const data = await response.json();
-                // Parse and map to state.commodityData.cpo
-                // data[1] contains the records
-            } catch (error) {
-                console.error('World Bank API error:', error);
-            }
-        }
-        */
+        const { apiKey, baseUrl, series } = CONFIG.apis.fred;
+        const startDate = '2025-01-01';
 
-        // =========================================
-        // COMMODITIES-API EXAMPLE
-        // =========================================
-        /*
-        if (CONFIG.apis.commodityPricesApi.enabled) {
-            try {
-                const { apiKey, baseUrl, endpoints } = CONFIG.apis.commodityPricesApi;
-                const response = await fetch(
-                    `${baseUrl}${endpoints.latest}?access_key=${apiKey}&base=USD&symbols=PALM,SOYBEAN,SUGAR`
-                );
-                const data = await response.json();
-                // Map data.rates to state.commodityData
-            } catch (error) {
-                console.error('Commodities API error:', error);
-            }
-        }
-        */
+        // Map FRED series to commodity keys
+        const seriesMap = {
+            [series.palmOil]: 'cpo',
+            [series.soybeanOil]: 'soybean_oil',
+            [series.sunflowerOil]: 'sunflower_oil',
+            [series.sugarRaw]: 'raw_sugar',
+            [series.soybeans]: 'soybeans',
+            [series.soybeanMeal]: 'soybean_meal'
+        };
 
-        // Fallback to sample data if fetches fail
-        Object.keys(CONFIG.commodities).forEach(key => {
-            if (!state.commodityData[key]) {
-                state.commodityData[key] = CONFIG.sampleData[key];
+        const fetchPromises = Object.entries(seriesMap).map(async ([seriesId, commodityKey]) => {
+            try {
+                const url = `${baseUrl}?series_id=${seriesId}&api_key=${apiKey}&file_type=json&observation_start=${startDate}&sort_order=asc`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.observations && data.observations.length > 0) {
+                    const monthlyData2025 = new Array(12).fill(null);
+                    const monthlyData2026 = new Array(12).fill(null);
+
+                    data.observations.forEach(obs => {
+                        const date = new Date(obs.date);
+                        const year = date.getFullYear();
+                        const month = date.getMonth(); // 0-indexed
+                        let value = parseFloat(obs.value);
+                        if (isNaN(value)) return;
+
+                        // Convert sugar from cents/lb to USD/MT
+                        if (seriesId === series.sugarRaw) {
+                            value = value * 22.0462;
+                        }
+
+                        if (year === 2025) monthlyData2025[month] = Math.round(value);
+                        if (year === 2026) monthlyData2026[month] = Math.round(value);
+                    });
+
+                    // Update state with FRED data
+                    const existing = state.commodityData[commodityKey];
+                    existing.monthlyLastYear = monthlyData2025;
+                    existing.monthlyThisYear = monthlyData2026;
+                    existing.dataSource = `FRED API live (${seriesId})`;
+
+                    // Recalculate averages from FRED data
+                    const valid2025 = monthlyData2025.filter(v => v !== null);
+                    const valid2026 = monthlyData2026.filter(v => v !== null);
+                    if (valid2025.length > 0) {
+                        existing.avgLastYear = Math.round(valid2025.reduce((a, b) => a + b, 0) / valid2025.length * 100) / 100;
+                    }
+                    if (valid2026.length > 0) {
+                        existing.avgYTD = Math.round(valid2026.reduce((a, b) => a + b, 0) / valid2026.length * 100) / 100;
+                    }
+                }
+            } catch (error) {
+                console.warn(`FRED fetch failed for ${seriesId}:`, error);
             }
         });
+
+        try {
+            await Promise.all(fetchPromises);
+            // Re-render with live data
+            renderDashboard();
+            renderAnalysis();
+            console.log('FRED data loaded successfully');
+        } catch (error) {
+            console.warn('Some FRED fetches failed, using cached data:', error);
+        }
     }
 
     // =========================================
@@ -162,7 +188,9 @@
     }
 
     function isUsingSampleData() {
-        return !Object.values(CONFIG.apis).some(api => api.enabled);
+        // Data is from real sources (FRED/IMF) even without API key
+        // Only show "sample" badge for Egyptian news (which uses placeholder headlines)
+        return false;
     }
 
     // =========================================
