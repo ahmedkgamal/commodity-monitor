@@ -104,7 +104,7 @@
 
         // Update page title
         const titles = {
-            agri: 'Commodity Price Monitor — Edible Oils, Sugar & Soybeans',
+            agri: 'Commodity Price Monitor — Oil & Commodities',
             oilgas: 'Commodity Price Monitor — Oil & Gas',
             petrochem: 'Commodity Price Monitor — Petrochemicals',
             poultry: 'Commodity Price Monitor — Poultry'
@@ -146,22 +146,25 @@
     }
 
     function renderIndustry(key) {
-        renderKPIStrip(key);
-        if (key === 'agri') {
-            // Agri now uses compact dashboard (same as Oil & Gas)
-            renderCompactDashboard(key);
-            renderAnalysis();
-            renderMonthlyUpdates();
-            renderGlobalNews();
-            renderLocalNews();
-            renderReportsCalendar();
-        } else {
-            renderCompactDashboard(key);
-            renderIndustryAnalysis(key);
-            renderIndustryMonthly(key);
-            renderIndustryGlobalNews(key);
-            renderIndustryLocalNews(key);
-            renderIndustryReports(key);
+        try {
+            renderKPIStrip(key);
+            if (key === 'agri') {
+                renderCompactDashboard(key);
+                renderAnalysis();
+                renderMonthlyUpdates();
+                renderGlobalNews();
+                renderLocalNews();
+                renderReportsCalendar();
+            } else {
+                renderCompactDashboard(key);
+                renderIndustryAnalysis(key);
+                renderIndustryMonthly(key);
+                renderIndustryGlobalNews(key);
+                renderIndustryLocalNews(key);
+                renderIndustryReports(key);
+            }
+        } catch (err) {
+            console.error('[renderIndustry] Error rendering', key, err);
         }
     }
 
@@ -332,15 +335,24 @@
         };
 
         const cfg = configMap[industryKey];
-        if (!cfg) return;
+        if (!cfg) {
+            console.warn('[Dashboard] No config found for', industryKey);
+            return;
+        }
 
         // For agri, use compactCommodities; for others, use commodities
         const commodities = industryKey === 'agri' ? cfg.compactCommodities : cfg.commodities;
-        if (!commodities) return;
+        if (!commodities || commodities.length === 0) {
+            console.warn('[Dashboard] No commodities data for', industryKey);
+            return;
+        }
 
         const tbody = document.getElementById(industryKey + 'Body');
         const mobileContainer = document.getElementById(industryKey + 'MobileCards');
-        if (!tbody) return;
+        if (!tbody) {
+            console.warn('[Dashboard] tbody not found:', industryKey + 'Body');
+            return;
+        }
 
         tbody.innerHTML = '';
         if (mobileContainer) mobileContainer.innerHTML = '';

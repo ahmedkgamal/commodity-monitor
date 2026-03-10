@@ -41,10 +41,10 @@
         <h1 class="landing-title">Commodity Price Monitor</h1>
         <p class="landing-subtitle">Select an industry to view real-time prices, analysis, news, and reports.</p>
         <div class="industry-grid">
-            <div class="industry-card" onclick="window.APP.showIndustry('agri')" role="button" tabindex="0" aria-label="Open Edible Oils, Sugar and Soybeans dashboard">
+            <div class="industry-card" onclick="window.APP.showIndustry('agri')" role="button" tabindex="0" aria-label="Open Oil and Commodities dashboard">
                 <span class="industry-card-count">7 commodities</span>
-                <div class="industry-card-icon icon-agri" aria-hidden="true">AG</div>
-                <div class="industry-card-name">Edible Oils, Sugar & Soybeans</div>
+                <div class="industry-card-icon icon-agri" aria-hidden="true">O&amp;C</div>
+                <div class="industry-card-name">Oil & Commodities</div>
                 <div class="industry-card-tickers" id="tickers-agri"></div>
                 <div class="industry-card-desc">CPO, Soybean Oil, Sunflower Oil, Raw & White Sugar, Soybeans, Soybean Meal. Daily settlement prices with monthly averages from FRED/IMF.</div>
                 <div class="industry-card-enter">Enter Dashboard <span aria-hidden="true">&#8594;</span></div>
@@ -77,7 +77,7 @@
     </div>
 
     <!-- =============================================
-         INDUSTRY: Edible Oils, Sugar & Soybeans (existing)
+         INDUSTRY: Oil & Commodities
          ============================================= -->
     <div class="industry-content" data-industry="agri" id="industry-agri">
         <a href="javascript:void(0)" class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
@@ -86,7 +86,7 @@
         <header id="site-header">
             <div class="header-content">
                 <h1>Commodity Price Monitor</h1>
-                <p class="subtitle">Edible Oils, Sugar & Soybeans &mdash; Daily Tracker</p>
+                <p class="subtitle">Oil & Commodities &mdash; Daily Tracker</p>
                 <div class="last-updated" id="lastUpdated">
                     <span class="pulse-dot"></span> Last Updated: <span id="updateTimestamp">Loading...</span>
                 </div>
