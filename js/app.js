@@ -164,10 +164,25 @@
     }
 
     function calcChange(current, previous) {
-        if (!current || !previous) return { absolute: 0, percent: 0 };
+        if (current == null || previous == null) return null;
         const absolute = current - previous;
         const percent = ((absolute / previous) * 100);
         return { absolute, percent };
+    }
+
+    function formatChange(change, showAbsolute) {
+        if (!change) return '<span class="change-badge neutral">—</span>';
+        const cls = changeClass(change.percent);
+        if (showAbsolute) {
+            return `<span class="change-badge ${cls}">
+                ${changeArrow(change.percent)}
+                ${change.absolute >= 0 ? '+' : ''}${formatPrice(change.absolute)}
+                (${change.percent >= 0 ? '+' : ''}${change.percent.toFixed(2)}%)
+            </span>`;
+        }
+        return `<span class="change-badge ${cls}">
+            ${change.percent >= 0 ? '+' : ''}${change.percent.toFixed(2)}%
+        </span>`;
     }
 
     function changeClass(value) {
@@ -232,32 +247,18 @@
                         ${formatPrice(data.today)}
                         <span class="info-icon" data-tooltip="${commodity.conversionNote}${data.originalPrice ? '\nOriginal: ' + data.originalPrice.value + ' ' + data.originalPrice.unit : ''}">i</span>
                     </td>
-                    <td>
-                        <span class="change-badge ${changeClass(dailyChange.percent)}">
-                            ${changeArrow(dailyChange.percent)}
-                            ${dailyChange.absolute >= 0 ? '+' : ''}${formatPrice(dailyChange.absolute)}
-                            (${dailyChange.percent >= 0 ? '+' : ''}${dailyChange.percent.toFixed(2)}%)
-                        </span>
-                    </td>
+                    <td>${formatChange(dailyChange, true)}</td>
                     <td class="price-value">${formatPrice(data.avgThisMonth)}</td>
                     <td class="price-value">${formatPrice(data.avgLastMonth)}</td>
-                    <td>
-                        <span class="change-badge ${changeClass(momChange.percent)}">
-                            ${momChange.percent >= 0 ? '+' : ''}${momChange.percent.toFixed(2)}%
-                        </span>
-                    </td>
+                    <td>${formatChange(momChange, false)}</td>
                     <td class="price-value">${formatPrice(data.avgYTD)}</td>
                     <td class="price-value">${formatPrice(data.avgLastYear)}</td>
+                    <td>${formatChange(ytdChange, false)}</td>
                     <td>
-                        <span class="change-badge ${changeClass(ytdChange.percent)}">
-                            ${ytdChange.percent >= 0 ? '+' : ''}${ytdChange.percent.toFixed(2)}%
-                        </span>
-                    </td>
-                    <td>
-                        <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link">
-                            ${commodity.source.name}
+                        <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link" title="Daily prices">
+                            ${commodity.source.name} &#8599;
                         </a>
-                        ${commodity.monthlySource ? `<br><a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="font-size:0.7rem;color:var(--text-muted)">${commodity.monthlySource.name}</a>` : ''}
+                        ${commodity.monthlySource ? `<br><a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="font-size:0.7rem;color:var(--text-muted)" title="Monthly averages">${commodity.monthlySource.name} &#8599;</a>` : ''}
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -291,6 +292,15 @@
             const momChange = calcChange(data.avgThisMonth, data.avgLastMonth);
             const ytdChange = calcChange(data.avgYTD, data.avgLastYear);
 
+            const dailyPct = dailyChange ? `${changeArrow(dailyChange.percent)} ${dailyChange.percent >= 0 ? '+' : ''}${dailyChange.percent.toFixed(2)}%` : '—';
+            const dailyCls = dailyChange ? `change-${changeClass(dailyChange.percent)}` : '';
+            const dailyAbs = dailyChange ? `${dailyChange.absolute >= 0 ? '+' : ''}${formatPrice(dailyChange.absolute)}` : '—';
+            const dailyAbsCls = dailyChange ? `change-${changeClass(dailyChange.absolute)}` : '';
+            const momPct = momChange ? `${momChange.percent >= 0 ? '+' : ''}${momChange.percent.toFixed(2)}%` : '—';
+            const momCls = momChange ? `change-${changeClass(momChange.percent)}` : '';
+            const ytdPct = ytdChange ? `${ytdChange.percent >= 0 ? '+' : ''}${ytdChange.percent.toFixed(2)}%` : '—';
+            const ytdCls = ytdChange ? `change-${changeClass(ytdChange.percent)}` : '';
+
             const card = document.createElement('div');
             card.className = 'mobile-card';
             card.innerHTML = `
@@ -301,8 +311,8 @@
                     </div>
                     <div style="text-align:right">
                         <div style="font-size:1.1rem;font-weight:700;color:var(--text-primary)">${formatPrice(data.today)}</div>
-                        <div class="mobile-card-change change-${changeClass(dailyChange.percent)}" style="font-size:0.8rem">
-                            ${changeArrow(dailyChange.percent)} ${dailyChange.percent >= 0 ? '+' : ''}${dailyChange.percent.toFixed(2)}%
+                        <div class="mobile-card-change ${dailyCls}" style="font-size:0.8rem">
+                            ${dailyPct}
                         </div>
                     </div>
                 </div>
@@ -313,8 +323,8 @@
                     </div>
                     <div class="mobile-card-item">
                         <span class="mobile-card-label">Daily Change</span>
-                        <span class="mobile-card-value change-${changeClass(dailyChange.absolute)}">
-                            ${dailyChange.absolute >= 0 ? '+' : ''}${formatPrice(dailyChange.absolute)}
+                        <span class="mobile-card-value ${dailyAbsCls}">
+                            ${dailyAbs}
                         </span>
                     </div>
                     <div class="mobile-card-item">
@@ -327,14 +337,14 @@
                     </div>
                     <div class="mobile-card-item">
                         <span class="mobile-card-label">MoM Change</span>
-                        <span class="mobile-card-value change-${changeClass(momChange.percent)}">
-                            ${momChange.percent >= 0 ? '+' : ''}${momChange.percent.toFixed(2)}%
+                        <span class="mobile-card-value ${momCls}">
+                            ${momPct}
                         </span>
                     </div>
                     <div class="mobile-card-item">
-                        <span class="mobile-card-label">YTD Change</span>
-                        <span class="mobile-card-value change-${changeClass(ytdChange.percent)}">
-                            ${ytdChange.percent >= 0 ? '+' : ''}${ytdChange.percent.toFixed(2)}%
+                        <span class="mobile-card-label">YTD vs 2025</span>
+                        <span class="mobile-card-value ${ytdCls}">
+                            ${ytdPct}
                         </span>
                     </div>
                     <div class="mobile-card-item">
@@ -346,10 +356,10 @@
                         <span class="mobile-card-value">${formatPrice(data.avgLastYear)}</span>
                     </div>
                 </div>
-                <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-light);font-size:0.75rem;display:flex;gap:12px;align-items:center">
+                <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-light);font-size:0.75rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
                     <span style="color:var(--text-muted)">Sources:</span>
-                    <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link">${commodity.source.name}</a>
-                    ${commodity.monthlySource ? `<a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="color:var(--text-muted)">${commodity.monthlySource.name}</a>` : ''}
+                    <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link">${commodity.source.name} &#8599;</a>
+                    ${commodity.monthlySource ? `<a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="color:var(--text-muted)">${commodity.monthlySource.name} &#8599;</a>` : ''}
                 </div>
             `;
             container.appendChild(card);
