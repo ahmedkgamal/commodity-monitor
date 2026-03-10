@@ -354,6 +354,83 @@ const CONFIG = {
     },
 
     // =========================================
+    // COMPACT COMMODITIES — Unified format for Price Dashboard
+    // Same structure as Oil & Gas / Petrochem / Poultry configs
+    // Prices extracted from verified sampleData above
+    // =========================================
+    compactCommodities: [
+        // --- EDIBLE OILS ---
+        {
+            group: 'Edible Oils',
+            name: 'Crude Palm Oil (CPO)',
+            price: 1068.57,          // Bursa FCPO May-26: 4,774 MYR × 0.2237 USD/MYR
+            prevPrice: 944.00,       // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'Investing.com',
+            sourceUrl: 'https://www.investing.com/commodities/palm-oil-usd',
+            dataDate: '2026-03-09'
+        },
+        {
+            name: 'Soybean Oil',
+            price: 1534.50,          // CBOT ZL May-26: 69.61 c/lb × 22.0462
+            prevPrice: 1435.00,      // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'CME CBOT',
+            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-oil.html',
+            dataDate: '2026-03-09'
+        },
+        {
+            name: 'Sunflower Oil',
+            price: 1540.00,          // Trading Economics global benchmark
+            prevPrice: 1535.00,      // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'Trading Economics',
+            sourceUrl: 'https://tradingeconomics.com/commodity/sunflower-oil',
+            dataDate: '2026-03-09'
+        },
+        // --- SUGAR ---
+        {
+            group: 'Sugar',
+            name: 'Raw Sugar (No. 11)',
+            price: 308.87,           // ICE No.11 May-26: 14.01 c/lb × 22.0462
+            prevPrice: 308.65,       // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'ICE Futures',
+            sourceUrl: 'https://www.ice.com/products/23/Sugar-No-11-Futures/data',
+            dataDate: '2026-03-09'
+        },
+        {
+            name: 'White Sugar (No. 5)',
+            price: 412.40,           // ICE London No.5 May-26 settlement
+            prevPrice: 410.00,       // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'ICE London',
+            sourceUrl: 'https://www.ice.com/products/37089080/White-Sugar-Futures/data',
+            dataDate: '2026-03-09'
+        },
+        // --- SOYBEANS ---
+        {
+            group: 'Soybeans',
+            name: 'Soybeans',
+            price: 418.17,           // CBOT ZS Mar-26: 1,138.50 c/bu × 0.3674
+            prevPrice: 419.30,       // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'CME CBOT',
+            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean.html',
+            dataDate: '2026-03-09'
+        },
+        {
+            name: 'Soybean Meal',
+            price: 351.36,           // CBOT ZM Mar-26: $318.80/st × 1.10231
+            prevPrice: 337.14,       // Mar 7 close
+            unit: 'USD/MT',
+            sourceName: 'CME CBOT',
+            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
+            dataDate: '2026-03-09'
+        }
+    ],
+
+    // =========================================
     // YEARLY ANALYSIS — Sourced from verified reports & market data
     // Every bullet includes an inline source link
     // =========================================

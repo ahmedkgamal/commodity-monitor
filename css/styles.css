@@ -296,19 +296,16 @@ body {
     box-shadow: var(--shadow);
 }
 
-.price-table,
 .reports-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.8125rem;
 }
 
-.price-table thead,
 .reports-table thead {
     background: #FAFAFA;
 }
 
-.price-table th,
 .reports-table th {
     padding: 12px 14px;
     text-align: left;
@@ -321,7 +318,6 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-.price-table th small,
 .reports-table th small {
     display: block;
     font-weight: 400;
@@ -332,7 +328,6 @@ body {
     font-size: 0.625rem;
 }
 
-.price-table td,
 .reports-table td {
     padding: 12px 14px;
     border-bottom: 1px solid var(--border-light);
@@ -340,28 +335,12 @@ body {
     vertical-align: middle;
 }
 
-.price-table tbody tr:hover,
 .reports-table tbody tr:hover {
     background: var(--bg-hover);
 }
 
-.price-table tbody tr:last-child td,
 .reports-table tbody tr:last-child td {
     border-bottom: none;
-}
-
-/* Commodity name cell */
-.commodity-name {
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.commodity-type {
-    display: block;
-    font-size: 0.6875rem;
-    font-weight: 400;
-    color: var(--text-muted);
-    margin-top: 2px;
 }
 
 /* Price cells */
@@ -419,24 +398,6 @@ body {
     background: rgba(220, 38, 38, 0.12);
 }
 
-/* Info icon */
-.info-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--bg-primary);
-    color: var(--text-muted);
-    font-size: 0.625rem;
-    cursor: help;
-    margin-left: 4px;
-    font-weight: 700;
-    vertical-align: middle;
-    position: relative;
-}
-
 /* Source link */
 .source-link {
     color: var(--cib-blue-light);
@@ -450,16 +411,26 @@ body {
     color: var(--cib-blue);
 }
 
-/* Sample data badge */
-.sample-badge {
+/* Data date/live indicators — shown next to source link */
+.data-date {
+    display: block;
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+.data-live {
     display: inline-block;
-    padding: 2px 8px;
-    border-radius: var(--radius-pill);
-    background: rgba(245, 132, 32, 0.1);
-    color: var(--cib-orange-dark);
-    font-size: 0.6875rem;
+    font-size: 0.5625rem;
     font-weight: 600;
-    margin-left: 6px;
+    color: var(--accent-green);
+    background: rgba(10, 123, 86, 0.08);
+    padding: 1px 6px;
+    border-radius: var(--radius-pill);
+    margin-top: 2px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 /* =============================================
@@ -877,29 +848,6 @@ body {
 }
 
 /* =============================================
-   TOOLTIP
-   ============================================= */
-.tooltip {
-    position: fixed;
-    z-index: 9999;
-    background: var(--text-primary);
-    color: #ffffff;
-    padding: 10px 14px;
-    border-radius: var(--radius);
-    font-size: 0.75rem;
-    line-height: 1.5;
-    max-width: 300px;
-    box-shadow: var(--shadow-lg);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-}
-
-.tooltip.visible {
-    opacity: 1;
-}
-
-/* =============================================
    LOADING SKELETON
    ============================================= */
 .skeleton {
@@ -969,10 +917,24 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+/* Professional icon badges — colored squares with abbreviations */
 .industry-card-icon {
-    font-size: 2.25rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     margin-bottom: 12px;
 }
+
+.icon-agri { background: rgba(0, 74, 136, 0.08); color: #004A88; }
+.icon-oilgas { background: rgba(245, 132, 32, 0.08); color: #D86F10; }
+.icon-petrochem { background: rgba(10, 123, 86, 0.08); color: #0A7B56; }
+.icon-poultry { background: rgba(220, 38, 38, 0.08); color: #DC2626; }
 
 .industry-card-name {
     font-size: 1.125rem;
@@ -1286,8 +1248,9 @@ body {
         font-size: 0.75rem;
     }
 
-    /* Hide dashboard tables on mobile, show cards */
-    .commodity-group .table-responsive {
+    /* Hide dashboard tables on mobile, show cards instead */
+    #dashboard > .table-responsive,
+    [id$="-dashboard"] > .table-responsive {
         display: none;
     }
 
@@ -1442,7 +1405,9 @@ body {
     }
 
     .industry-card-icon {
-        font-size: 2rem;
+        width: 40px;
+        height: 40px;
+        font-size: 0.8125rem;
     }
 
     .industry-card-name {

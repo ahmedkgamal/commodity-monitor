@@ -148,7 +148,8 @@
     function renderIndustry(key) {
         renderKPIStrip(key);
         if (key === 'agri') {
-            renderDashboard();
+            // Agri now uses compact dashboard (same as Oil & Gas)
+            renderCompactDashboard(key);
             renderAnalysis();
             renderMonthlyUpdates();
             renderGlobalNews();
@@ -257,8 +258,34 @@
 
         try {
             await Promise.all(fetchPromises);
+
+            // Sync FRED data into compactCommodities so the compact table shows updated prices
+            if (CONFIG.compactCommodities) {
+                const keyMap = {
+                    'Crude Palm Oil (CPO)': 'cpo',
+                    'Soybean Oil': 'soybean_oil',
+                    'Sunflower Oil': 'sunflower_oil',
+                    'Raw Sugar No.11': 'raw_sugar',
+                    'White Sugar': 'white_sugar',
+                    'Soybeans': 'soybeans',
+                    'Soybean Meal': 'soybean_meal'
+                };
+                CONFIG.compactCommodities.forEach(item => {
+                    const stateKey = keyMap[item.name];
+                    if (stateKey && state.commodityData[stateKey]) {
+                        const d = state.commodityData[stateKey];
+                        if (d.today != null) {
+                            item.prevPrice = item.price;
+                            item.price = d.today;
+                            item.dataDate = 'Live';
+                        }
+                    }
+                });
+            }
+
             if (state.currentIndustry === 'agri') {
-                renderDashboard();
+                renderCompactDashboard('agri');
+                renderKPIStrip('agri');
                 renderAnalysis();
             }
             console.log('FRED data loaded successfully');
@@ -282,31 +309,10 @@
         return { absolute, percent };
     }
 
-    function formatChange(change, showAbsolute) {
-        if (!change) return '<span class="change-badge neutral">—</span>';
-        const cls = changeClass(change.percent);
-        if (showAbsolute) {
-            return `<span class="change-badge ${cls}">
-                ${changeArrow(change.percent)}
-                ${change.absolute >= 0 ? '+' : ''}${formatPrice(change.absolute)}
-                (${change.percent >= 0 ? '+' : ''}${change.percent.toFixed(2)}%)
-            </span>`;
-        }
-        return `<span class="change-badge ${cls}">
-            ${change.percent >= 0 ? '+' : ''}${change.percent.toFixed(2)}%
-        </span>`;
-    }
-
     function changeClass(value) {
         if (value > 0) return 'positive';
         if (value < 0) return 'negative';
         return 'neutral';
-    }
-
-    function changeArrow(value) {
-        if (value > 0) return '&#9650;';
-        if (value < 0) return '&#9660;';
-        return '&#9644;';
     }
 
     function formatDate(dateStr) {
@@ -314,15 +320,12 @@
         return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
 
-    function isUsingSampleData() {
-        return false;
-    }
-
     // =========================================
     // RENDER: COMPACT DASHBOARD (Oil & Gas, Petrochem, Poultry)
     // =========================================
     function renderCompactDashboard(industryKey) {
         const configMap = {
+            agri: typeof CONFIG !== 'undefined' ? CONFIG : null,
             oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
             petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
             poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
@@ -330,6 +333,10 @@
 
         const cfg = configMap[industryKey];
         if (!cfg) return;
+
+        // For agri, use compactCommodities; for others, use commodities
+        const commodities = industryKey === 'agri' ? cfg.compactCommodities : cfg.commodities;
+        if (!commodities) return;
 
         const tbody = document.getElementById(industryKey + 'Body');
         const mobileContainer = document.getElementById(industryKey + 'MobileCards');
@@ -341,7 +348,7 @@
         // Group headers
         let currentGroup = '';
 
-        cfg.commodities.forEach(item => {
+        commodities.forEach(item => {
             // Insert group header row if group changed
             if (item.group && item.group !== currentGroup) {
                 currentGroup = item.group;
@@ -359,14 +366,21 @@
             const bigMove = changePct != null && Math.abs(changePct) > 5;
             const bigCls = bigMove ? (changePct > 0 ? ' big-move-up' : ' big-move-down') : '';
 
+            // Date/live indicator
+            const dateLabel = item.dataDate === 'Live'
+                ? '<span class="data-live">Live</span>'
+                : item.dataDate
+                    ? '<span class="data-date">' + formatDate(item.dataDate) + '</span>'
+                    : '';
+
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td style="font-weight:600">${item.name}</td>
-                <td class="price-value">${item.price != null ? formatPrice(item.price) : 'N/A'}</td>
+                <td class="price-value">${item.price != null ? formatPrice(item.price) : '—'}</td>
                 <td class="price-unit">${item.unit || ''}</td>
                 <td><span class="change-badge ${cls}${bigCls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></td>
                 <td><span class="change-badge ${cls}${bigCls}">${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}</span></td>
-                <td><a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a></td>
+                <td><a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a>${dateLabel}</td>
             `;
             tbody.appendChild(row);
 
@@ -381,7 +395,7 @@
                             <div style="font-size:0.72rem;color:var(--text-muted)">${item.unit || ''}</div>
                         </div>
                         <div style="text-align:right">
-                            <div style="font-size:1.1rem;font-weight:700;color:var(--text-primary)">${item.price != null ? formatPrice(item.price) : 'N/A'}</div>
+                            <div style="font-size:1.1rem;font-weight:700;color:var(--text-primary)">${item.price != null ? formatPrice(item.price) : '—'}</div>
                             <div class="mobile-card-change change-${cls}" style="font-size:0.8rem">
                                 ${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}
                             </div>
@@ -391,6 +405,7 @@
                         <span style="color:var(--text-muted)">Change: <span class="change-${cls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></span>
                         <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a>
                     </div>
+                    ${dateLabel ? '<div style="margin-top:6px;font-size:0.6875rem;color:var(--text-muted)">' + (item.dataDate === 'Live' ? 'Live data' : 'As of ' + formatDate(item.dataDate)) + '</div>' : ''}
                 `;
                 mobileContainer.appendChild(card);
             }
@@ -754,186 +769,7 @@
         });
     }
 
-    // =========================================
-    // RENDER: PRICE DASHBOARD (Agri - existing)
-    // =========================================
-    function renderDashboard() {
-        const groups = {
-            edibleOils: { bodyId: 'edibleOilsBody', keys: ['cpo', 'soybean_oil', 'sunflower_oil'] },
-            sugar: { bodyId: 'sugarBody', keys: ['raw_sugar', 'white_sugar'] },
-            soybeans: { bodyId: 'soybeansBody', keys: ['soybeans', 'soybean_meal'] }
-        };
-
-        const sampleBadge = isUsingSampleData()
-            ? '<span class="sample-badge">Sample Data</span>'
-            : '';
-
-        Object.entries(groups).forEach(([groupName, group]) => {
-            const tbody = document.getElementById(group.bodyId);
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            group.keys.forEach(key => {
-                const commodity = CONFIG.commodities[key];
-                const data = state.commodityData[key];
-                if (!data) return;
-
-                const dailyChange = calcChange(data.today, data.yesterdayClose);
-                const momChange = calcChange(data.avgThisMonth, data.avgLastMonth);
-                const ytdChange = calcChange(data.avgYTD, data.avgLastYear);
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <span class="commodity-name">${commodity.shortName}</span>
-                        <span class="commodity-type">${commodity.name}</span>
-                        ${sampleBadge}
-                    </td>
-                    <td class="price-value">${formatPrice(data.yesterdayClose)}</td>
-                    <td class="price-value">
-                        ${formatPrice(data.today)}
-                        <span class="info-icon" data-tooltip="${commodity.conversionNote}${data.originalPrice ? '\nOriginal: ' + data.originalPrice.value + ' ' + data.originalPrice.unit : ''}">i</span>
-                    </td>
-                    <td>${formatChange(dailyChange, true)}</td>
-                    <td class="price-value">${formatPrice(data.avgThisMonth)}</td>
-                    <td class="price-value">${formatPrice(data.avgLastMonth)}</td>
-                    <td>${formatChange(momChange, false)}</td>
-                    <td class="price-value">${formatPrice(data.avgYTD)}</td>
-                    <td class="price-value">${formatPrice(data.avgLastYear)}</td>
-                    <td>${formatChange(ytdChange, false)}</td>
-                    <td>
-                        <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link" title="Daily prices">
-                            ${commodity.source.name} &#8599;
-                        </a>
-                        ${commodity.monthlySource ? `<br><a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="font-size:0.7rem;color:var(--text-muted)" title="Monthly averages">${commodity.monthlySource.name} &#8599;</a>` : ''}
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        });
-
-        renderMobileCards();
-        initTooltips();
-    }
-
-    // =========================================
-    // RENDER: MOBILE CARDS (Agri)
-    // =========================================
-    function renderMobileCards() {
-        const container = document.getElementById('mobileCards');
-        if (!container) return;
-        container.innerHTML = '';
-
-        const sampleBadge = isUsingSampleData()
-            ? '<span class="sample-badge">Sample Data</span>'
-            : '';
-
-        Object.keys(CONFIG.commodities).forEach(key => {
-            const commodity = CONFIG.commodities[key];
-            const data = state.commodityData[key];
-            if (!data) return;
-
-            const dailyChange = calcChange(data.today, data.yesterdayClose);
-            const momChange = calcChange(data.avgThisMonth, data.avgLastMonth);
-            const ytdChange = calcChange(data.avgYTD, data.avgLastYear);
-
-            const dailyPct = dailyChange ? `${changeArrow(dailyChange.percent)} ${dailyChange.percent >= 0 ? '+' : ''}${dailyChange.percent.toFixed(2)}%` : '—';
-            const dailyCls = dailyChange ? `change-${changeClass(dailyChange.percent)}` : '';
-            const dailyAbs = dailyChange ? `${dailyChange.absolute >= 0 ? '+' : ''}${formatPrice(dailyChange.absolute)}` : '—';
-            const dailyAbsCls = dailyChange ? `change-${changeClass(dailyChange.absolute)}` : '';
-            const momPct = momChange ? `${momChange.percent >= 0 ? '+' : ''}${momChange.percent.toFixed(2)}%` : '—';
-            const momCls = momChange ? `change-${changeClass(momChange.percent)}` : '';
-            const ytdPct = ytdChange ? `${ytdChange.percent >= 0 ? '+' : ''}${ytdChange.percent.toFixed(2)}%` : '—';
-            const ytdCls = ytdChange ? `change-${changeClass(ytdChange.percent)}` : '';
-
-            const card = document.createElement('div');
-            card.className = 'mobile-card';
-            card.innerHTML = `
-                <div class="mobile-card-header">
-                    <div>
-                        <div class="mobile-card-title">${commodity.shortName}</div>
-                        <div style="font-size:0.72rem;color:var(--text-muted)">${commodity.name}</div>
-                    </div>
-                    <div style="text-align:right">
-                        <div style="font-size:1.1rem;font-weight:700;color:var(--text-primary)">${formatPrice(data.today)}</div>
-                        <div class="mobile-card-change ${dailyCls}" style="font-size:0.8rem">
-                            ${dailyPct}
-                        </div>
-                    </div>
-                </div>
-                <div class="mobile-card-grid">
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">Yesterday Close</span>
-                        <span class="mobile-card-value">${formatPrice(data.yesterdayClose)}</span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">Daily Change</span>
-                        <span class="mobile-card-value ${dailyAbsCls}">
-                            ${dailyAbs}
-                        </span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">Avg This Month</span>
-                        <span class="mobile-card-value">${formatPrice(data.avgThisMonth)}</span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">Avg Last Month</span>
-                        <span class="mobile-card-value">${formatPrice(data.avgLastMonth)}</span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">MoM Change</span>
-                        <span class="mobile-card-value ${momCls}">
-                            ${momPct}
-                        </span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">YTD vs 2025</span>
-                        <span class="mobile-card-value ${ytdCls}">
-                            ${ytdPct}
-                        </span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">Avg YTD 2026</span>
-                        <span class="mobile-card-value">${formatPrice(data.avgYTD)}</span>
-                    </div>
-                    <div class="mobile-card-item">
-                        <span class="mobile-card-label">Avg 2025</span>
-                        <span class="mobile-card-value">${formatPrice(data.avgLastYear)}</span>
-                    </div>
-                </div>
-                <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-light);font-size:0.75rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-                    <span style="color:var(--text-muted)">Sources:</span>
-                    <a href="${commodity.source.url}" target="_blank" rel="noopener" class="source-link">${commodity.source.name} &#8599;</a>
-                    ${commodity.monthlySource ? `<a href="${commodity.monthlySource.url}" target="_blank" rel="noopener" class="source-link" style="color:var(--text-muted)">${commodity.monthlySource.name} &#8599;</a>` : ''}
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    // =========================================
-    // TOOLTIPS
-    // =========================================
-    function initTooltips() {
-        const tooltip = document.getElementById('tooltip');
-
-        document.querySelectorAll('.info-icon').forEach(icon => {
-            icon.addEventListener('mouseenter', (e) => {
-                const text = e.target.getAttribute('data-tooltip');
-                tooltip.textContent = text;
-                tooltip.classList.add('visible');
-
-                const rect = e.target.getBoundingClientRect();
-                tooltip.style.left = `${rect.left + rect.width / 2}px`;
-                tooltip.style.top = `${rect.bottom + 8}px`;
-                tooltip.style.transform = 'translateX(-50%)';
-            });
-
-            icon.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('visible');
-            });
-        });
-    }
+    // (Old renderDashboard, renderMobileCards, initTooltips removed — agri now uses renderCompactDashboard)
 
     // =========================================
     // RENDER: YEARLY ANALYSIS (Agri)
@@ -1271,23 +1107,18 @@
     // LANDING PAGE TICKERS — Live price pills
     // =========================================
     function renderLandingTickers() {
-        // Agri tickers
+        // Agri tickers — using compactCommodities
         const agriTickers = document.getElementById('tickers-agri');
-        if (agriTickers) {
-            const agriItems = [
-                { name: 'CPO', key: 'cpo' },
-                { name: 'SBO', key: 'soybean_oil' },
-                { name: 'Sugar', key: 'raw_sugar' }
-            ];
-            agriTickers.innerHTML = agriItems.map(item => {
-                const data = state.commodityData[item.key];
-                if (!data) return '';
-                const change = calcChange(data.today, data.yesterdayClose);
+        if (agriTickers && typeof CONFIG !== 'undefined' && CONFIG.compactCommodities) {
+            const items = CONFIG.compactCommodities.filter(c => !c.group || CONFIG.compactCommodities.indexOf(c) < 4).slice(0, 3);
+            agriTickers.innerHTML = items.map(item => {
+                const change = calcChange(item.price, item.prevPrice);
                 const pct = change ? change.percent : null;
                 const cls = pct != null ? changeClass(pct) : 'neutral';
                 const arrow = pct > 0 ? '&#9650;' : pct < 0 ? '&#9660;' : '';
                 const pctStr = pct != null ? (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%' : '';
-                return `<span class="ticker-item ${cls}"><span class="ticker-name">${item.name}</span> ${arrow} ${pctStr}</span>`;
+                const shortName = item.name.split('(')[0].trim().split(' ')[0];
+                return `<span class="ticker-item ${cls}"><span class="ticker-name">${shortName}</span> ${arrow} ${pctStr}</span>`;
             }).join('');
         }
 
@@ -1341,46 +1172,9 @@
     // KPI STRIP — Top movers for each industry
     // =========================================
     function renderKPIStrip(industryKey) {
-        if (industryKey === 'agri') {
-            const container = document.getElementById('agriKpiStrip');
-            if (!container) return;
-
-            // Get all agri commodities with daily changes
-            const items = [];
-            Object.keys(CONFIG.commodities).forEach(key => {
-                const data = state.commodityData[key];
-                if (!data) return;
-                const change = calcChange(data.today, data.yesterdayClose);
-                if (change) {
-                    items.push({
-                        name: CONFIG.commodities[key].shortName,
-                        price: data.today,
-                        change: change
-                    });
-                }
-            });
-
-            // Sort by absolute % change (biggest movers first)
-            items.sort((a, b) => Math.abs(b.change.percent) - Math.abs(a.change.percent));
-
-            container.innerHTML = items.slice(0, 4).map(item => {
-                const cls = changeClass(item.change.percent);
-                const arrow = item.change.percent > 0 ? '&#9650;' : item.change.percent < 0 ? '&#9660;' : '';
-                return `
-                    <div class="kpi-card">
-                        <span class="kpi-card-label">${item.name}</span>
-                        <span class="kpi-card-value">$${formatPrice(item.price)}</span>
-                        <span class="kpi-card-change ${cls}">
-                            ${arrow} ${item.change.percent >= 0 ? '+' : ''}${item.change.percent.toFixed(2)}%
-                        </span>
-                    </div>
-                `;
-            }).join('');
-            return;
-        }
-
-        // Generic KPI strip for other industries
+        // Unified KPI strip — all industries use the same compact data format
         const configMap = {
+            agri: typeof CONFIG !== 'undefined' ? CONFIG : null,
             oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
             petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
             poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
@@ -1389,11 +1183,15 @@
         const cfg = configMap[industryKey];
         if (!cfg) return;
 
+        // For agri, use compactCommodities; for others, use commodities
+        const commodities = industryKey === 'agri' ? cfg.compactCommodities : cfg.commodities;
+        if (!commodities) return;
+
         const container = document.getElementById(industryKey + 'KpiStrip');
         if (!container) return;
 
         // Get items with changes, sort by biggest move
-        const movers = cfg.commodities
+        const movers = commodities
             .filter(item => item.price != null && item.prevPrice != null)
             .map(item => {
                 const change = calcChange(item.price, item.prevPrice);

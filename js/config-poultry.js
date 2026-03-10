@@ -20,13 +20,14 @@ const CONFIG_POULTRY = {
     commodities: [
         // --- EGYPTIAN LOCAL POULTRY PRICES ---
         {
-            group: '\uD83C\uDDEA\uD83C\uDDEC Egyptian Local Prices',
+            group: 'Egyptian Local Prices',
             name: 'Live Chicken (White)',
             price: 110.60,
             prevPrice: 97.00,
             unit: 'EGP/kg',
             sourceName: 'Arab Finance/IDSC',
-            sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989'
+            sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989',
+            dataDate: '2026-03-10'
         },
         {
             name: 'Live Chicken (Baladi)',
@@ -34,7 +35,8 @@ const CONFIG_POULTRY = {
             prevPrice: 110.00,
             unit: 'EGP/kg',
             sourceName: 'Al-Ard',
-            sourceUrl: 'https://www.elaard.com/129926'
+            sourceUrl: 'https://www.elaard.com/129926',
+            dataDate: '2026-03-10'
         },
         {
             name: 'Frozen Chicken (Imported)',
@@ -42,7 +44,8 @@ const CONFIG_POULTRY = {
             prevPrice: 122.00,
             unit: 'EGP/kg',
             sourceName: 'Zawya',
-            sourceUrl: 'https://www.zawya.com/en/economy/north-africa/poultry-prices-in-egypt-rise-ahead-of-ramadan-vutby0qn'
+            sourceUrl: 'https://www.zawya.com/en/economy/north-africa/poultry-prices-in-egypt-rise-ahead-of-ramadan-vutby0qn',
+            dataDate: '2026-03-09'
         },
         {
             name: 'Chilled Chicken (Sasso)',
@@ -50,7 +53,8 @@ const CONFIG_POULTRY = {
             prevPrice: 98.00,
             unit: 'EGP/kg',
             sourceName: 'Al-Ard',
-            sourceUrl: 'https://www.elaard.com/129926'
+            sourceUrl: 'https://www.elaard.com/129926',
+            dataDate: '2026-03-10'
         },
         {
             name: 'Table Eggs (30-egg tray)',
@@ -58,7 +62,8 @@ const CONFIG_POULTRY = {
             prevPrice: 141.30,
             unit: 'EGP/tray',
             sourceName: 'Arab Finance/IDSC',
-            sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989'
+            sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989',
+            dataDate: '2026-03-10'
         },
         {
             name: 'Day-Old Chick (White)',
@@ -66,17 +71,19 @@ const CONFIG_POULTRY = {
             prevPrice: 18.00,
             unit: 'EGP/chick',
             sourceName: 'El-Morshed',
-            sourceUrl: 'https://www.elmorshdledwagn.com/prices/1'
+            sourceUrl: 'https://www.elmorshdledwagn.com/prices/1',
+            dataDate: '2026-03-10'
         },
         // --- EGYPTIAN FEED INPUTS ---
         {
-            group: '\uD83C\uDF3D Egyptian Feed Inputs',
+            group: 'Egyptian Feed Inputs',
             name: 'Yellow Corn (Imported)',
             price: 14600,
             prevPrice: 13900,
             unit: 'EGP/ton',
             sourceName: 'Al Mal News',
-            sourceUrl: 'https://almalnews.com/2102453/'
+            sourceUrl: 'https://almalnews.com/2102453/',
+            dataDate: '2026-03-09'
         },
         {
             name: 'White Corn (Local)',
@@ -84,7 +91,8 @@ const CONFIG_POULTRY = {
             prevPrice: 13638,
             unit: 'EGP/ton',
             sourceName: 'Al Mal News',
-            sourceUrl: 'https://almalnews.com/2102453/'
+            sourceUrl: 'https://almalnews.com/2102453/',
+            dataDate: '2026-03-09'
         },
         {
             name: 'Soybean Meal 44% (Local)',
@@ -92,7 +100,8 @@ const CONFIG_POULTRY = {
             prevPrice: 22700,
             unit: 'EGP/ton',
             sourceName: 'Al-Ard',
-            sourceUrl: 'https://www.elaard.com/129897'
+            sourceUrl: 'https://www.elaard.com/129897',
+            dataDate: '2026-03-09'
         },
         {
             name: 'Soybean Meal 46% (Imported)',
@@ -100,17 +109,19 @@ const CONFIG_POULTRY = {
             prevPrice: 23800,
             unit: 'EGP/ton',
             sourceName: 'Al-Ard',
-            sourceUrl: 'https://www.elaard.com/129897'
+            sourceUrl: 'https://www.elaard.com/129897',
+            dataDate: '2026-03-09'
         },
         // --- GLOBAL FEED BENCHMARKS ---
         {
-            group: '\uD83C\uDF10 Global Feed Benchmarks',
+            group: 'Global Feed Benchmarks',
             name: 'Corn (CBOT Front-Month)',
             price: 447.00,
             prevPrice: 438.00,
             unit: '\u00A2/bu',
             sourceName: 'CME CBOT',
-            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/grains/corn.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/grains/corn.html',
+            dataDate: '2026-03-09'
         },
         {
             name: 'Soybean Meal (CBOT)',
@@ -118,7 +129,8 @@ const CONFIG_POULTRY = {
             prevPrice: 314.00,
             unit: '$/short ton',
             sourceName: 'CME CBOT',
-            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
+            dataDate: '2026-03-09'
         }
     ],
 

@@ -43,7 +43,7 @@
         <div class="industry-grid">
             <div class="industry-card" onclick="window.APP.showIndustry('agri')" role="button" tabindex="0" aria-label="Open Edible Oils, Sugar and Soybeans dashboard">
                 <span class="industry-card-count">7 commodities</span>
-                <div class="industry-card-icon" aria-hidden="true">&#127758;</div>
+                <div class="industry-card-icon icon-agri" aria-hidden="true">AG</div>
                 <div class="industry-card-name">Edible Oils, Sugar & Soybeans</div>
                 <div class="industry-card-tickers" id="tickers-agri"></div>
                 <div class="industry-card-desc">CPO, Soybean Oil, Sunflower Oil, Raw & White Sugar, Soybeans, Soybean Meal. Daily settlement prices with monthly averages from FRED/IMF.</div>
@@ -51,7 +51,7 @@
             </div>
             <div class="industry-card" onclick="window.APP.showIndustry('oilgas')" role="button" tabindex="0" aria-label="Open Oil and Gas dashboard">
                 <span class="industry-card-count">14 commodities</span>
-                <div class="industry-card-icon" aria-hidden="true">&#9981;</div>
+                <div class="industry-card-icon icon-oilgas" aria-hidden="true">OG</div>
                 <div class="industry-card-name">Oil & Gas</div>
                 <div class="industry-card-tickers" id="tickers-oilgas"></div>
                 <div class="industry-card-desc">Brent, WTI, Dubai/Oman crude, Henry Hub, TTF, LNG, RBOB gasoline, crack spreads, NGLs, rig count, and inventory data from EIA & CME.</div>
@@ -59,7 +59,7 @@
             </div>
             <div class="industry-card" onclick="window.APP.showIndustry('petrochem')" role="button" tabindex="0" aria-label="Open Petrochemicals dashboard">
                 <span class="industry-card-count">17 commodities</span>
-                <div class="industry-card-icon" aria-hidden="true">&#9878;</div>
+                <div class="industry-card-icon icon-petrochem" aria-hidden="true">PC</div>
                 <div class="industry-card-name">Petrochemicals</div>
                 <div class="industry-card-tickers" id="tickers-petrochem"></div>
                 <div class="industry-card-desc">Naphtha, ethylene, propylene, HDPE, LDPE, LLDPE, PP, BTX aromatics, methanol, MEG, and butadiene from ICIS, Platts & ChemOrbis.</div>
@@ -67,7 +67,7 @@
             </div>
             <div class="industry-card" onclick="window.APP.showIndustry('poultry')" role="button" tabindex="0" aria-label="Open Poultry dashboard">
                 <span class="industry-card-count">12 commodities</span>
-                <div class="industry-card-icon" aria-hidden="true">&#128020;</div>
+                <div class="industry-card-icon icon-poultry" aria-hidden="true">PL</div>
                 <div class="industry-card-name">Poultry</div>
                 <div class="industry-card-tickers" id="tickers-poultry"></div>
                 <div class="industry-card-desc">Egyptian local poultry &amp; egg prices, day-old chicks, local &amp; imported feed inputs (corn, soybean meal), and global CBOT benchmarks.</div>
@@ -98,96 +98,28 @@
             <div class="kpi-strip" id="agriKpiStrip"></div>
         </section>
 
-        <!-- Section 1: Price Dashboard -->
+        <!-- Section 1: Price Dashboard (Compact — same format as Oil & Gas) -->
         <section id="dashboard" class="section">
             <div class="section-header">
                 <h2>Price Dashboard</h2>
-                <p class="section-subtitle">All prices in USD per Metric Ton. Hover info icons for conversion details.<br>
-                <strong>Monthly Averages:</strong> <a href="https://fred.stlouisfed.org/" target="_blank" class="source-link">FRED/IMF</a> (Jan 2026) &bull;
-                <a href="https://finance.yahoo.com/" target="_blank" class="source-link">Yahoo Finance</a> (Feb 2026, 19-day settlement avg) &bull;
-                <strong>Daily Prices:</strong> <a href="https://www.cmegroup.com/" target="_blank" class="source-link">CME/CBOT</a> &bull;
-                <a href="https://www.ice.com/" target="_blank" class="source-link">ICE Futures</a> &bull;
-                <a href="https://www.investing.com/commodities/" target="_blank" class="source-link">Investing.com</a> (settlement Mar 9, 2026)<br>
-                <em style="font-size:0.75rem;color:var(--text-muted)">Months showing &ldquo;&mdash;&rdquo; are pending source publication. Each row links to its source.</em></p>
+                <p class="section-subtitle">Exchange settlement prices from CME/CBOT, ICE Futures, and Investing.com. Source links and dates per row.</p>
             </div>
-
-            <!-- Commodity Group: Edible Oils -->
-            <div class="commodity-group">
-                <h3 class="group-title"><span class="group-icon" aria-hidden="true">&#127758;</span> Edible Oils</h3>
-                <div class="table-responsive">
-                    <table class="price-table" id="edibleOilsTable">
-                        <thead>
-                            <tr>
-                                <th>Commodity</th>
-                                <th>Yesterday Close<br><small>(USD/MT)</small></th>
-                                <th>Today<br><small>(USD/MT)</small></th>
-                                <th>Daily Change</th>
-                                <th>Avg This Month<br><small>(USD/MT)</small></th>
-                                <th>Avg Last Month<br><small>(USD/MT)</small></th>
-                                <th>MoM Change %</th>
-                                <th>Avg YTD<br><small>(USD/MT)</small></th>
-                                <th>Avg Last Year<br><small>(USD/MT)</small></th>
-                                <th>YTD Change %</th>
-                                <th>Source</th>
-                            </tr>
-                        </thead>
-                        <tbody id="edibleOilsBody"></tbody>
-                    </table>
-                </div>
+            <div class="table-responsive">
+                <table class="price-table-compact" id="agriTable">
+                    <thead>
+                        <tr>
+                            <th>Commodity</th>
+                            <th>Price</th>
+                            <th>Unit</th>
+                            <th>Change</th>
+                            <th>% Change</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agriBody"></tbody>
+                </table>
             </div>
-
-            <!-- Commodity Group: Sugar -->
-            <div class="commodity-group">
-                <h3 class="group-title"><span class="group-icon" aria-hidden="true">&#127856;</span> Sugar</h3>
-                <div class="table-responsive">
-                    <table class="price-table" id="sugarTable">
-                        <thead>
-                            <tr>
-                                <th>Commodity</th>
-                                <th>Yesterday Close<br><small>(USD/MT)</small></th>
-                                <th>Today<br><small>(USD/MT)</small></th>
-                                <th>Daily Change</th>
-                                <th>Avg This Month<br><small>(USD/MT)</small></th>
-                                <th>Avg Last Month<br><small>(USD/MT)</small></th>
-                                <th>MoM Change %</th>
-                                <th>Avg YTD<br><small>(USD/MT)</small></th>
-                                <th>Avg Last Year<br><small>(USD/MT)</small></th>
-                                <th>YTD Change %</th>
-                                <th>Source</th>
-                            </tr>
-                        </thead>
-                        <tbody id="sugarBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Commodity Group: Soybeans -->
-            <div class="commodity-group">
-                <h3 class="group-title"><span class="group-icon" aria-hidden="true">&#127807;</span> Soybeans</h3>
-                <div class="table-responsive">
-                    <table class="price-table" id="soybeansTable">
-                        <thead>
-                            <tr>
-                                <th>Commodity</th>
-                                <th>Yesterday Close<br><small>(USD/MT)</small></th>
-                                <th>Today<br><small>(USD/MT)</small></th>
-                                <th>Daily Change</th>
-                                <th>Avg This Month<br><small>(USD/MT)</small></th>
-                                <th>Avg Last Month<br><small>(USD/MT)</small></th>
-                                <th>MoM Change %</th>
-                                <th>Avg YTD<br><small>(USD/MT)</small></th>
-                                <th>Avg Last Year<br><small>(USD/MT)</small></th>
-                                <th>YTD Change %</th>
-                                <th>Source</th>
-                            </tr>
-                        </thead>
-                        <tbody id="soybeansBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Mobile Card View -->
-            <div class="mobile-cards" id="mobileCards"></div>
+            <div class="mobile-cards" id="agriMobileCards"></div>
         </section>
 
         <!-- Section 2: Y-o-Y Changes -->
@@ -583,9 +515,6 @@
             <p class="footer-secondary">Commodity Price Monitor &copy; 2026. Multi-industry commodity tracking platform.</p>
         </div>
     </footer>
-
-    <!-- Tooltip container -->
-    <div class="tooltip" id="tooltip"></div>
 
     <script src="js/config.js"></script>
     <script src="js/config-oilgas.js"></script>

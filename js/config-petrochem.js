@@ -21,14 +21,17 @@ const CONFIG_PETROCHEM = {
     // =========================================
     commodities: [
         // --- FEEDSTOCKS ---
+        // NOTE: Petrochemical prices are largely subscription-gated (ICIS, Platts).
+        // Prices shown are based on latest publicly available assessments and industry reports.
         {
-            group: '🧪 Feedstocks',
+            group: 'Feedstocks',
             name: 'Naphtha (NE Asia CFR)',
             price: 695.00,
             prevPrice: 670.00,
             unit: '$/MT',
             sourceName: 'S&P Global Platts',
-            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html'
+            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Naphtha (NWE CIF)',
@@ -36,7 +39,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 655.00,
             unit: '$/MT',
             sourceName: 'S&P Global Platts',
-            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html'
+            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Naphtha (ME FOB)',
@@ -44,7 +48,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 640.00,
             unit: '$/MT',
             sourceName: 'S&P Global Platts',
-            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html'
+            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Ethane (Mt Belvieu)',
@@ -52,17 +57,19 @@ const CONFIG_PETROCHEM = {
             prevPrice: 148.00,
             unit: '$/MT',
             sourceName: 'Intratec/CME',
-            sourceUrl: 'https://www.intratec.us/solutions/primary-commodity-prices/commodity/ethane-prices'
+            sourceUrl: 'https://www.intratec.us/solutions/primary-commodity-prices/commodity/ethane-prices',
+            dataDate: '2026-03-07'
         },
         // --- OLEFINS ---
         {
-            group: '⚗️ Olefins',
+            group: 'Olefins',
             name: 'Ethylene (NE Asia CFR)',
             price: 850.00,
             prevPrice: 820.00,
             unit: '$/MT',
             sourceName: 'ICIS/CME',
-            sourceUrl: 'https://www.cmegroup.com/markets/energy/petrochemicals/ethylene-cfr-ne-asia-icis.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/energy/petrochemicals/ethylene-cfr-ne-asia-icis.html',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Ethylene (NWE FD)',
@@ -70,7 +77,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 1080.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/ethylene/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/ethylene/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Propylene (FE Asia CFR)',
@@ -78,17 +86,19 @@ const CONFIG_PETROCHEM = {
             prevPrice: 850.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/propylene/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/propylene/',
+            dataDate: '2026-03-07'
         },
         // --- POLYMERS ---
         {
-            group: '📦 Polymers',
+            group: 'Polymers',
             name: 'HDPE (SE Asia CFR)',
             price: 1010.00,
             prevPrice: 990.00,
             unit: '$/MT',
             sourceName: 'ChemOrbis',
-            sourceUrl: 'https://www.chemorbis.com/'
+            sourceUrl: 'https://www.chemorbis.com/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'LDPE (SE Asia CFR)',
@@ -96,7 +106,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 1160.00,
             unit: '$/MT',
             sourceName: 'ChemOrbis',
-            sourceUrl: 'https://www.chemorbis.com/'
+            sourceUrl: 'https://www.chemorbis.com/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'LLDPE (SE Asia CFR)',
@@ -104,7 +115,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 965.00,
             unit: '$/MT',
             sourceName: 'ChemOrbis',
-            sourceUrl: 'https://www.chemorbis.com/'
+            sourceUrl: 'https://www.chemorbis.com/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Polypropylene (SE Asia CFR)',
@@ -112,17 +124,19 @@ const CONFIG_PETROCHEM = {
             prevPrice: 1000.00,
             unit: '$/MT',
             sourceName: 'ChemOrbis',
-            sourceUrl: 'https://www.chemorbis.com/'
+            sourceUrl: 'https://www.chemorbis.com/',
+            dataDate: '2026-03-07'
         },
         // --- AROMATICS (BTX) ---
         {
-            group: '🔬 Aromatics (BTX)',
+            group: 'Aromatics (BTX)',
             name: 'Benzene (NE Asia FOB)',
             price: 920.00,
             prevPrice: 900.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/benzene/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/benzene/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Toluene (NE Asia FOB)',
@@ -130,7 +144,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 770.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/toluene/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/toluene/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Xylene (NE Asia FOB)',
@@ -138,17 +153,19 @@ const CONFIG_PETROCHEM = {
             prevPrice: 855.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/xylenes/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/xylenes/',
+            dataDate: '2026-03-07'
         },
         // --- OTHER ---
         {
-            group: '🏭 Other Chemicals',
+            group: 'Other Chemicals',
             name: 'Butadiene (NE Asia CFR)',
             price: 1240.00,
             prevPrice: 1210.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/butadiene/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/butadiene/',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Methanol (US Gulf)',
@@ -156,7 +173,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 465.00,
             unit: '$/MT',
             sourceName: 'Methanex',
-            sourceUrl: 'https://www.methanex.com/our-business/pricing'
+            sourceUrl: 'https://www.methanex.com/our-business/pricing',
+            dataDate: '2026-03-01'
         },
         {
             name: 'MEG (NE Asia CFR)',
@@ -164,7 +182,8 @@ const CONFIG_PETROCHEM = {
             prevPrice: 545.00,
             unit: '$/MT',
             sourceName: 'ICIS',
-            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/ethylene-glycols/'
+            sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/ethylene-glycols/',
+            dataDate: '2026-03-07'
         }
     ],
 

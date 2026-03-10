@@ -20,13 +20,14 @@ const CONFIG_OILGAS = {
     commodities: [
         // --- CRUDE OIL ---
         {
-            group: '🛢️ Crude Oil',
+            group: 'Crude Oil',
             name: 'Brent Crude',
             price: 90.33,
             prevPrice: 84.97,
             unit: '$/bbl',
             sourceName: 'ICE Futures',
-            sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/brent-crude-oil.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/brent-crude-oil.html',
+            dataDate: '2026-03-09'
         },
         {
             name: 'WTI Crude',
@@ -34,7 +35,8 @@ const CONFIG_OILGAS = {
             prevPrice: 82.40,
             unit: '$/bbl',
             sourceName: 'CME NYMEX',
-            sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html',
+            dataDate: '2026-03-09'
         },
         {
             name: 'Dubai/Oman Crude',
@@ -42,17 +44,19 @@ const CONFIG_OILGAS = {
             prevPrice: 81.90,
             unit: '$/bbl',
             sourceName: 'DME/Platts',
-            sourceUrl: 'https://www.theice.com/products/34361119/Murban-Crude-Oil-Futures'
+            sourceUrl: 'https://www.theice.com/products/34361119/Murban-Crude-Oil-Futures',
+            dataDate: '2026-03-09'
         },
         // --- NATURAL GAS ---
         {
-            group: '🔥 Natural Gas',
+            group: 'Natural Gas',
             name: 'Henry Hub Nat Gas',
             price: 2.92,
             prevPrice: 3.14,
             unit: '$/MMBtu',
             sourceName: 'CME NYMEX',
-            sourceUrl: 'https://www.cmegroup.com/markets/energy/natural-gas/natural-gas.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/energy/natural-gas/natural-gas.html',
+            dataDate: '2026-03-09'
         },
         {
             name: 'JKM LNG (Asia)',
@@ -60,25 +64,28 @@ const CONFIG_OILGAS = {
             prevPrice: 14.50,
             unit: '$/MMBtu',
             sourceName: 'ICE/Platts',
-            sourceUrl: 'https://www.theice.com/products/6753653/JKM-LNG-Platts-Future'
+            sourceUrl: 'https://www.theice.com/products/6753653/JKM-LNG-Platts-Future',
+            dataDate: '2026-03-09'
         },
         {
             name: 'TTF Natural Gas (EU)',
             price: 48.63,
             prevPrice: 42.10,
-            unit: '€/MWh',
+            unit: '\u20AC/MWh',
             sourceName: 'ICE Endex',
-            sourceUrl: 'https://www.investing.com/commodities/dutch-ttf-gas-c1-futures'
+            sourceUrl: 'https://www.investing.com/commodities/dutch-ttf-gas-c1-futures',
+            dataDate: '2026-03-09'
         },
         // --- REFINED PRODUCTS ---
         {
-            group: '⛽ Refined Products',
+            group: 'Refined Products',
             name: 'RBOB Gasoline',
             price: 3.05,
             prevPrice: 2.72,
             unit: '$/gal',
             sourceName: 'CME NYMEX',
-            sourceUrl: 'https://www.cmegroup.com/markets/energy/refined-products/rbob-gasoline.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/energy/refined-products/rbob-gasoline.html',
+            dataDate: '2026-03-09'
         },
         {
             name: '3-2-1 Crack Spread',
@@ -86,17 +93,19 @@ const CONFIG_OILGAS = {
             prevPrice: 22.80,
             unit: '$/bbl',
             sourceName: 'CME Group',
-            sourceUrl: 'https://www.cmegroup.com/tools-information/quikstrike/crack-spread-calculator.html'
+            sourceUrl: 'https://www.cmegroup.com/tools-information/quikstrike/crack-spread-calculator.html',
+            dataDate: '2026-03-09'
         },
         // --- NGLs ---
         {
-            group: '💧 Natural Gas Liquids',
+            group: 'Natural Gas Liquids',
             name: 'Ethane (Mt Belvieu)',
             price: 0.22,
             prevPrice: 0.20,
             unit: '$/gal',
             sourceName: 'CME/OPIS',
-            sourceUrl: 'https://www.cmegroup.com/markets/energy/petrochemicals/mont-belvieu-ethane-opis-5-decimals-swap.html'
+            sourceUrl: 'https://www.cmegroup.com/markets/energy/petrochemicals/mont-belvieu-ethane-opis-5-decimals-swap.html',
+            dataDate: '2026-03-09'
         },
         {
             name: 'Propane (Mt Belvieu)',
@@ -104,7 +113,8 @@ const CONFIG_OILGAS = {
             prevPrice: 0.58,
             unit: '$/gal',
             sourceName: 'EIA/FRED',
-            sourceUrl: 'https://fred.stlouisfed.org/series/DPROPANEMBTX'
+            sourceUrl: 'https://fred.stlouisfed.org/series/DPROPANEMBTX',
+            dataDate: '2026-03-07'
         },
         {
             name: 'Butane (Mt Belvieu)',
@@ -112,17 +122,19 @@ const CONFIG_OILGAS = {
             prevPrice: 0.87,
             unit: '$/gal',
             sourceName: 'EIA/OPIS',
-            sourceUrl: 'https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm'
+            sourceUrl: 'https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm',
+            dataDate: '2026-03-07'
         },
         // --- MARKET INDICATORS ---
         {
-            group: '📊 Market Indicators',
+            group: 'Market Indicators',
             name: 'Baker Hughes Rig Count',
             price: 551,
             prevPrice: 550,
             unit: 'rigs',
             sourceName: 'Baker Hughes',
-            sourceUrl: 'https://rigcount.bakerhughes.com/'
+            sourceUrl: 'https://rigcount.bakerhughes.com/',
+            dataDate: '2026-03-06'
         },
         {
             name: 'EIA Crude Inventory',
@@ -130,7 +142,8 @@ const CONFIG_OILGAS = {
             prevPrice: 16.0,
             unit: 'M bbl chg',
             sourceName: 'EIA',
-            sourceUrl: 'https://www.eia.gov/petroleum/supply/weekly/'
+            sourceUrl: 'https://www.eia.gov/petroleum/supply/weekly/',
+            dataDate: '2026-03-05'
         },
         {
             name: 'VLCC Tanker Rate (ME-Asia)',
@@ -138,7 +151,8 @@ const CONFIG_OILGAS = {
             prevPrice: 68000,
             unit: '$/day',
             sourceName: 'Platts',
-            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/tanker-shipping.html'
+            sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/tanker-shipping.html',
+            dataDate: '2026-03-09'
         }
     ],
 
