@@ -24,7 +24,7 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#dashboard">Price Dashboard</a></li>
-                <li><a href="#analysis">Yearly Analysis</a></li>
+                <li><a href="#analysis">Y-o-Y Changes</a></li>
                 <li><a href="#monthly-updates">Monthly Updates</a></li>
                 <li><a href="#global-news">Global News</a></li>
                 <li><a href="#local-news">Egypt Market</a></li>
@@ -66,11 +66,11 @@
                 <div class="industry-card-enter">Enter Dashboard <span aria-hidden="true">&#8594;</span></div>
             </div>
             <div class="industry-card" onclick="window.APP.showIndustry('poultry')" role="button" tabindex="0" aria-label="Open Poultry dashboard">
-                <span class="industry-card-count">10 commodities</span>
+                <span class="industry-card-count">12 commodities</span>
                 <div class="industry-card-icon" aria-hidden="true">&#128020;</div>
                 <div class="industry-card-name">Poultry</div>
                 <div class="industry-card-tickers" id="tickers-poultry"></div>
-                <div class="industry-card-desc">Broiler cutout, breast, leg quarters, wings, eggs, corn, soybean meal, chick placements, and cold storage data from USDA AMS & CBOT.</div>
+                <div class="industry-card-desc">Egyptian local poultry &amp; egg prices, day-old chicks, local &amp; imported feed inputs (corn, soybean meal), and global CBOT benchmarks.</div>
                 <div class="industry-card-enter">Enter Dashboard <span aria-hidden="true">&#8594;</span></div>
             </div>
         </div>
@@ -80,7 +80,7 @@
          INDUSTRY: Edible Oils, Sugar & Soybeans (existing)
          ============================================= -->
     <div class="industry-content" data-industry="agri" id="industry-agri">
-        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+        <a href="javascript:void(0)" class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
 
         <!-- Header -->
         <header id="site-header">
@@ -190,10 +190,10 @@
             <div class="mobile-cards" id="mobileCards"></div>
         </section>
 
-        <!-- Section 2: Yearly Commodity Analysis -->
+        <!-- Section 2: Y-o-Y Changes -->
         <section id="analysis" class="section">
             <div class="section-header">
-                <h2>Yearly Commodity Analysis</h2>
+                <h2>Y-o-Y Changes</h2>
                 <p class="section-subtitle">Key price drivers and year-over-year comparison for each commodity.</p>
             </div>
             <div class="analysis-tabs" role="tablist" aria-label="Commodity analysis">
@@ -272,7 +272,7 @@
          INDUSTRY: Oil & Gas
          ============================================= -->
     <div class="industry-content" data-industry="oilgas" id="industry-oilgas">
-        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+        <a href="javascript:void(0)" class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
 
         <header id="oilgas-header" class="industry-header">
             <h1>Oil & Gas Monitor</h1>
@@ -308,10 +308,10 @@
             <div class="mobile-cards" id="oilgasMobileCards"></div>
         </section>
 
-        <!-- Yearly Analysis -->
+        <!-- Y-o-Y Changes -->
         <section id="oilgas-analysis" class="section">
             <div class="section-header">
-                <h2>Yearly Analysis</h2>
+                <h2>Y-o-Y Changes</h2>
                 <p class="section-subtitle">Key trends and year-over-year comparison sourced from EIA, IEA, and OPEC reports.</p>
             </div>
             <div class="analysis-tabs" id="oilgasAnalysisTabs"></div>
@@ -374,7 +374,7 @@
          INDUSTRY: Petrochemicals
          ============================================= -->
     <div class="industry-content" data-industry="petrochem" id="industry-petrochem">
-        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+        <a href="javascript:void(0)" class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
 
         <header id="petrochem-header" class="industry-header">
             <h1>Petrochemicals Monitor</h1>
@@ -410,10 +410,10 @@
             <div class="mobile-cards" id="petrochemMobileCards"></div>
         </section>
 
-        <!-- Yearly Analysis -->
+        <!-- Y-o-Y Changes -->
         <section id="petrochem-analysis" class="section">
             <div class="section-header">
-                <h2>Yearly Analysis</h2>
+                <h2>Y-o-Y Changes</h2>
                 <p class="section-subtitle">Key trends in petrochemical markets sourced from ICIS, S&P Global, and ChemOrbis.</p>
             </div>
             <div class="analysis-tabs" id="petrochemAnalysisTabs"></div>
@@ -476,11 +476,11 @@
          INDUSTRY: Poultry
          ============================================= -->
     <div class="industry-content" data-industry="poultry" id="industry-poultry">
-        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+        <a href="javascript:void(0)" class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
 
         <header id="poultry-header" class="industry-header">
             <h1>Poultry Monitor</h1>
-            <p>Broiler Prices, Eggs, Feed Inputs & Market Indicators</p>
+            <p>Egyptian Local Prices, Feed Inputs &amp; Global Benchmarks</p>
         </header>
 
         <!-- KPI Strip -->
@@ -492,7 +492,7 @@
         <section id="poultry-dashboard" class="section">
             <div class="section-header">
                 <h2>Price Dashboard</h2>
-                <p class="section-subtitle">Prices sourced from USDA AMS, CME/CBOT, and USDA NASS. Source links per row.</p>
+                <p class="section-subtitle">Egyptian local prices sourced from Arab Finance/IDSC, Al-Ard, Al Mal News. Global benchmarks from CME/CBOT. Source links per row.</p>
             </div>
             <div class="table-responsive">
                 <table class="price-table-compact" id="poultryTable">
@@ -512,11 +512,11 @@
             <div class="mobile-cards" id="poultryMobileCards"></div>
         </section>
 
-        <!-- Yearly Analysis -->
+        <!-- Y-o-Y Changes -->
         <section id="poultry-analysis" class="section">
             <div class="section-header">
-                <h2>Yearly Analysis</h2>
-                <p class="section-subtitle">Key trends sourced from USDA ERS Poultry Outlook and WASDE reports.</p>
+                <h2>Y-o-Y Changes</h2>
+                <p class="section-subtitle">Key trends in Egyptian poultry markets and global feed benchmarks sourced from IDSC, Al-Ard, USDA, and industry reports.</p>
             </div>
             <div class="analysis-tabs" id="poultryAnalysisTabs"></div>
             <div class="analysis-content" id="poultryAnalysisContent"></div>

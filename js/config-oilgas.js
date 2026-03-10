@@ -143,6 +143,48 @@ const CONFIG_OILGAS = {
     ],
 
     // =========================================
+    // PRICE HISTORY — Monthly averages for charts
+    // 2025 = full year, 2026 = Jan–Mar available
+    // =========================================
+    priceHistory: {
+        crude_oil: {
+            label: 'Brent Crude',
+            unit: '$/bbl',
+            color: '#004A88',
+            monthlyLastYear: [78.50, 76.80, 73.20, 71.60, 74.80, 77.50, 80.20, 78.90, 76.50, 73.00, 70.80, 69.00],
+            monthlyThisYear: [72.50, 76.00, 90.33, null, null, null, null, null, null, null, null, null]
+        },
+        natural_gas: {
+            label: 'Henry Hub',
+            unit: '$/MMBtu',
+            color: '#F58420',
+            monthlyLastYear: [3.10, 2.80, 2.50, 2.20, 2.10, 2.40, 2.80, 2.70, 2.50, 2.90, 3.30, 3.60],
+            monthlyThisYear: [7.72, 3.45, 2.92, null, null, null, null, null, null, null, null, null]
+        },
+        refined_products: {
+            label: 'RBOB Gasoline',
+            unit: '$/gal',
+            color: '#DC2626',
+            monthlyLastYear: [2.20, 2.35, 2.60, 2.75, 2.80, 2.85, 2.70, 2.65, 2.45, 2.30, 2.20, 2.15],
+            monthlyThisYear: [2.50, 2.72, 3.05, null, null, null, null, null, null, null, null, null]
+        },
+        ngls: {
+            label: 'Propane (Mt Belvieu)',
+            unit: '$/gal',
+            color: '#0A7B56',
+            monthlyLastYear: [0.65, 0.62, 0.58, 0.55, 0.52, 0.50, 0.48, 0.50, 0.53, 0.56, 0.59, 0.62],
+            monthlyThisYear: [0.60, 0.58, 0.605, null, null, null, null, null, null, null, null, null]
+        },
+        market_indicators: {
+            label: 'Baker Hughes Rig Count',
+            unit: 'rigs',
+            color: '#6E6E73',
+            monthlyLastYear: [576, 574, 570, 568, 564, 560, 555, 552, 550, 548, 546, 544],
+            monthlyThisYear: [548, 550, 551, null, null, null, null, null, null, null, null, null]
+        }
+    },
+
+    // =========================================
     // YEARLY ANALYSIS
     // =========================================
     analysis: {

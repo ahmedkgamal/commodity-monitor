@@ -120,7 +120,7 @@
         const prefix = key === 'agri' ? '' : key + '-';
         const sections = [
             { href: prefix + 'dashboard', label: 'Price Dashboard' },
-            { href: prefix + 'analysis', label: 'Yearly Analysis' },
+            { href: prefix + 'analysis', label: 'Y-o-Y Changes' },
             { href: prefix + 'monthly', label: 'Monthly Updates' },
             { href: prefix + 'global-news', label: 'Global News' },
             { href: prefix + 'local-news', label: 'Local News' },
@@ -437,22 +437,153 @@
                 btn.classList.add('active');
                 contentContainer.querySelectorAll('.analysis-panel').forEach(p => p.classList.remove('active'));
                 document.getElementById(industryKey + '-analysis-panel-' + catKey).classList.add('active');
+                // Render chart for the newly active tab
+                renderIndustryChart(industryKey, catKey);
             });
             tabsContainer.appendChild(btn);
 
-            // Panel
+            // Panel — includes chart canvas if price history exists
             const panel = document.createElement('div');
             panel.className = 'analysis-panel' + (catKey === activeKey ? ' active' : '');
             panel.id = industryKey + '-analysis-panel-' + catKey;
 
             const pointsHtml = cat.points.map(p => `<li>${p}</li>`).join('');
+            const hasChart = cfg.priceHistory && cfg.priceHistory[catKey];
+            const chartHtml = hasChart
+                ? `<div class="chart-container"><canvas id="chart-${industryKey}-${catKey}"></canvas></div>`
+                : '';
+
             panel.innerHTML = `
                 <div class="analysis-summary">
                     <h3>${cat.title}</h3>
                     <ul>${pointsHtml}</ul>
                 </div>
+                ${chartHtml}
             `;
             contentContainer.appendChild(panel);
+        });
+
+        // Render chart for the initially active tab
+        renderIndustryChart(industryKey, activeKey);
+    }
+
+    // =========================================
+    // RENDER: INDUSTRY CHART (generic for Oil, Petrochem, Poultry)
+    // =========================================
+    function renderIndustryChart(industryKey, catKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg || !cfg.priceHistory || !cfg.priceHistory[catKey]) return;
+
+        const history = cfg.priceHistory[catKey];
+        const canvasId = `chart-${industryKey}-${catKey}`;
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+
+        const chartKey = industryKey + '-' + catKey;
+
+        // Destroy existing chart if any
+        if (state.charts[chartKey]) {
+            state.charts[chartKey].destroy();
+        }
+
+        const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        const ctx = canvas.getContext('2d');
+        state.charts[chartKey] = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: monthLabels,
+                datasets: [
+                    {
+                        label: `${history.label} 2026`,
+                        data: history.monthlyThisYear || [],
+                        borderColor: history.color || '#004A88',
+                        backgroundColor: (history.color || '#004A88') + '20',
+                        borderWidth: 2.5,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: history.color || '#004A88',
+                        tension: 0.3,
+                        fill: false,
+                        spanGaps: false
+                    },
+                    {
+                        label: `${history.label} 2025`,
+                        data: history.monthlyLastYear || [],
+                        borderColor: '#6E6E73',
+                        backgroundColor: 'rgba(110, 110, 115, 0.08)',
+                        borderWidth: 1.5,
+                        borderDash: [6, 4],
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        pointBackgroundColor: '#6E6E73',
+                        tension: 0.3,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#6E6E73',
+                            font: { family: "'Inter', sans-serif", size: 12 },
+                            padding: 16,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1D1D1F',
+                        titleColor: '#ffffff',
+                        bodyColor: 'rgba(255,255,255,0.85)',
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        padding: 12,
+                        cornerRadius: 8,
+                        titleFont: { family: "'Inter', sans-serif", weight: '600' },
+                        bodyFont: { family: "'Inter', sans-serif" },
+                        callbacks: {
+                            label: function (context) {
+                                const val = context.parsed.y;
+                                if (val == null) return null;
+                                return `${context.dataset.label}: ${formatPrice(val)} ${history.unit}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false },
+                        ticks: {
+                            color: '#6E6E73',
+                            font: { family: "'Inter', sans-serif", size: 11 }
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false },
+                        ticks: {
+                            color: '#6E6E73',
+                            font: { family: "'Inter', sans-serif", size: 11 },
+                            callback: function (value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
         });
     }
 
@@ -1124,6 +1255,14 @@
                     e.preventDefault();
                     card.click();
                 }
+            });
+        });
+
+        // Ensure back-to-landing buttons work via JS event delegation
+        document.querySelectorAll('.back-to-landing').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showLanding();
             });
         });
     }

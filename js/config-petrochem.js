@@ -169,6 +169,48 @@ const CONFIG_PETROCHEM = {
     ],
 
     // =========================================
+    // PRICE HISTORY — Monthly averages for charts
+    // 2025 = full year, 2026 = Jan–Mar available
+    // =========================================
+    priceHistory: {
+        feedstocks: {
+            label: 'Naphtha (NE Asia CFR)',
+            unit: '$/MT',
+            color: '#004A88',
+            monthlyLastYear: [650, 640, 635, 630, 625, 630, 645, 650, 640, 635, 630, 630],
+            monthlyThisYear: [655, 670, 695, null, null, null, null, null, null, null, null, null]
+        },
+        olefins: {
+            label: 'Ethylene (NE Asia CFR)',
+            unit: '$/MT',
+            color: '#F58420',
+            monthlyLastYear: [780, 770, 760, 750, 740, 745, 755, 770, 780, 790, 800, 810],
+            monthlyThisYear: [820, 835, 850, null, null, null, null, null, null, null, null, null]
+        },
+        polymers: {
+            label: 'HDPE (SE Asia CFR)',
+            unit: '$/MT',
+            color: '#0A7B56',
+            monthlyLastYear: [1020, 1010, 1000, 990, 980, 975, 970, 975, 980, 985, 990, 995],
+            monthlyThisYear: [990, 1000, 1010, null, null, null, null, null, null, null, null, null]
+        },
+        aromatics: {
+            label: 'Benzene (NE Asia FOB)',
+            unit: '$/MT',
+            color: '#DC2626',
+            monthlyLastYear: [870, 860, 855, 850, 845, 850, 860, 870, 880, 890, 895, 900],
+            monthlyThisYear: [905, 910, 920, null, null, null, null, null, null, null, null, null]
+        },
+        other: {
+            label: 'Methanol (US Gulf)',
+            unit: '$/MT',
+            color: '#6E6E73',
+            monthlyLastYear: [440, 435, 430, 425, 420, 425, 435, 440, 445, 450, 455, 460],
+            monthlyThisYear: [465, 475, 480, null, null, null, null, null, null, null, null, null]
+        }
+    },
+
+    // =========================================
     // YEARLY ANALYSIS
     // =========================================
     analysis: {
