@@ -784,6 +784,199 @@ body {
 }
 
 /* =============================================
+   LANDING PAGE — Industry Folder Cards
+   ============================================= */
+#landing-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.landing-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cib-blue);
+}
+
+.landing-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+}
+
+.industry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.industry-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.industry-card:hover {
+    border-color: var(--cib-blue);
+    box-shadow: 0 8px 32px rgba(0, 74, 136, 0.15);
+    transform: translateY(-4px);
+}
+
+.industry-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 14px;
+}
+
+.industry-card-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--cib-blue);
+    margin-bottom: 8px;
+}
+
+.industry-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.industry-card-enter {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cib-orange);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.industry-card-count {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+/* =============================================
+   INDUSTRY CONTAINERS — Show/Hide
+   ============================================= */
+.industry-content {
+    display: none;
+}
+
+.industry-content.active {
+    display: block;
+}
+
+.back-to-landing {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    margin: 16px 20px 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--cib-blue);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.back-to-landing:hover {
+    background: var(--cib-blue);
+    color: #fff;
+    border-color: var(--cib-blue);
+}
+
+/* =============================================
+   COMPACT PRICE TABLE (for new industries)
+   ============================================= */
+.price-table-compact {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+}
+
+.price-table-compact thead th {
+    background: var(--cib-blue);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.price-table-compact thead th:first-child {
+    border-radius: var(--radius) 0 0 0;
+}
+
+.price-table-compact thead th:last-child {
+    border-radius: 0 var(--radius) 0 0;
+}
+
+.price-table-compact tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+
+.price-table-compact tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+.price-table-compact .price-value {
+    font-weight: 700;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.price-table-compact .price-unit {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.price-table-compact .source-link {
+    font-size: 0.72rem;
+    color: var(--cib-blue);
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+.price-table-compact .source-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* =============================================
    RESPONSIVE
    ============================================= */
 @media (max-width: 1024px) {
@@ -795,6 +988,43 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Landing page responsive */
+    .industry-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    #landing-page {
+        padding: 24px 16px 40px;
+    }
+
+    .landing-title {
+        font-size: 1.4rem;
+    }
+
+    .landing-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 24px;
+    }
+
+    .industry-card {
+        padding: 24px 20px;
+    }
+
+    .back-to-landing {
+        margin: 12px 12px 0;
+    }
+
+    /* Compact table responsive */
+    .price-table-compact {
+        font-size: 0.78rem;
+    }
+
+    .price-table-compact thead th,
+    .price-table-compact tbody td {
+        padding: 8px 10px;
+    }
+
     .nav-toggle {
         display: flex;
     }
@@ -956,6 +1186,31 @@ body {
 }
 
 @media (max-width: 480px) {
+    /* Landing page small screens */
+    #landing-page {
+        padding: 20px 10px 30px;
+    }
+
+    .landing-title {
+        font-size: 1.15rem;
+    }
+
+    .industry-card {
+        padding: 20px 16px;
+    }
+
+    .industry-card-icon {
+        font-size: 2rem;
+    }
+
+    .industry-card-name {
+        font-size: 1.05rem;
+    }
+
+    .industry-card-desc {
+        font-size: 0.8rem;
+    }
+
     .header-content h1 {
         font-size: 1.2rem;
     }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commodity Price Monitor — Edible Oils, Sugar & Soybeans</title>
+    <title>Commodity Price Monitor — Multi-Industry Platform</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
     <!-- Sticky Navigation -->
     <nav id="main-nav">
         <div class="nav-container">
-            <div class="nav-brand">
+            <div class="nav-brand" onclick="window.APP && window.APP.showLanding()" style="cursor:pointer">
                 <span class="nav-icon">&#9679;</span> Commodity Monitor
             </div>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -30,216 +30,527 @@
         </div>
     </nav>
 
-    <!-- Header -->
-    <header id="site-header">
-        <div class="header-content">
-            <h1>Commodity Price Monitor</h1>
-            <p class="subtitle">Edible Oils, Sugar & Soybeans &mdash; Daily Tracker</p>
-            <div class="last-updated" id="lastUpdated">
-                <span class="pulse-dot"></span> Last Updated: <span id="updateTimestamp">Loading...</span>
+    <!-- =============================================
+         LANDING PAGE — Industry Folder Cards
+         ============================================= -->
+    <div id="landing-page">
+        <h1 class="landing-title">Commodity Price Monitor</h1>
+        <p class="landing-subtitle">Select an industry to view real-time prices, analysis, news, and reports.</p>
+        <div class="industry-grid">
+            <div class="industry-card" onclick="window.APP.showIndustry('agri')">
+                <span class="industry-card-count">7 commodities</span>
+                <div class="industry-card-icon">&#127758;</div>
+                <div class="industry-card-name">Edible Oils, Sugar & Soybeans</div>
+                <div class="industry-card-desc">CPO, Soybean Oil, Sunflower Oil, Raw & White Sugar, Soybeans, Soybean Meal. Daily settlement prices with monthly averages from FRED/IMF.</div>
+                <div class="industry-card-enter">Enter Dashboard &#8594;</div>
+            </div>
+            <div class="industry-card" onclick="window.APP.showIndustry('oilgas')">
+                <span class="industry-card-count">14 commodities</span>
+                <div class="industry-card-icon">&#9981;</div>
+                <div class="industry-card-name">Oil & Gas</div>
+                <div class="industry-card-desc">Brent, WTI, Dubai/Oman crude, Henry Hub, TTF, LNG, RBOB gasoline, crack spreads, NGLs, rig count, and inventory data from EIA & CME.</div>
+                <div class="industry-card-enter">Enter Dashboard &#8594;</div>
+            </div>
+            <div class="industry-card" onclick="window.APP.showIndustry('petrochem')">
+                <span class="industry-card-count">17 commodities</span>
+                <div class="industry-card-icon">&#9878;</div>
+                <div class="industry-card-name">Petrochemicals</div>
+                <div class="industry-card-desc">Naphtha, ethylene, propylene, HDPE, LDPE, LLDPE, PP, BTX aromatics, methanol, MEG, and butadiene from ICIS, Platts & ChemOrbis.</div>
+                <div class="industry-card-enter">Enter Dashboard &#8594;</div>
+            </div>
+            <div class="industry-card" onclick="window.APP.showIndustry('poultry')">
+                <span class="industry-card-count">10 commodities</span>
+                <div class="industry-card-icon">&#128020;</div>
+                <div class="industry-card-name">Poultry</div>
+                <div class="industry-card-desc">Broiler cutout, breast, leg quarters, wings, eggs, corn, soybean meal, chick placements, and cold storage data from USDA AMS & CBOT.</div>
+                <div class="industry-card-enter">Enter Dashboard &#8594;</div>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Section 1: Price Dashboard -->
-    <section id="dashboard" class="section">
-        <div class="section-header">
-            <h2>Price Dashboard</h2>
-            <p class="section-subtitle">All prices in USD per Metric Ton. Hover info icons for conversion details.<br>
-            <strong>Monthly Averages:</strong> <a href="https://fred.stlouisfed.org/" target="_blank" class="source-link">FRED/IMF</a> (Jan 2026) &bull;
-            <a href="https://finance.yahoo.com/" target="_blank" class="source-link">Yahoo Finance</a> (Feb 2026, 19-day settlement avg) &bull;
-            <strong>Daily Prices:</strong> <a href="https://www.cmegroup.com/" target="_blank" class="source-link">CME/CBOT</a> &bull;
-            <a href="https://www.ice.com/" target="_blank" class="source-link">ICE Futures</a> &bull;
-            <a href="https://www.investing.com/commodities/" target="_blank" class="source-link">Investing.com</a> (settlement Mar 9, 2026)<br>
-            <em style="font-size:0.78rem;color:var(--text-muted)">Months showing &ldquo;&mdash;&rdquo; are pending source publication. Each row links to its source.</em></p>
-        </div>
+    <!-- =============================================
+         INDUSTRY: Edible Oils, Sugar & Soybeans (existing)
+         ============================================= -->
+    <div class="industry-content" data-industry="agri" id="industry-agri">
+        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
 
-        <!-- Commodity Group: Edible Oils -->
-        <div class="commodity-group">
-            <h3 class="group-title"><span class="group-icon">&#127758;</span> Edible Oils</h3>
+        <!-- Header -->
+        <header id="site-header">
+            <div class="header-content">
+                <h1>Commodity Price Monitor</h1>
+                <p class="subtitle">Edible Oils, Sugar & Soybeans &mdash; Daily Tracker</p>
+                <div class="last-updated" id="lastUpdated">
+                    <span class="pulse-dot"></span> Last Updated: <span id="updateTimestamp">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1: Price Dashboard -->
+        <section id="dashboard" class="section">
+            <div class="section-header">
+                <h2>Price Dashboard</h2>
+                <p class="section-subtitle">All prices in USD per Metric Ton. Hover info icons for conversion details.<br>
+                <strong>Monthly Averages:</strong> <a href="https://fred.stlouisfed.org/" target="_blank" class="source-link">FRED/IMF</a> (Jan 2026) &bull;
+                <a href="https://finance.yahoo.com/" target="_blank" class="source-link">Yahoo Finance</a> (Feb 2026, 19-day settlement avg) &bull;
+                <strong>Daily Prices:</strong> <a href="https://www.cmegroup.com/" target="_blank" class="source-link">CME/CBOT</a> &bull;
+                <a href="https://www.ice.com/" target="_blank" class="source-link">ICE Futures</a> &bull;
+                <a href="https://www.investing.com/commodities/" target="_blank" class="source-link">Investing.com</a> (settlement Mar 9, 2026)<br>
+                <em style="font-size:0.78rem;color:var(--text-muted)">Months showing &ldquo;&mdash;&rdquo; are pending source publication. Each row links to its source.</em></p>
+            </div>
+
+            <!-- Commodity Group: Edible Oils -->
+            <div class="commodity-group">
+                <h3 class="group-title"><span class="group-icon">&#127758;</span> Edible Oils</h3>
+                <div class="table-responsive">
+                    <table class="price-table" id="edibleOilsTable">
+                        <thead>
+                            <tr>
+                                <th>Commodity</th>
+                                <th>Yesterday Close<br><small>(USD/MT)</small></th>
+                                <th>Today<br><small>(USD/MT)</small></th>
+                                <th>Daily Change</th>
+                                <th>Avg This Month<br><small>(USD/MT)</small></th>
+                                <th>Avg Last Month<br><small>(USD/MT)</small></th>
+                                <th>MoM Change %</th>
+                                <th>Avg YTD<br><small>(USD/MT)</small></th>
+                                <th>Avg Last Year<br><small>(USD/MT)</small></th>
+                                <th>YTD Change %</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+                        <tbody id="edibleOilsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Commodity Group: Sugar -->
+            <div class="commodity-group">
+                <h3 class="group-title"><span class="group-icon">&#127856;</span> Sugar</h3>
+                <div class="table-responsive">
+                    <table class="price-table" id="sugarTable">
+                        <thead>
+                            <tr>
+                                <th>Commodity</th>
+                                <th>Yesterday Close<br><small>(USD/MT)</small></th>
+                                <th>Today<br><small>(USD/MT)</small></th>
+                                <th>Daily Change</th>
+                                <th>Avg This Month<br><small>(USD/MT)</small></th>
+                                <th>Avg Last Month<br><small>(USD/MT)</small></th>
+                                <th>MoM Change %</th>
+                                <th>Avg YTD<br><small>(USD/MT)</small></th>
+                                <th>Avg Last Year<br><small>(USD/MT)</small></th>
+                                <th>YTD Change %</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sugarBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Commodity Group: Soybeans -->
+            <div class="commodity-group">
+                <h3 class="group-title"><span class="group-icon">&#127807;</span> Soybeans</h3>
+                <div class="table-responsive">
+                    <table class="price-table" id="soybeansTable">
+                        <thead>
+                            <tr>
+                                <th>Commodity</th>
+                                <th>Yesterday Close<br><small>(USD/MT)</small></th>
+                                <th>Today<br><small>(USD/MT)</small></th>
+                                <th>Daily Change</th>
+                                <th>Avg This Month<br><small>(USD/MT)</small></th>
+                                <th>Avg Last Month<br><small>(USD/MT)</small></th>
+                                <th>MoM Change %</th>
+                                <th>Avg YTD<br><small>(USD/MT)</small></th>
+                                <th>Avg Last Year<br><small>(USD/MT)</small></th>
+                                <th>YTD Change %</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+                        <tbody id="soybeansBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div class="mobile-cards" id="mobileCards"></div>
+        </section>
+
+        <!-- Section 2: Yearly Commodity Analysis -->
+        <section id="analysis" class="section">
+            <div class="section-header">
+                <h2>Yearly Commodity Analysis</h2>
+                <p class="section-subtitle">Key price drivers and year-over-year comparison for each commodity.</p>
+            </div>
+            <div class="analysis-tabs">
+                <button class="tab-btn active" data-commodity="cpo">Crude Palm Oil</button>
+                <button class="tab-btn" data-commodity="soybean_oil">Soybean Oil</button>
+                <button class="tab-btn" data-commodity="sunflower_oil">Sunflower Oil</button>
+                <button class="tab-btn" data-commodity="raw_sugar">Raw Sugar</button>
+                <button class="tab-btn" data-commodity="white_sugar">White Sugar</button>
+                <button class="tab-btn" data-commodity="soybeans">Soybeans</button>
+                <button class="tab-btn" data-commodity="soybean_meal">Soybean Meal</button>
+            </div>
+            <div class="analysis-content" id="analysisContent"></div>
+        </section>
+
+        <!-- Section 3: Monthly Updates -->
+        <section id="monthly-updates" class="section">
+            <div class="section-header">
+                <h2>Monthly Market Updates</h2>
+                <p class="section-subtitle">Major developments this month affecting commodity prices. All points sourced from verified reports.</p>
+            </div>
+            <div class="analysis-tabs" id="monthlyTabs">
+                <button class="tab-btn active" data-commodity="cpo" data-target="monthly">Crude Palm Oil</button>
+                <button class="tab-btn" data-commodity="soybean_oil" data-target="monthly">Soybean Oil</button>
+                <button class="tab-btn" data-commodity="sunflower_oil" data-target="monthly">Sunflower Oil</button>
+                <button class="tab-btn" data-commodity="raw_sugar" data-target="monthly">Raw Sugar</button>
+                <button class="tab-btn" data-commodity="white_sugar" data-target="monthly">White Sugar</button>
+                <button class="tab-btn" data-commodity="soybeans" data-target="monthly">Soybeans</button>
+                <button class="tab-btn" data-commodity="soybean_meal" data-target="monthly">Soybean Meal</button>
+            </div>
+            <div class="analysis-content" id="monthlyContent"></div>
+        </section>
+
+        <!-- Section 4: Global News -->
+        <section id="global-news" class="section">
+            <div class="section-header">
+                <h2>Global Commodity News</h2>
+                <p class="section-subtitle">Latest headlines from trusted industry sources on edible oils, sugar, and soybeans.</p>
+            </div>
+            <div class="news-grid" id="globalNewsGrid"></div>
+        </section>
+
+        <!-- Section 5: Local News -->
+        <section id="local-news" class="section">
+            <div class="section-header">
+                <h2>Egyptian Local Market News</h2>
+                <p class="section-subtitle">Latest headlines on Egypt&rsquo;s food commodity markets, imports, and policies.</p>
+            </div>
+            <div class="news-grid" id="localNewsGrid"></div>
+        </section>
+
+        <!-- Section 6: Reports Calendar -->
+        <section id="reports" class="section">
+            <div class="section-header">
+                <h2>Key Reports & Release Calendar</h2>
+                <p class="section-subtitle">Report dates are approximate and subject to change. Check the source for confirmed schedules.</p>
+            </div>
             <div class="table-responsive">
-                <table class="price-table" id="edibleOilsTable">
+                <table class="reports-table" id="reportsTable">
+                    <thead>
+                        <tr>
+                            <th>Report Name</th>
+                            <th>Issuing Body</th>
+                            <th>Commodities Covered</th>
+                            <th>Next Release Date</th>
+                            <th>Frequency</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- =============================================
+         INDUSTRY: Oil & Gas
+         ============================================= -->
+    <div class="industry-content" data-industry="oilgas" id="industry-oilgas">
+        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+
+        <header id="oilgas-header" class="section" style="background:linear-gradient(135deg,#004A88 0%,#003466 100%);color:#fff;text-align:center;padding:80px 20px 30px;margin-bottom:0">
+            <h1 style="font-size:1.8rem;margin-bottom:8px">Oil & Gas Monitor</h1>
+            <p style="opacity:0.85;font-size:0.9rem">Crude Oil, Natural Gas, Refined Products & NGLs</p>
+        </header>
+
+        <!-- Price Dashboard -->
+        <section id="oilgas-dashboard" class="section">
+            <div class="section-header">
+                <h2>Price Dashboard</h2>
+                <p class="section-subtitle">Prices sourced from EIA, CME/NYMEX, ICE Futures, and Platts. Source links per row.</p>
+            </div>
+            <div class="table-responsive">
+                <table class="price-table-compact" id="oilgasTable">
                     <thead>
                         <tr>
                             <th>Commodity</th>
-                            <th>Yesterday Close<br><small>(USD/MT)</small></th>
-                            <th>Today<br><small>(USD/MT)</small></th>
-                            <th>Daily Change</th>
-                            <th>Avg This Month<br><small>(USD/MT)</small></th>
-                            <th>Avg Last Month<br><small>(USD/MT)</small></th>
-                            <th>MoM Change %</th>
-                            <th>Avg YTD<br><small>(USD/MT)</small></th>
-                            <th>Avg Last Year<br><small>(USD/MT)</small></th>
-                            <th>YTD Change %</th>
+                            <th>Price</th>
+                            <th>Unit</th>
+                            <th>Change</th>
+                            <th>% Change</th>
                             <th>Source</th>
                         </tr>
                     </thead>
-                    <tbody id="edibleOilsBody">
-                        <!-- Populated by JS -->
-                    </tbody>
+                    <tbody id="oilgasBody"></tbody>
                 </table>
             </div>
-        </div>
+            <div class="mobile-cards" id="oilgasMobileCards"></div>
+        </section>
 
-        <!-- Commodity Group: Sugar -->
-        <div class="commodity-group">
-            <h3 class="group-title"><span class="group-icon">&#127856;</span> Sugar</h3>
+        <!-- Yearly Analysis -->
+        <section id="oilgas-analysis" class="section">
+            <div class="section-header">
+                <h2>Yearly Analysis</h2>
+                <p class="section-subtitle">Key trends and year-over-year comparison sourced from EIA, IEA, and OPEC reports.</p>
+            </div>
+            <div class="analysis-tabs" id="oilgasAnalysisTabs"></div>
+            <div class="analysis-content" id="oilgasAnalysisContent"></div>
+        </section>
+
+        <!-- Monthly Updates -->
+        <section id="oilgas-monthly" class="section">
+            <div class="section-header">
+                <h2>Monthly Market Updates</h2>
+                <p class="section-subtitle">Major developments this month in oil & gas markets.</p>
+            </div>
+            <div class="analysis-tabs" id="oilgasMonthlyTabs"></div>
+            <div class="analysis-content" id="oilgasMonthlyContent"></div>
+        </section>
+
+        <!-- Global News -->
+        <section id="oilgas-global-news" class="section">
+            <div class="section-header">
+                <h2>Global Oil & Gas News</h2>
+                <p class="section-subtitle">Latest headlines from trusted energy industry sources.</p>
+            </div>
+            <div class="news-grid" id="oilgasGlobalNewsGrid"></div>
+        </section>
+
+        <!-- Local News -->
+        <section id="oilgas-local-news" class="section">
+            <div class="section-header">
+                <h2>Egypt & MENA Energy News</h2>
+                <p class="section-subtitle">Regional oil & gas developments.</p>
+            </div>
+            <div class="news-grid" id="oilgasLocalNewsGrid"></div>
+        </section>
+
+        <!-- Reports Calendar -->
+        <section id="oilgas-reports" class="section">
+            <div class="section-header">
+                <h2>Key Reports & Release Calendar</h2>
+                <p class="section-subtitle">Upcoming energy report releases.</p>
+            </div>
             <div class="table-responsive">
-                <table class="price-table" id="sugarTable">
+                <table class="reports-table" id="oilgasReportsTable">
+                    <thead>
+                        <tr>
+                            <th>Report Name</th>
+                            <th>Issuing Body</th>
+                            <th>Commodities Covered</th>
+                            <th>Next Release Date</th>
+                            <th>Frequency</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="oilgasReportsBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- =============================================
+         INDUSTRY: Petrochemicals
+         ============================================= -->
+    <div class="industry-content" data-industry="petrochem" id="industry-petrochem">
+        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+
+        <header id="petrochem-header" class="section" style="background:linear-gradient(135deg,#004A88 0%,#003466 100%);color:#fff;text-align:center;padding:80px 20px 30px;margin-bottom:0">
+            <h1 style="font-size:1.8rem;margin-bottom:8px">Petrochemicals Monitor</h1>
+            <p style="opacity:0.85;font-size:0.9rem">Feedstocks, Olefins, Polymers & Aromatics</p>
+        </header>
+
+        <!-- Price Dashboard -->
+        <section id="petrochem-dashboard" class="section">
+            <div class="section-header">
+                <h2>Price Dashboard</h2>
+                <p class="section-subtitle">Prices sourced from ICIS, Platts, ChemOrbis, and Methanex. Source links per row.</p>
+            </div>
+            <div class="table-responsive">
+                <table class="price-table-compact" id="petrochemTable">
                     <thead>
                         <tr>
                             <th>Commodity</th>
-                            <th>Yesterday Close<br><small>(USD/MT)</small></th>
-                            <th>Today<br><small>(USD/MT)</small></th>
-                            <th>Daily Change</th>
-                            <th>Avg This Month<br><small>(USD/MT)</small></th>
-                            <th>Avg Last Month<br><small>(USD/MT)</small></th>
-                            <th>MoM Change %</th>
-                            <th>Avg YTD<br><small>(USD/MT)</small></th>
-                            <th>Avg Last Year<br><small>(USD/MT)</small></th>
-                            <th>YTD Change %</th>
+                            <th>Price</th>
+                            <th>Unit</th>
+                            <th>Change</th>
+                            <th>% Change</th>
                             <th>Source</th>
                         </tr>
                     </thead>
-                    <tbody id="sugarBody">
-                        <!-- Populated by JS -->
-                    </tbody>
+                    <tbody id="petrochemBody"></tbody>
                 </table>
             </div>
-        </div>
+            <div class="mobile-cards" id="petrochemMobileCards"></div>
+        </section>
 
-        <!-- Commodity Group: Soybeans -->
-        <div class="commodity-group">
-            <h3 class="group-title"><span class="group-icon">&#127807;</span> Soybeans</h3>
+        <!-- Yearly Analysis -->
+        <section id="petrochem-analysis" class="section">
+            <div class="section-header">
+                <h2>Yearly Analysis</h2>
+                <p class="section-subtitle">Key trends in petrochemical markets sourced from ICIS, S&P Global, and ChemOrbis.</p>
+            </div>
+            <div class="analysis-tabs" id="petrochemAnalysisTabs"></div>
+            <div class="analysis-content" id="petrochemAnalysisContent"></div>
+        </section>
+
+        <!-- Monthly Updates -->
+        <section id="petrochem-monthly" class="section">
+            <div class="section-header">
+                <h2>Monthly Market Updates</h2>
+                <p class="section-subtitle">Major developments this month in petrochemical markets.</p>
+            </div>
+            <div class="analysis-tabs" id="petrochemMonthlyTabs"></div>
+            <div class="analysis-content" id="petrochemMonthlyContent"></div>
+        </section>
+
+        <!-- Global News -->
+        <section id="petrochem-global-news" class="section">
+            <div class="section-header">
+                <h2>Global Petrochemicals News</h2>
+                <p class="section-subtitle">Latest headlines from trusted chemical industry sources.</p>
+            </div>
+            <div class="news-grid" id="petrochemGlobalNewsGrid"></div>
+        </section>
+
+        <!-- Local News -->
+        <section id="petrochem-local-news" class="section">
+            <div class="section-header">
+                <h2>Egypt & MENA Petrochemicals News</h2>
+                <p class="section-subtitle">Regional petrochemical developments.</p>
+            </div>
+            <div class="news-grid" id="petrochemLocalNewsGrid"></div>
+        </section>
+
+        <!-- Reports Calendar -->
+        <section id="petrochem-reports" class="section">
+            <div class="section-header">
+                <h2>Key Reports & Release Calendar</h2>
+                <p class="section-subtitle">Upcoming petrochemical report releases.</p>
+            </div>
             <div class="table-responsive">
-                <table class="price-table" id="soybeansTable">
+                <table class="reports-table" id="petrochemReportsTable">
+                    <thead>
+                        <tr>
+                            <th>Report Name</th>
+                            <th>Issuing Body</th>
+                            <th>Commodities Covered</th>
+                            <th>Next Release Date</th>
+                            <th>Frequency</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="petrochemReportsBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- =============================================
+         INDUSTRY: Poultry
+         ============================================= -->
+    <div class="industry-content" data-industry="poultry" id="industry-poultry">
+        <a class="back-to-landing" onclick="window.APP.showLanding()">&#8592; Back to Industries</a>
+
+        <header id="poultry-header" class="section" style="background:linear-gradient(135deg,#004A88 0%,#003466 100%);color:#fff;text-align:center;padding:80px 20px 30px;margin-bottom:0">
+            <h1 style="font-size:1.8rem;margin-bottom:8px">Poultry Monitor</h1>
+            <p style="opacity:0.85;font-size:0.9rem">Broiler Prices, Eggs, Feed Inputs & Market Indicators</p>
+        </header>
+
+        <!-- Price Dashboard -->
+        <section id="poultry-dashboard" class="section">
+            <div class="section-header">
+                <h2>Price Dashboard</h2>
+                <p class="section-subtitle">Prices sourced from USDA AMS, CME/CBOT, and USDA NASS. Source links per row.</p>
+            </div>
+            <div class="table-responsive">
+                <table class="price-table-compact" id="poultryTable">
                     <thead>
                         <tr>
                             <th>Commodity</th>
-                            <th>Yesterday Close<br><small>(USD/MT)</small></th>
-                            <th>Today<br><small>(USD/MT)</small></th>
-                            <th>Daily Change</th>
-                            <th>Avg This Month<br><small>(USD/MT)</small></th>
-                            <th>Avg Last Month<br><small>(USD/MT)</small></th>
-                            <th>MoM Change %</th>
-                            <th>Avg YTD<br><small>(USD/MT)</small></th>
-                            <th>Avg Last Year<br><small>(USD/MT)</small></th>
-                            <th>YTD Change %</th>
+                            <th>Price</th>
+                            <th>Unit</th>
+                            <th>Change</th>
+                            <th>% Change</th>
                             <th>Source</th>
                         </tr>
                     </thead>
-                    <tbody id="soybeansBody">
-                        <!-- Populated by JS -->
-                    </tbody>
+                    <tbody id="poultryBody"></tbody>
                 </table>
             </div>
-        </div>
+            <div class="mobile-cards" id="poultryMobileCards"></div>
+        </section>
 
-        <!-- Mobile Card View (shown on small screens) -->
-        <div class="mobile-cards" id="mobileCards">
-            <!-- Populated by JS -->
-        </div>
-    </section>
+        <!-- Yearly Analysis -->
+        <section id="poultry-analysis" class="section">
+            <div class="section-header">
+                <h2>Yearly Analysis</h2>
+                <p class="section-subtitle">Key trends sourced from USDA ERS Poultry Outlook and WASDE reports.</p>
+            </div>
+            <div class="analysis-tabs" id="poultryAnalysisTabs"></div>
+            <div class="analysis-content" id="poultryAnalysisContent"></div>
+        </section>
 
-    <!-- Section 2: Yearly Commodity Analysis -->
-    <section id="analysis" class="section">
-        <div class="section-header">
-            <h2>Yearly Commodity Analysis</h2>
-            <p class="section-subtitle">Key price drivers and year-over-year comparison for each commodity.</p>
-        </div>
+        <!-- Monthly Updates -->
+        <section id="poultry-monthly" class="section">
+            <div class="section-header">
+                <h2>Monthly Market Updates</h2>
+                <p class="section-subtitle">Major developments this month in poultry markets.</p>
+            </div>
+            <div class="analysis-tabs" id="poultryMonthlyTabs"></div>
+            <div class="analysis-content" id="poultryMonthlyContent"></div>
+        </section>
 
-        <div class="analysis-tabs">
-            <button class="tab-btn active" data-commodity="cpo">Crude Palm Oil</button>
-            <button class="tab-btn" data-commodity="soybean_oil">Soybean Oil</button>
-            <button class="tab-btn" data-commodity="sunflower_oil">Sunflower Oil</button>
-            <button class="tab-btn" data-commodity="raw_sugar">Raw Sugar</button>
-            <button class="tab-btn" data-commodity="white_sugar">White Sugar</button>
-            <button class="tab-btn" data-commodity="soybeans">Soybeans</button>
-            <button class="tab-btn" data-commodity="soybean_meal">Soybean Meal</button>
-        </div>
+        <!-- Global News -->
+        <section id="poultry-global-news" class="section">
+            <div class="section-header">
+                <h2>Global Poultry News</h2>
+                <p class="section-subtitle">Latest headlines from trusted poultry industry sources.</p>
+            </div>
+            <div class="news-grid" id="poultryGlobalNewsGrid"></div>
+        </section>
 
-        <div class="analysis-content" id="analysisContent">
-            <!-- Populated by JS for each commodity -->
-        </div>
-    </section>
+        <!-- Local News -->
+        <section id="poultry-local-news" class="section">
+            <div class="section-header">
+                <h2>Egypt & MENA Poultry News</h2>
+                <p class="section-subtitle">Regional poultry market developments.</p>
+            </div>
+            <div class="news-grid" id="poultryLocalNewsGrid"></div>
+        </section>
 
-    <!-- Section 3: Monthly Updates -->
-    <section id="monthly-updates" class="section">
-        <div class="section-header">
-            <h2>Monthly Market Updates</h2>
-            <p class="section-subtitle">Major developments this month affecting commodity prices. All points sourced from verified reports.</p>
-        </div>
-
-        <div class="analysis-tabs" id="monthlyTabs">
-            <button class="tab-btn active" data-commodity="cpo" data-target="monthly">Crude Palm Oil</button>
-            <button class="tab-btn" data-commodity="soybean_oil" data-target="monthly">Soybean Oil</button>
-            <button class="tab-btn" data-commodity="sunflower_oil" data-target="monthly">Sunflower Oil</button>
-            <button class="tab-btn" data-commodity="raw_sugar" data-target="monthly">Raw Sugar</button>
-            <button class="tab-btn" data-commodity="white_sugar" data-target="monthly">White Sugar</button>
-            <button class="tab-btn" data-commodity="soybeans" data-target="monthly">Soybeans</button>
-            <button class="tab-btn" data-commodity="soybean_meal" data-target="monthly">Soybean Meal</button>
-        </div>
-
-        <div class="analysis-content" id="monthlyContent">
-            <!-- Populated by JS -->
-        </div>
-    </section>
-
-    <!-- Section 4: Global Commodity News -->
-    <section id="global-news" class="section">
-        <div class="section-header">
-            <h2>Global Commodity News</h2>
-            <p class="section-subtitle">Latest headlines from trusted industry sources on edible oils, sugar, and soybeans.</p>
-        </div>
-
-        <div class="news-grid" id="globalNewsGrid">
-            <!-- Populated by JS -->
-        </div>
-    </section>
-
-    <!-- Section 5: Egyptian Local Market News -->
-    <section id="local-news" class="section">
-        <div class="section-header">
-            <h2>Egyptian Local Market News</h2>
-            <p class="section-subtitle">Latest headlines on Egypt&rsquo;s food commodity markets, imports, and policies.</p>
-        </div>
-
-        <div class="news-grid" id="localNewsGrid">
-            <!-- Populated by JS -->
-        </div>
-    </section>
-
-    <!-- Section 4: Key Reports & Release Calendar -->
-    <section id="reports" class="section">
-        <div class="section-header">
-            <h2>Key Reports & Release Calendar</h2>
-            <p class="section-subtitle">Report dates are approximate and subject to change. Check the source for confirmed schedules.</p>
-        </div>
-
-        <div class="table-responsive">
-            <table class="reports-table" id="reportsTable">
-                <thead>
-                    <tr>
-                        <th>Report Name</th>
-                        <th>Issuing Body</th>
-                        <th>Commodities Covered</th>
-                        <th>Next Release Date</th>
-                        <th>Frequency</th>
-                        <th>Link</th>
-                    </tr>
-                </thead>
-                <tbody id="reportsBody">
-                    <!-- Populated by JS -->
-                </tbody>
-            </table>
-        </div>
-    </section>
+        <!-- Reports Calendar -->
+        <section id="poultry-reports" class="section">
+            <div class="section-header">
+                <h2>Key Reports & Release Calendar</h2>
+                <p class="section-subtitle">Upcoming poultry report releases.</p>
+            </div>
+            <div class="table-responsive">
+                <table class="reports-table" id="poultryReportsTable">
+                    <thead>
+                        <tr>
+                            <th>Report Name</th>
+                            <th>Issuing Body</th>
+                            <th>Commodities Covered</th>
+                            <th>Next Release Date</th>
+                            <th>Frequency</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="poultryReportsBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer id="site-footer">
         <div class="footer-content">
-            <p class="footer-main">Data sources: USDA, ICE, CME, World Bank, MPOB. Prices are indicative and may be delayed.</p>
-            <p class="footer-secondary">Commodity Price Monitor &copy; 2026. Built for tracking edible oils, sugar & soybean markets.</p>
+            <p class="footer-main">Data sources: USDA, ICE, CME, EIA, ICIS, World Bank, MPOB. Prices are indicative and may be delayed.</p>
+            <p class="footer-secondary">Commodity Price Monitor &copy; 2026. Multi-industry commodity tracking platform.</p>
         </div>
     </footer>
 
@@ -247,6 +558,9 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script src="js/config.js"></script>
+    <script src="js/config-oilgas.js"></script>
+    <script src="js/config-petrochem.js"></script>
+    <script src="js/config-poultry.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

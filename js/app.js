@@ -1,5 +1,6 @@
 /* =============================================
    COMMODITY PRICE MONITOR — Main Application
+   Multi-Industry Platform
    ============================================= */
 
 (function () {
@@ -12,7 +13,9 @@
         commodityData: {},
         charts: {},
         activeTab: 'cpo',
-        activeMonthlyTab: 'cpo'
+        activeMonthlyTab: 'cpo',
+        currentIndustry: null, // null = landing page
+        industryTabState: {}   // track active tabs per industry
     };
 
     // =========================================
@@ -21,15 +24,131 @@
     document.addEventListener('DOMContentLoaded', () => {
         initNavigation();
         loadData();
-        renderDashboard();
-        renderAnalysis();
-        renderMonthlyUpdates();
-        renderGlobalNews();
-        renderLocalNews();
-        renderReportsCalendar();
+        showLanding();
         updateTimestamp();
-        initScrollSpy();
     });
+
+    // =========================================
+    // PUBLIC API (for onclick handlers in HTML)
+    // =========================================
+    window.APP = {
+        showIndustry: showIndustry,
+        showLanding: showLanding
+    };
+
+    // =========================================
+    // LANDING PAGE / INDUSTRY SWITCHING
+    // =========================================
+    function showLanding() {
+        state.currentIndustry = null;
+
+        // Hide all industry containers
+        document.querySelectorAll('.industry-content').forEach(el => {
+            el.classList.remove('active');
+        });
+
+        // Show landing page
+        const landing = document.getElementById('landing-page');
+        if (landing) landing.style.display = '';
+
+        // Hide nav links (they're industry-specific)
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks) navLinks.style.display = 'none';
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+
+        // Update page title
+        document.title = 'Commodity Price Monitor — Multi-Industry Platform';
+    }
+
+    function showIndustry(key) {
+        state.currentIndustry = key;
+
+        // Hide landing page
+        const landing = document.getElementById('landing-page');
+        if (landing) landing.style.display = 'none';
+
+        // Hide all industry containers, show the selected one
+        document.querySelectorAll('.industry-content').forEach(el => {
+            el.classList.remove('active');
+        });
+        const container = document.getElementById('industry-' + key);
+        if (container) container.classList.add('active');
+
+        // Show nav links
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks) navLinks.style.display = '';
+
+        // Update nav links for this industry
+        updateNavLinks(key);
+
+        // Render content for the selected industry
+        renderIndustry(key);
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+
+        // Update page title
+        const titles = {
+            agri: 'Commodity Price Monitor — Edible Oils, Sugar & Soybeans',
+            oilgas: 'Commodity Price Monitor — Oil & Gas',
+            petrochem: 'Commodity Price Monitor — Petrochemicals',
+            poultry: 'Commodity Price Monitor — Poultry'
+        };
+        document.title = titles[key] || 'Commodity Price Monitor';
+    }
+
+    function updateNavLinks(key) {
+        const navLinks = document.getElementById('navLinks');
+        if (!navLinks) return;
+
+        // Build section IDs based on industry
+        const prefix = key === 'agri' ? '' : key + '-';
+        const sections = [
+            { href: prefix + 'dashboard', label: 'Price Dashboard' },
+            { href: prefix + 'analysis', label: 'Yearly Analysis' },
+            { href: prefix + 'monthly', label: 'Monthly Updates' },
+            { href: prefix + 'global-news', label: 'Global News' },
+            { href: prefix + 'local-news', label: 'Local News' },
+            { href: prefix + 'reports', label: 'Reports Calendar' }
+        ];
+
+        // For agri, use the original section IDs
+        if (key === 'agri') {
+            sections[2].href = 'monthly-updates';
+            sections[5].href = 'reports';
+        }
+
+        navLinks.innerHTML = sections.map(s =>
+            `<li><a href="#${s.href}">${s.label}</a></li>`
+        ).join('');
+
+        // Re-attach mobile nav close
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+    }
+
+    function renderIndustry(key) {
+        if (key === 'agri') {
+            renderDashboard();
+            renderAnalysis();
+            renderMonthlyUpdates();
+            renderGlobalNews();
+            renderLocalNews();
+            renderReportsCalendar();
+        } else {
+            renderCompactDashboard(key);
+            renderIndustryAnalysis(key);
+            renderIndustryMonthly(key);
+            renderIndustryGlobalNews(key);
+            renderIndustryLocalNews(key);
+            renderIndustryReports(key);
+        }
+    }
 
     // =========================================
     // NAVIGATION
@@ -50,23 +169,6 @@
         });
     }
 
-    function initScrollSpy() {
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.nav-links a');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => link.classList.remove('active'));
-                    const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-                    if (activeLink) activeLink.classList.add('active');
-                }
-            });
-        }, { rootMargin: '-100px 0px -60% 0px' });
-
-        sections.forEach(section => observer.observe(section));
-    }
-
     // =========================================
     // DATA LOADING
     // =========================================
@@ -83,14 +185,9 @@
     }
 
     async function fetchFredData() {
-        // =========================================
-        // FRED API — Free, fetches IMF commodity price data
-        // Register at: https://fred.stlouisfed.org/docs/api/api_key.html
-        // =========================================
         const { apiKey, baseUrl, series } = CONFIG.apis.fred;
         const startDate = '2025-01-01';
 
-        // Map FRED series to commodity keys
         const seriesMap = {
             [series.palmOil]: 'cpo',
             [series.soybeanOil]: 'soybean_oil',
@@ -113,11 +210,10 @@
                     data.observations.forEach(obs => {
                         const date = new Date(obs.date);
                         const year = date.getFullYear();
-                        const month = date.getMonth(); // 0-indexed
+                        const month = date.getMonth();
                         let value = parseFloat(obs.value);
                         if (isNaN(value)) return;
 
-                        // Convert sugar from cents/lb to USD/MT
                         if (seriesId === series.sugarRaw) {
                             value = value * 22.0462;
                         }
@@ -126,13 +222,11 @@
                         if (year === 2026) monthlyData2026[month] = Math.round(value);
                     });
 
-                    // Update state with FRED data
                     const existing = state.commodityData[commodityKey];
                     existing.monthlyLastYear = monthlyData2025;
                     existing.monthlyThisYear = monthlyData2026;
                     existing.dataSource = `FRED API live (${seriesId})`;
 
-                    // Recalculate averages from FRED data
                     const valid2025 = monthlyData2025.filter(v => v !== null);
                     const valid2026 = monthlyData2026.filter(v => v !== null);
                     if (valid2025.length > 0) {
@@ -149,9 +243,10 @@
 
         try {
             await Promise.all(fetchPromises);
-            // Re-render with live data
-            renderDashboard();
-            renderAnalysis();
+            if (state.currentIndustry === 'agri') {
+                renderDashboard();
+                renderAnalysis();
+            }
             console.log('FRED data loaded successfully');
         } catch (error) {
             console.warn('Some FRED fetches failed, using cached data:', error);
@@ -195,9 +290,9 @@
     }
 
     function changeArrow(value) {
-        if (value > 0) return '&#9650;';  // ▲
-        if (value < 0) return '&#9660;';  // ▼
-        return '&#9644;';                 // ▬
+        if (value > 0) return '&#9650;';
+        if (value < 0) return '&#9660;';
+        return '&#9644;';
     }
 
     function formatDate(dateStr) {
@@ -206,13 +301,306 @@
     }
 
     function isUsingSampleData() {
-        // Data is from real sources (FRED/IMF) even without API key
-        // Only show "sample" badge for Egyptian news (which uses placeholder headlines)
         return false;
     }
 
     // =========================================
-    // RENDER: PRICE DASHBOARD
+    // RENDER: COMPACT DASHBOARD (Oil & Gas, Petrochem, Poultry)
+    // =========================================
+    function renderCompactDashboard(industryKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg) return;
+
+        const tbody = document.getElementById(industryKey + 'Body');
+        const mobileContainer = document.getElementById(industryKey + 'MobileCards');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        if (mobileContainer) mobileContainer.innerHTML = '';
+
+        // Group headers
+        let currentGroup = '';
+
+        cfg.commodities.forEach(item => {
+            // Insert group header row if group changed
+            if (item.group && item.group !== currentGroup) {
+                currentGroup = item.group;
+                const groupRow = document.createElement('tr');
+                groupRow.innerHTML = `<td colspan="6" style="background:var(--bg-secondary);font-weight:700;font-size:0.82rem;color:var(--cib-blue);padding:10px 14px;letter-spacing:0.3px">${item.group}</td>`;
+                tbody.appendChild(groupRow);
+            }
+
+            const change = calcChange(item.price, item.prevPrice);
+            const changePct = change ? change.percent : null;
+            const changeAbs = change ? change.absolute : null;
+            const cls = changePct != null ? changeClass(changePct) : 'neutral';
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="font-weight:600">${item.name}</td>
+                <td class="price-value">${item.price != null ? formatPrice(item.price) : 'N/A'}</td>
+                <td class="price-unit">${item.unit || ''}</td>
+                <td><span class="change-badge ${cls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></td>
+                <td><span class="change-badge ${cls}">${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}</span></td>
+                <td><a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a></td>
+            `;
+            tbody.appendChild(row);
+
+            // Mobile card
+            if (mobileContainer) {
+                const card = document.createElement('div');
+                card.className = 'mobile-card';
+                card.innerHTML = `
+                    <div class="mobile-card-header">
+                        <div>
+                            <div class="mobile-card-title">${item.name}</div>
+                            <div style="font-size:0.72rem;color:var(--text-muted)">${item.unit || ''}</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div style="font-size:1.1rem;font-weight:700;color:var(--text-primary)">${item.price != null ? formatPrice(item.price) : 'N/A'}</div>
+                            <div class="mobile-card-change change-${cls}" style="font-size:0.8rem">
+                                ${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;font-size:0.75rem;display:flex;justify-content:space-between;align-items:center">
+                        <span style="color:var(--text-muted)">Change: <span class="change-${cls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></span>
+                        <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a>
+                    </div>
+                `;
+                mobileContainer.appendChild(card);
+            }
+        });
+    }
+
+    // =========================================
+    // RENDER: INDUSTRY ANALYSIS (generic)
+    // =========================================
+    function renderIndustryAnalysis(industryKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg || !cfg.analysis) return;
+
+        const tabsContainer = document.getElementById(industryKey + 'AnalysisTabs');
+        const contentContainer = document.getElementById(industryKey + 'AnalysisContent');
+        if (!tabsContainer || !contentContainer) return;
+
+        tabsContainer.innerHTML = '';
+        contentContainer.innerHTML = '';
+
+        const categories = Object.keys(cfg.analysis);
+        if (!state.industryTabState[industryKey]) {
+            state.industryTabState[industryKey] = { analysis: categories[0], monthly: null };
+        }
+        const activeKey = state.industryTabState[industryKey].analysis || categories[0];
+
+        categories.forEach((catKey, idx) => {
+            const cat = cfg.analysis[catKey];
+
+            // Tab button
+            const btn = document.createElement('button');
+            btn.className = 'tab-btn' + (catKey === activeKey ? ' active' : '');
+            btn.textContent = cat.title;
+            btn.addEventListener('click', () => {
+                state.industryTabState[industryKey].analysis = catKey;
+                // Toggle active
+                tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                contentContainer.querySelectorAll('.analysis-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(industryKey + '-analysis-panel-' + catKey).classList.add('active');
+            });
+            tabsContainer.appendChild(btn);
+
+            // Panel
+            const panel = document.createElement('div');
+            panel.className = 'analysis-panel' + (catKey === activeKey ? ' active' : '');
+            panel.id = industryKey + '-analysis-panel-' + catKey;
+
+            const pointsHtml = cat.points.map(p => `<li>${p}</li>`).join('');
+            panel.innerHTML = `
+                <div class="analysis-summary">
+                    <h3>${cat.title}</h3>
+                    <ul>${pointsHtml}</ul>
+                </div>
+            `;
+            contentContainer.appendChild(panel);
+        });
+    }
+
+    // =========================================
+    // RENDER: INDUSTRY MONTHLY UPDATES (generic)
+    // =========================================
+    function renderIndustryMonthly(industryKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg || !cfg.monthlyUpdates) return;
+
+        const tabsContainer = document.getElementById(industryKey + 'MonthlyTabs');
+        const contentContainer = document.getElementById(industryKey + 'MonthlyContent');
+        if (!tabsContainer || !contentContainer) return;
+
+        tabsContainer.innerHTML = '';
+        contentContainer.innerHTML = '';
+
+        const categories = Object.keys(cfg.monthlyUpdates);
+        if (!state.industryTabState[industryKey]) {
+            state.industryTabState[industryKey] = { analysis: null, monthly: categories[0] };
+        }
+        if (!state.industryTabState[industryKey].monthly) {
+            state.industryTabState[industryKey].monthly = categories[0];
+        }
+        const activeKey = state.industryTabState[industryKey].monthly;
+
+        categories.forEach((catKey) => {
+            const cat = cfg.monthlyUpdates[catKey];
+
+            const btn = document.createElement('button');
+            btn.className = 'tab-btn' + (catKey === activeKey ? ' active' : '');
+            btn.textContent = cat.title;
+            btn.addEventListener('click', () => {
+                state.industryTabState[industryKey].monthly = catKey;
+                tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                contentContainer.querySelectorAll('.analysis-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(industryKey + '-monthly-panel-' + catKey).classList.add('active');
+            });
+            tabsContainer.appendChild(btn);
+
+            const panel = document.createElement('div');
+            panel.className = 'analysis-panel' + (catKey === activeKey ? ' active' : '');
+            panel.id = industryKey + '-monthly-panel-' + catKey;
+
+            const pointsHtml = cat.points.map(p => `<li>${p}</li>`).join('');
+            panel.innerHTML = `
+                <div class="analysis-summary">
+                    <h3>${cat.title}</h3>
+                    <ul>${pointsHtml}</ul>
+                </div>
+            `;
+            contentContainer.appendChild(panel);
+        });
+    }
+
+    // =========================================
+    // RENDER: INDUSTRY NEWS (generic)
+    // =========================================
+    function renderIndustryGlobalNews(industryKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg || !cfg.globalNews) return;
+
+        const container = document.getElementById(industryKey + 'GlobalNewsGrid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        cfg.globalNews.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.innerHTML = `
+                <div class="news-card-meta">
+                    <span class="news-source">${item.source}</span>
+                    <span class="news-date">${formatDate(item.date)}</span>
+                </div>
+                <span class="news-category">${item.category}</span>
+                <h4 class="news-title">${item.title}</h4>
+                <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
+                    Read full article &#8594;
+                </a>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function renderIndustryLocalNews(industryKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg || !cfg.localNews) return;
+
+        const container = document.getElementById(industryKey + 'LocalNewsGrid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        cfg.localNews.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.innerHTML = `
+                <div class="news-card-meta">
+                    <span class="news-source">${item.source}</span>
+                    <span class="news-date">${formatDate(item.date)}</span>
+                </div>
+                <span class="news-category">${item.category}</span>
+                <h4 class="news-title">${item.title}</h4>
+                <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
+                    Read full article &#8594;
+                </a>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // =========================================
+    // RENDER: INDUSTRY REPORTS (generic)
+    // =========================================
+    function renderIndustryReports(industryKey) {
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg || !cfg.reports) return;
+
+        const tbody = document.getElementById(industryKey + 'ReportsBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        cfg.reports.forEach(report => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="report-name">${report.name}</td>
+                <td class="report-body">${report.body}</td>
+                <td>${report.commodities}</td>
+                <td>${formatDate(report.nextRelease)}</td>
+                <td><span class="report-frequency">${report.frequency}</span></td>
+                <td>
+                    <a href="${report.url}" target="_blank" rel="noopener" class="report-link">
+                        View &#8599;
+                    </a>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // =========================================
+    // RENDER: PRICE DASHBOARD (Agri - existing)
     // =========================================
     function renderDashboard() {
         const groups = {
@@ -227,6 +615,7 @@
 
         Object.entries(groups).forEach(([groupName, group]) => {
             const tbody = document.getElementById(group.bodyId);
+            if (!tbody) return;
             tbody.innerHTML = '';
 
             group.keys.forEach(key => {
@@ -268,18 +657,16 @@
             });
         });
 
-        // Render mobile cards
         renderMobileCards();
-
-        // Initialize tooltips
         initTooltips();
     }
 
     // =========================================
-    // RENDER: MOBILE CARDS
+    // RENDER: MOBILE CARDS (Agri)
     // =========================================
     function renderMobileCards() {
         const container = document.getElementById('mobileCards');
+        if (!container) return;
         container.innerHTML = '';
 
         const sampleBadge = isUsingSampleData()
@@ -394,10 +781,11 @@
     }
 
     // =========================================
-    // RENDER: YEARLY ANALYSIS
+    // RENDER: YEARLY ANALYSIS (Agri)
     // =========================================
     function renderAnalysis() {
         const container = document.getElementById('analysisContent');
+        if (!container) return;
         container.innerHTML = '';
 
         Object.keys(CONFIG.commodities).forEach(key => {
@@ -415,7 +803,6 @@
                 <div class="analysis-summary">
                     <h3>${analysis.title}</h3>
                     <ul>${pointsHtml}</ul>
-                    ${isUsingSampleData() ? '<p class="sample-badge" style="margin-top:12px">Analysis based on sample data</p>' : ''}
                 </div>
                 <div class="chart-container">
                     <canvas id="chart-${key}"></canvas>
@@ -425,32 +812,34 @@
             container.appendChild(panel);
         });
 
-        // Initialize tab buttons
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const commodity = btn.getAttribute('data-commodity');
-                switchTab(commodity);
+        // Initialize tab buttons (only within agri industry)
+        const agriContainer = document.getElementById('industry-agri');
+        if (agriContainer) {
+            agriContainer.querySelectorAll('#analysis .tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const commodity = btn.getAttribute('data-commodity');
+                    switchTab(commodity);
+                });
             });
-        });
+        }
 
-        // Render chart for active tab
         renderChart(state.activeTab);
     }
 
     function switchTab(key) {
         state.activeTab = key;
 
-        // Update tab buttons
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        const agriContainer = document.getElementById('industry-agri');
+        if (!agriContainer) return;
+
+        agriContainer.querySelectorAll('#analysis .tab-btn').forEach(btn => {
             btn.classList.toggle('active', btn.getAttribute('data-commodity') === key);
         });
 
-        // Update panels
-        document.querySelectorAll('.analysis-panel').forEach(panel => {
+        agriContainer.querySelectorAll('#analysisContent .analysis-panel').forEach(panel => {
             panel.classList.toggle('active', panel.id === `panel-${key}`);
         });
 
-        // Render chart
         renderChart(key);
     }
 
@@ -461,14 +850,11 @@
         const canvas = document.getElementById(canvasId);
         if (!canvas) return;
 
-        // Destroy existing chart
         if (state.charts[key]) {
             state.charts[key].destroy();
         }
 
         const ctx = canvas.getContext('2d');
-
-        // Filter out null values for this year
         const thisYearData = data.monthlyThisYear || [];
         const lastYearData = data.monthlyLastYear || [];
 
@@ -565,7 +951,7 @@
     }
 
     // =========================================
-    // RENDER: MONTHLY UPDATES
+    // RENDER: MONTHLY UPDATES (Agri)
     // =========================================
     function renderMonthlyUpdates() {
         const container = document.getElementById('monthlyContent');
@@ -593,30 +979,37 @@
         });
 
         // Initialize monthly tab buttons
-        document.querySelectorAll('#monthlyTabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const commodity = btn.getAttribute('data-commodity');
-                switchMonthlyTab(commodity);
+        const monthlyTabs = document.getElementById('monthlyTabs');
+        if (monthlyTabs) {
+            monthlyTabs.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const commodity = btn.getAttribute('data-commodity');
+                    switchMonthlyTab(commodity);
+                });
             });
-        });
+        }
     }
 
     function switchMonthlyTab(key) {
         state.activeMonthlyTab = key;
 
-        // Update tab buttons
-        document.querySelectorAll('#monthlyTabs .tab-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-commodity') === key);
-        });
+        const monthlyTabs = document.getElementById('monthlyTabs');
+        if (monthlyTabs) {
+            monthlyTabs.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-commodity') === key);
+            });
+        }
 
-        // Update panels
-        document.querySelectorAll('#monthlyContent .analysis-panel').forEach(panel => {
-            panel.classList.toggle('active', panel.id === `monthly-panel-${key}`);
-        });
+        const monthlyContent = document.getElementById('monthlyContent');
+        if (monthlyContent) {
+            monthlyContent.querySelectorAll('.analysis-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.id === `monthly-panel-${key}`);
+            });
+        }
     }
 
     // =========================================
-    // RENDER: GLOBAL NEWS
+    // RENDER: GLOBAL NEWS (Agri)
     // =========================================
     function renderGlobalNews() {
         const container = document.getElementById('globalNewsGrid');
@@ -642,7 +1035,7 @@
     }
 
     // =========================================
-    // RENDER: LOCAL (EGYPTIAN) NEWS
+    // RENDER: LOCAL NEWS (Agri)
     // =========================================
     function renderLocalNews() {
         const container = document.getElementById('localNewsGrid');
@@ -668,10 +1061,11 @@
     }
 
     // =========================================
-    // RENDER: REPORTS CALENDAR
+    // RENDER: REPORTS CALENDAR (Agri)
     // =========================================
     function renderReportsCalendar() {
         const tbody = document.getElementById('reportsBody');
+        if (!tbody) return;
         tbody.innerHTML = '';
 
         CONFIG.reports.forEach(report => {
@@ -697,6 +1091,7 @@
     // =========================================
     function updateTimestamp() {
         const el = document.getElementById('updateTimestamp');
+        if (!el) return;
         const now = new Date();
         el.textContent = now.toLocaleString('en-US', {
             weekday: 'short',
@@ -709,7 +1104,6 @@
             hour12: true
         });
 
-        // Update every 60 seconds
         setInterval(() => {
             const t = new Date();
             el.textContent = t.toLocaleString('en-US', {
