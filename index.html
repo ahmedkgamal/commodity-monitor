@@ -22,7 +22,9 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#dashboard">Price Dashboard</a></li>
                 <li><a href="#analysis">Yearly Analysis</a></li>
-                <li><a href="#egypt-news">Egypt Market</a></li>
+                <li><a href="#monthly-updates">Monthly Updates</a></li>
+                <li><a href="#global-news">Global News</a></li>
+                <li><a href="#local-news">Egypt Market</a></li>
                 <li><a href="#reports">Reports Calendar</a></li>
             </ul>
         </div>
@@ -161,20 +163,49 @@
         </div>
     </section>
 
-    <!-- Section 3: Egyptian Local Market News -->
-    <section id="egypt-news" class="section">
+    <!-- Section 3: Monthly Updates -->
+    <section id="monthly-updates" class="section">
         <div class="section-header">
-            <h2>Egyptian Local Market News</h2>
-            <p class="section-subtitle">Latest headlines on edible oils, sugar, and soybeans in Egypt.</p>
+            <h2>Monthly Market Updates</h2>
+            <p class="section-subtitle">Major developments this month affecting commodity prices. All points sourced from verified reports.</p>
         </div>
 
-        <div class="news-grid" id="egyptNewsGrid">
+        <div class="analysis-tabs" id="monthlyTabs">
+            <button class="tab-btn active" data-commodity="cpo" data-target="monthly">Crude Palm Oil</button>
+            <button class="tab-btn" data-commodity="soybean_oil" data-target="monthly">Soybean Oil</button>
+            <button class="tab-btn" data-commodity="sunflower_oil" data-target="monthly">Sunflower Oil</button>
+            <button class="tab-btn" data-commodity="raw_sugar" data-target="monthly">Raw Sugar</button>
+            <button class="tab-btn" data-commodity="white_sugar" data-target="monthly">White Sugar</button>
+            <button class="tab-btn" data-commodity="soybeans" data-target="monthly">Soybeans</button>
+            <button class="tab-btn" data-commodity="soybean_meal" data-target="monthly">Soybean Meal</button>
+        </div>
+
+        <div class="analysis-content" id="monthlyContent">
             <!-- Populated by JS -->
         </div>
+    </section>
 
-        <div class="news-note">
-            <p><strong>Sources:</strong> Daily News Egypt, Ahram Online, Enterprise, CAPMAS, Egypt Supply Ministry</p>
-            <p class="sample-badge">Sample data &mdash; integrate with RSS feeds or news APIs for live updates.</p>
+    <!-- Section 4: Global Commodity News -->
+    <section id="global-news" class="section">
+        <div class="section-header">
+            <h2>Global Commodity News</h2>
+            <p class="section-subtitle">Latest headlines from trusted industry sources on edible oils, sugar, and soybeans.</p>
+        </div>
+
+        <div class="news-grid" id="globalNewsGrid">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Section 5: Egyptian Local Market News -->
+    <section id="local-news" class="section">
+        <div class="section-header">
+            <h2>Egyptian Local Market News</h2>
+            <p class="section-subtitle">Latest headlines on Egypt&rsquo;s food commodity markets, imports, and policies.</p>
+        </div>
+
+        <div class="news-grid" id="localNewsGrid">
+            <!-- Populated by JS -->
         </div>
     </section>
 

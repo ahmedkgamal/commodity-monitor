@@ -11,7 +11,8 @@
     const state = {
         commodityData: {},
         charts: {},
-        activeTab: 'cpo'
+        activeTab: 'cpo',
+        activeMonthlyTab: 'cpo'
     };
 
     // =========================================
@@ -22,7 +23,9 @@
         loadData();
         renderDashboard();
         renderAnalysis();
-        renderEgyptNews();
+        renderMonthlyUpdates();
+        renderGlobalNews();
+        renderLocalNews();
         renderReportsCalendar();
         updateTimestamp();
         initScrollSpy();
@@ -562,13 +565,91 @@
     }
 
     // =========================================
-    // RENDER: EGYPTIAN NEWS
+    // RENDER: MONTHLY UPDATES
     // =========================================
-    function renderEgyptNews() {
-        const container = document.getElementById('egyptNewsGrid');
+    function renderMonthlyUpdates() {
+        const container = document.getElementById('monthlyContent');
+        if (!container) return;
         container.innerHTML = '';
 
-        CONFIG.egyptNews.forEach(item => {
+        Object.keys(CONFIG.commodities).forEach(key => {
+            const updates = CONFIG.monthlyUpdates[key];
+            if (!updates) return;
+
+            const panel = document.createElement('div');
+            panel.className = `analysis-panel${key === state.activeMonthlyTab ? ' active' : ''}`;
+            panel.id = `monthly-panel-${key}`;
+
+            const pointsHtml = updates.points.map(p => `<li>${p}</li>`).join('');
+
+            panel.innerHTML = `
+                <div class="analysis-summary">
+                    <h3>${updates.title}</h3>
+                    <ul>${pointsHtml}</ul>
+                </div>
+            `;
+
+            container.appendChild(panel);
+        });
+
+        // Initialize monthly tab buttons
+        document.querySelectorAll('#monthlyTabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const commodity = btn.getAttribute('data-commodity');
+                switchMonthlyTab(commodity);
+            });
+        });
+    }
+
+    function switchMonthlyTab(key) {
+        state.activeMonthlyTab = key;
+
+        // Update tab buttons
+        document.querySelectorAll('#monthlyTabs .tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-commodity') === key);
+        });
+
+        // Update panels
+        document.querySelectorAll('#monthlyContent .analysis-panel').forEach(panel => {
+            panel.classList.toggle('active', panel.id === `monthly-panel-${key}`);
+        });
+    }
+
+    // =========================================
+    // RENDER: GLOBAL NEWS
+    // =========================================
+    function renderGlobalNews() {
+        const container = document.getElementById('globalNewsGrid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        CONFIG.globalNews.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.innerHTML = `
+                <div class="news-card-meta">
+                    <span class="news-source">${item.source}</span>
+                    <span class="news-date">${formatDate(item.date)}</span>
+                </div>
+                <span class="news-category">${item.category}</span>
+                <h4 class="news-title">${item.title}</h4>
+                <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
+                    Read full article &#8594;
+                </a>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // =========================================
+    // RENDER: LOCAL (EGYPTIAN) NEWS
+    // =========================================
+    function renderLocalNews() {
+        const container = document.getElementById('localNewsGrid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        CONFIG.localNews.forEach(item => {
             const card = document.createElement('div');
             card.className = 'news-card';
             card.innerHTML = `

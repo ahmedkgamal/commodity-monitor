@@ -354,120 +354,246 @@ const CONFIG = {
     },
 
     // =========================================
-    // YEARLY ANALYSIS — Updated with real 2025 data context
+    // YEARLY ANALYSIS — Sourced from verified reports & market data
+    // Every bullet includes an inline source link
     // =========================================
     analysis: {
         cpo: {
             title: 'Crude Palm Oil (CPO) — 2026 vs 2025 Analysis',
             points: [
-                'CPO prices surged 9.3% on March 9 alone to ~$1,204/MT, driven by a crude oil rally after Strait of Hormuz tensions pushed Brent above $110/barrel, directly boosting biodiesel-linked palm oil demand.',
-                'Indonesia raised its CPO reference price for March 2026 and increased the export duty from $74 to $124/MT, constraining export supply and supporting global prices.',
-                'Indonesia\'s B50 biodiesel mandate remains a key structural driver — if fully implemented, it could remove 5 million tonnes of CPO from the global export pool annually.',
-                'FRED/IMF data shows 2025 full-year average was $997/MT, with prices declining from ~$1,067/MT in Feb to a low of ~$903/MT in May before recovering in H2.',
-                'Jan 2026 averaged $1,004/MT (FRED), roughly in line with the 2025 average, but March volatility linked to energy markets has pushed spot prices well above this baseline.'
+                'CPO prices are broadly stable YoY: 2025 averaged $997/MT (FRED), Jan 2026 opened at $1,004/MT, and current prices sit at ~$1,069/MT — roughly +7% above the 2025 average. An S&P Global survey of 10 analysts forecasts CPO at MYR 4,200/MT (~$1,037) for 2026. <a href="https://www.spglobal.com/energy/en/news-research/latest-news/agriculture/010626-palm-oil-prices-to-weaken-in-2026-biofuel-policy-clarity-crucial-survey" target="_blank" class="source-inline">[S&P Global]</a>',
+                'Indonesia kept its 2026 biodiesel quota at 15.6 million kiloliters (B40 mandate), absorbing an estimated 11 million tonnes of domestic CPO (~46% of output) and constraining export availability. Plans for B50 have been delayed. <a href="https://www.spglobal.com/energy/en/news-research/latest-news/agriculture/122325-indonesia-keeps-2026-biodiesel-quota-flat-raising-doubts-over-b50-target" target="_blank" class="source-inline">[S&P Global]</a>',
+                'Malaysian production hit a seasonal low in Jan 2026 at 1.577 million tonnes (−13.8% MoM), with stocks falling 7.7% to 2.815 million tonnes, tightening near-term supply. <a href="https://agropost.wordpress.com/2026/02/10/mpob-monthly-report-jan26/" target="_blank" class="source-inline">[MPOB via Agropost]</a>',
+                'FRED/IMF data shows 2025 ranged from $903/MT (May low) to $1,067/MT (Feb high). H2 recovery was driven by Indonesia\'s higher export levies and seasonal demand for Ramadan and Chinese New Year. <a href="https://fred.stlouisfed.org/series/PPOILUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'Indonesia raised CPO export levies from 10% to 12.5% effective March 1, 2026, and set the March reference price at $938.87/MT with a $124/MT export duty, adding cost pressure to global supply. <a href="https://www.palmoilmagazine.com/cpo-price/2026/03/01/indonesia-sets-march-2026-cpo-reference-price-at-usd-938-87-mt-export-duties-adjusted/" target="_blank" class="source-inline">[Palm Oil Magazine]</a>'
             ]
         },
         soybean_oil: {
             title: 'Soybean Oil — 2026 vs 2025 Analysis',
             points: [
-                'Soybean oil surged to 67.98 c/lb ($1,499/MT) on March 9, up from 65.10 c/lb at the open, driven by a massive crude oil rally that boosted biodiesel feedstock demand.',
-                'FRED/IMF data shows 2025 averaged $1,077/MT, rising from $967/MT in Jan to a peak of $1,180/MT in Jul before moderating to ~$1,080/MT by Dec.',
-                'Jan 2026 FRED average was $1,111/MT — already above the 2025 average — supported by strong US biodiesel blending mandates under the Renewable Fuel Standard.',
-                'Managed money funds expanded their net long in soybean futures to over 187,000 contracts, the highest since early December, signaling strong speculative bullish sentiment.',
-                'US EPA\'s higher biomass-based diesel volume obligations for 2026 structurally support soybean oil demand, keeping the oil share of the crush above historical norms.'
+                'Soybean oil has surged ~42% above the 2025 average ($1,077/MT → ~$1,535/MT current), making it the strongest performer among tracked commodities. CBOT soybean oil rose 21.5% since Jan 2. <a href="https://fred.stlouisfed.org/series/PSOILUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'U.S. biofuel policy is the primary driver: EPA\'s RVOs for 2026-27 and the 45Z tax credit (limited to North American feedstocks) have created a structural premium. USDA projects biofuel use to jump from 14.8B lbs in 2025/26 to 17.3B lbs in 2026/27. <a href="https://www.producer.com/markets/soybean-oil-prices-expected-to-rise-in-2026-27/" target="_blank" class="source-inline">[Western Producer]</a>',
+                'U.S. crush is running at record pace: Oct-Dec 2025 crush totaled 686.7M bushels (+43.2M YoY). Feb WASDE raised 2025/26 crush to 2.57 billion bushels. <a href="https://ers.usda.gov/sites/default/files/_laserfiche/outlooks/113803/OCS-26b.pdf" target="_blank" class="source-inline">[USDA ERS]</a>',
+                'FRED shows 2025 rising steadily from $967/MT (Jan) to $1,180/MT (Jul peak) before moderating to $1,080/MT (Dec). Jan 2026 was $1,111/MT, already above 2025 average, and Feb surged to $1,283/MT on exchange settlements. <a href="https://fred.stlouisfed.org/series/PSOILUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'Higher biofuel demand is projected to reduce soybean oil available for food/exports by ~800M lbs, with ending stocks expected to fall by 170M lbs in 2026/27. <a href="https://www.producer.com/markets/soybean-oil-prices-expected-to-rise-in-2026-27/" target="_blank" class="source-inline">[Western Producer]</a>'
             ]
         },
         sunflower_oil: {
             title: 'Sunflower Oil — 2026 vs 2025 Analysis',
             points: [
-                'Sunflower oil has been the strongest performer among edible oils, with FRED data showing a surge from $1,451/MT in Jan 2025 to $1,787/MT in Jan 2026 — a 23% increase.',
-                'Prices climbed relentlessly in H2 2025, rising from $1,447/MT in Jun to $1,656/MT in Dec, driven by Black Sea supply tightness and attacks on Ukrainian crushing facilities.',
-                'Ukraine\'s weaker sunflower seed harvest and processing bottlenecks curtailed export availability, driving FOB premiums to levels not seen since mid-2022.',
-                'Russia\'s variable export duties on sunflower oil remained elevated throughout 2025, further constraining shipments from the world\'s largest producer.',
-                'Argentina doubled sunflower oil exports in Jan 2026, but this only partially offset Black Sea shortfalls, keeping prices near multi-year highs.'
+                'Sunflower oil surged 23% YoY from $1,451/MT (Jan 2025) to $1,787/MT (Jan 2026, FRED), making it the strongest year-on-year performer. Prices have since corrected to ~$1,540/MT. <a href="https://fred.stlouisfed.org/series/PSUNOUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'Black Sea supply disruptions remain the dominant driver: Russian strikes hit at least nine Ukrainian vegetable oil processing facilities in late 2025, leaving ~25% of Ukraine\'s crushing capacity idle. <a href="https://www.fastmarkets.com/insights/strikes-on-ukraines-vegetable-oil-drive-prices-to-multi-year-highs/" target="_blank" class="source-inline">[Fastmarkets]</a>',
+                'Ukraine\'s 2025 sunflower harvest came in at ~10.5 MMT, well below USDA\'s initial 14.4 MMT projection. Russia\'s Rostov region yields dropped over 50% due to drought, removing exportable tonnage. <a href="https://ukragroconsult.com/en/news/usda-has-raised-its-forecast-for-global-oilseed-production-including-sunseed-in-ukraine-which-will-increase-pressure-on-prices/" target="_blank" class="source-inline">[UkrAgroConsult]</a>',
+                'Trade flows are shifting: Turkey now sources 64% of sunflower oil from Russia (vs 56% a year ago) and only 24% from Ukraine (vs 39%), as EU sanctions redirect Russian-origin flows. <a href="https://ukragroconsult.com/en/news/sunflower-oil-market-in-ukraine-is-driving-up-demand-for-sunflower-seeds/" target="_blank" class="source-inline">[UkrAgroConsult]</a>',
+                'FRED data shows prices climbed relentlessly in H2 2025, from $1,447/MT (Jun) to $1,656/MT (Dec), driven by constrained Black Sea exports and elevated Russian export duties. <a href="https://fred.stlouisfed.org/series/PSUNOUSDM" target="_blank" class="source-inline">[FRED]</a>'
             ]
         },
         raw_sugar: {
             title: 'Raw Sugar (No. 11) — 2026 vs 2025 Analysis',
             points: [
-                'Raw sugar collapsed from 18.93 c/lb ($417/MT) in Jan 2025 to ~14 c/lb ($309/MT) by Mar 2026 — a 26% decline to 5-year lows, driven by massive global oversupply.',
-                'Brazil\'s Center-South production hit a record, with Copersucar forecasting 620 million tons of sugarcane in the upcoming season (up from 608M), as mills maximized sugar over ethanol.',
-                'The global surplus reached 8.3 million metric tons in 2025/26, with Czarnikow projecting another 3.4 MMT surplus in 2026/27 — keeping bearish pressure on prices.',
-                'India lifted its sugar export ban in late 2025, and Thailand recovered to strong production levels, adding to the supply glut.',
-                'The Brazilian Real\'s depreciation made exports more competitive in USD terms, further pressuring ICE No. 11 futures. Sugar lost nearly 29% over the past 12 months.'
+                'Raw sugar fell 26% from $417/MT (Jan 2025) to ~$309/MT (Mar 2026) — near 5-year lows — driven by massive global oversupply. ICE No.11 is down ~29% YoY from March 2025 levels. <a href="https://vespertool.com/news/sugar-prices-near-multi-year-lows-as-global-surplus-holds-crude-volatility-adds-uncertainty" target="_blank" class="source-inline">[Vesper]</a>',
+                'The global surplus swung from a deficit of ~3.1 MMT in 2024/25 to a surplus in 2025/26, estimated at 1.22 MMT (ISO) to 8.3 MMT (Czarnikow). ISO forecasts production rising 3.0% YoY to 181.3 MMT. <a href="https://www.nasdaq.com/articles/sugar-prices-fall-isos-forecast-sugar-surplus" target="_blank" class="source-inline">[ISO via Nasdaq]</a>',
+                'Brazil\'s 2025/26 sugar output is estimated at 43.5-45 MMT nationally, with the Centre-South sugar mix at 50.7-51.1% — the highest in several years. <a href="https://www.chinimandi.com/brazils-sugar-production-in-2025-26-season-expected-to-rise-3-1-per-cent-datagro/" target="_blank" class="source-inline">[Datagro via ChiniMandi]</a>',
+                'India\'s 2025/26 output through Feb 28 reached 24.75 MMT (+12% YoY, ISMA). India approved a 2 MMT export quota, though actual exports are expected at only ~700,000 MT due to favorable domestic prices. <a href="https://www.business-standard.com/industry/agriculture/sugar-output-in-india-to-increase-18-6-to-30-95-mt-in-2025-26-isma-125111101220_1.html" target="_blank" class="source-inline">[Business Standard]</a>',
+                'FRED data shows 2025 declining from 18.93 c/lb ($417/MT) in Jan to 14.93 c/lb ($329/MT) in Dec. The Brazilian Real\'s depreciation made exports more competitive in USD terms, pressuring ICE No.11. <a href="https://fred.stlouisfed.org/series/PSUGAISAUSDM" target="_blank" class="source-inline">[FRED]</a>'
             ]
         },
         white_sugar: {
             title: 'White Sugar (No. 5) — 2026 vs 2025 Analysis',
             points: [
-                'White sugar declined to ~$407-430/MT in Q1 2026, down from ~$517/MT in Jan 2025, tracking the raw sugar collapse but outperforming due to a widening white premium.',
-                'The white premium (No. 5 minus No. 11) expanded to ~$100-118/MT in Q1 2026 from ~$100/MT average in 2025, reflecting tight global refining capacity.',
-                'Middle East and North African buyers continued to drive demand for refined sugar imports, with constrained local refining capacity keeping the premium elevated.',
-                'March London ICE No. 5 (SWH26) surged 5.58% on its final trading day on short-covering, highlighting how thin liquidity can amplify moves in the white sugar market.',
-                'The current contango curve structure in ICE No. 5 confirms a well-supplied market with rising global end-stocks, consistent with the bearish fundamental outlook.'
+                'White sugar declined ~13% YoY from a 2025 average of $474/MT to ~$412/MT currently, tracking raw sugar but outperforming due to refined supply tightness. <a href="https://vespertool.com/news/sugar-prices-near-multi-year-lows-as-global-surplus-holds-crude-volatility-adds-uncertainty" target="_blank" class="source-inline">[Vesper]</a>',
+                'The white premium (No.5 vs No.11 spread) compressed to ~$97-98/MT in Jan 2026 — a level Czarnikow notes is too low for standalone refineries to operate profitably. <a href="https://www.czapp.com/analyst-insights/sugar-futures-and-market-data-5th-january-2026/" target="_blank" class="source-inline">[CZ App]</a>',
+                'The same surplus dynamics driving raw sugar lower also pressure white sugar. Czarnikow forecasts 8.3 MMT surplus in 2025/26 and 3.4 MMT in 2026/27. <a href="https://www.nasdaq.com/articles/outlook-global-sugar-surplus-weighs-prices" target="_blank" class="source-inline">[Nasdaq]</a>',
+                'EU sugar production is forecast down 5% YoY in 2025/26 with beet area declining 8% (France and Germany), which could provide structural support for white sugar in H2 2026. <a href="https://apps.fas.usda.gov/psdonline/circulars/sugar.pdf" target="_blank" class="source-inline">[USDA FAS]</a>',
+                'Monthly trend: Jan 2026 at $426/MT, Feb at $408/MT, current at $412/MT — prices stabilizing after the sharp H2 2025 decline. <a href="https://www.ice.com/products/37089080/White-Sugar-Futures/data" target="_blank" class="source-inline">[ICE Futures]</a>'
             ]
         },
         soybeans: {
             title: 'Soybeans — 2026 vs 2025 Analysis',
             points: [
-                'Soybeans traded at 1,138.50 c/bu ($418/MT) on March 9, rallying 12-15 cents overnight on crude oil spillover before trimming gains to finish mixed.',
-                'FRED/IMF 2025 average was $381/MT, ranging from $369/MT (Mar/Sep lows) to $410/MT (Nov peak driven by US-China trade optimism and South American weather concerns).',
-                'Jan 2026 FRED average was $383/MT — roughly in line with 2025 — but renewed Chinese purchase commitments and Argentina planting delays have pushed Q1 prices higher.',
-                'President Trump\'s statements that China would lift purchases to 20-25 million tonnes boosted soybean futures, with strong early 2026 Chinese booking pace supporting the rally.',
-                'US soybean ending stocks for 2025/26 remain tighter than the 5-year average, providing a fundamental floor even as South American production expands.'
+                'Soybeans are up ~10% YoY: 2025 averaged $381/MT (FRED), Jan 2026 at $383/MT, Feb surged to $418/MT, and March is holding ~$418/MT. CBOT rallied from $10.72/bu in late Jan to $11.82/bu on Mar 9. <a href="https://fred.stlouisfed.org/series/PSOYBUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'Record Brazilian production is the major bearish factor: AgroConsult raised Brazil\'s 2025/26 crop estimate to 183.1 MMT; Feb WASDE set it at 180 MMT. Global ending stocks forecast at a record 124.4-125.5 MMT. <a href="https://www.thepigsite.com/news/2026/02/us-soy-futures-pull-back-from-rally-as-brazil-harvest-advances" target="_blank" class="source-inline">[The Pig Site]</a>',
+                'U.S.-China trade tensions reshaped flows: China imposed 10% tariff on U.S. soybeans in Mar 2025. Brazil now accounts for ~93% of China\'s imports (vs ~70% historically). U.S. ag exports to China forecast to fall to $9B in 2026. <a href="https://www.agweb.com/news/crops/soybeans/chinas-trade-war-playbook-keeps-u-s-soybeans-sidelined" target="_blank" class="source-inline">[AgWeb]</a>',
+                'Record U.S. crush partially offsets lower exports: Feb WASDE raised 2025/26 crush to 2.57B bushels. USDA projects 2026/27 planted area to rise ~4M acres as soybeans gain profitability vs corn. <a href="https://www.usda.gov/sites/default/files/documents/2026AOF-grains-oilseeds-outlook.pdf" target="_blank" class="source-inline">[USDA Outlook]</a>',
+                'FRED 2025 ranged from $369/MT (Mar/Sep lows) to $410/MT (Nov peak driven by U.S.-China trade optimism). Jan 2026 started flat at $383/MT before Q1 rally. <a href="https://fred.stlouisfed.org/series/PSOYBUSDM" target="_blank" class="source-inline">[FRED]</a>'
             ]
         },
         soybean_meal: {
             title: 'Soybean Meal — 2026 vs 2025 Analysis',
             points: [
-                'Soybean meal traded at $318.80/short ton ($351/MT) on March 9, rebounding 2.6% from two-week lows on crude oil rally spillover support.',
-                'FRED/IMF data reveals high volatility in 2025 — a sharp drop to $246/MT in Jul 2025 followed by recovery to $326/MT in Sep, suggesting supply disruptions mid-year.',
-                'The 2025 full-year average was $310/MT, with prices ranging widely from $246/MT (Jul) to $333/MT (Jan) — an unusually volatile year for the normally stable feed ingredient.',
-                'Argentina\'s improved crush margins led to higher meal exports in late 2025, but EU livestock producers cut soybean meal inclusion rates due to margin pressure.',
-                'Jan 2026 FRED price was $286/MT — well below 2025 average — as ample Argentine exports and weak EU feed demand kept a lid on prices into the new year.'
+                'Soybean meal is up ~13% YoY: 2025 averaged $310/MT (FRED), Jan 2026 dipped to $286/MT, then rallied sharply to $341/MT (Feb) and ~$351/MT currently. <a href="https://fred.stlouisfed.org/series/PSMEAUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'Record U.S. crush produces abundant meal supply: Feb WASDE raised crush to 2.57B bushels. U.S. soymeal exports rose 12% YoY in 2024/25. USDA forecasts 2025/26 meal price at $295/short ton. <a href="https://www.usda.gov/sites/default/files/documents/2026AOF-grains-oilseeds-outlook.pdf" target="_blank" class="source-inline">[USDA Outlook]</a>',
+                'Global livestock feed demand remains robust: the soybean meal market is projected to reach $102.6B in 2026, with aquaculture feed the fastest-growing segment at 9.4% CAGR. <a href="https://www.persistencemarketresearch.com/market-research/soybean-meal-market.asp" target="_blank" class="source-inline">[Persistence Market Research]</a>',
+                'FRED 2025 showed high volatility: a sharp drop to $246/MT in Jul followed by recovery to $326/MT in Sep. Full-year ranged from $246/MT (Jul) to $333/MT (Jan) — unusually volatile for meal. <a href="https://fred.stlouisfed.org/series/PSMEAUSDM" target="_blank" class="source-inline">[FRED]</a>',
+                'Feed cost projections use soymeal at $275-$325/ton through 2026, with swine feed cost indices at 97.7-99.0, indicating favorable conditions for livestock producers. <a href="https://farmdocdaily.illinois.edu/2026/02/prospects-for-swine-feed-costs-in-2026.html" target="_blank" class="source-inline">[farmdoc daily]</a>'
             ]
         }
     },
 
     // =========================================
-    // EGYPTIAN MARKET NEWS (Sample headlines)
-    // Replace with RSS feed parser or news API for live updates
+    // MONTHLY UPDATES — March 2026 major developments
+    // Every bullet sourced from verified reports
     // =========================================
-    egyptNews: [
+    monthlyUpdates: {
+        month: 'March 2026',
+        cpo: {
+            title: 'CPO — March 2026 Updates',
+            points: [
+                'Strait of Hormuz crisis pushed crude oil above $110/barrel, triggering a 9.3% single-day surge in FCPO to MYR 4,774/MT on March 9 as biofuel economics improved dramatically. <a href="https://markets.financialcontent.com/stocks/article/marketminute-2026-3-9-palm-oil-prices-spike-as-biofuel-demand-surges-amid-crude-rally" target="_blank" class="source-inline">[MarketMinute]</a>',
+                'Indonesia\'s new 12.5% export levy took effect March 1, adding cost pressure on shipments. March reference price set at $938.87/MT with $124/MT export duty. <a href="https://www.palmoilmagazine.com/cpo-export/2026/03/07/indonesia-adjusts-palm-oil-export-levy-to-strengthen-sustainable-plantations-and-energy-self-sufficiency/" target="_blank" class="source-inline">[Palm Oil Magazine]</a>',
+                'MPOC projects CPO to trade MYR 4,000-4,300/MT in March, supported by tightening supply, stronger Indian demand, and firm soybean oil prices. <a href="https://www.palmoilmagazine.com/cpo-price/2026/03/06/tighter-supply-and-strong-indian-demand-to-support-cpo-prices-in-march-says-mpoc/" target="_blank" class="source-inline">[Palm Oil Magazine]</a>'
+            ]
+        },
+        soybean_oil: {
+            title: 'Soybean Oil — March 2026 Updates',
+            points: [
+                'CBOT soybean oil futures surged 4%+ on March 9 as crude oil topped $110/barrel, making biofuel economics the most attractive in years. Feb avg was $1,283/MT; Mar partial is $1,421/MT. <a href="https://www.bloomberg.com/news/articles/2026-03-09/chicago-soy-oil-jumps-4-as-crude-s-rally-boosts-biofuel-demand" target="_blank" class="source-inline">[Bloomberg]</a>',
+                'India-U.S. interim trade deal expected in April 2026 may reduce tariffs on U.S. soybean oil imports, though volumes will be capped by tariff rate quotas. <a href="https://www.palmoilmagazine.com/market/2026/03/06/india-us-interim-trade-deal-set-for-april-2026-soybean-oil-tariffs-to-be-reduced/" target="_blank" class="source-inline">[Palm Oil Magazine]</a>',
+                'CME Group launched four new South Asia edible oil futures contracts on March 5, with first block trade of 100 contracts between Avere Commodities and Olam Agri. <a href="https://www.cmegroup.com/media-room/press-releases/2026/3/08/cme_group_announcesfirsttradesforsouthasiacrudepalmoilfastmarket.html" target="_blank" class="source-inline">[CME Group]</a>'
+            ]
+        },
+        sunflower_oil: {
+            title: 'Sunflower Oil — March 2026 Updates',
+            points: [
+                'Prices holding near $1,540/MT as persistent Black Sea supply tightness meets steady global demand. South American and EU production gains only partially offset the shortfall. <a href="https://tradingeconomics.com/commodity/sunflower-oil" target="_blank" class="source-inline">[Trading Economics]</a>',
+                'Ukrainian sunflower seed prices remain at record levels (UAH 29,500-31,000/MT or $679-$714/MT), with crushers scrambling to rebuild raw material stocks, expected to rise a further 3-5%. <a href="https://ukragroconsult.com/en/sunflower-prices/" target="_blank" class="source-inline">[UkrAgroConsult]</a>'
+            ]
+        },
+        raw_sugar: {
+            title: 'Raw Sugar — March 2026 Updates',
+            points: [
+                'Crude oil spike provides partial price support: higher crude improves ethanol economics, which could incentivize Brazilian mills to divert more cane toward ethanol in 2026/27, reducing sugar output. <a href="https://vespertool.com/news/sugar-prices-near-multi-year-lows-as-global-surplus-holds-crude-volatility-adds-uncertainty" target="_blank" class="source-inline">[Vesper]</a>',
+                '2026/27 surplus expected to narrow significantly: Covrig Analytics forecasts the surplus shrinking to 1.4 MMT from 4.7 MMT in 2025/26, driven by lower Indian exports and EU acreage reductions of up to 10%. <a href="https://www.nasdaq.com/articles/sugar-prices-see-continued-support-safras-forecasts-2026-27-0" target="_blank" class="source-inline">[Nasdaq]</a>',
+                'EU sugar production forecast to fall 5% YoY in 2025/26 to 15.5 MMT as sugar beet area drops 8%, particularly in France and Germany. <a href="https://apps.fas.usda.gov/psdonline/circulars/sugar.pdf" target="_blank" class="source-inline">[USDA FAS]</a>'
+            ]
+        },
+        white_sugar: {
+            title: 'White Sugar — March 2026 Updates',
+            points: [
+                'Higher crude prices improve ethanol parity, which could lead Brazilian mills to shift allocation toward ethanol in 2026/27, reducing both raw and refined sugar supply and potentially restoring the white premium. <a href="https://vespertool.com/news/sugar-prices-near-multi-year-lows-as-global-surplus-holds-crude-volatility-adds-uncertainty" target="_blank" class="source-inline">[Vesper]</a>',
+                'India\'s actual sugar exports are falling short of the 2 MMT quota — mills achieve higher domestic realizations, with ISMA forecasting only 700,000 MT of actual exports, limiting Indian white sugar on world markets. <a href="https://www.business-standard.com/industry/agriculture/sugar-output-seen-lower-than-forecast-curbing-exports-126021800814_1.html" target="_blank" class="source-inline">[Business Standard]</a>'
+            ]
+        },
+        soybeans: {
+            title: 'Soybeans — March 2026 Updates',
+            points: [
+                'Soybean futures broke above $12/bu on the crude oil rally and short covering. Managed money funds hold a net long of 187,000+ contracts — the highest since December — creating potential for volatile moves. <a href="https://stockpil.com/soybeans-extend-rally-friday-futures" target="_blank" class="source-inline">[Stockpil]</a>',
+                'Trump stated China plans to purchase 20 MMT of U.S. soybeans this year and 25 MMT next year, though skepticism remains given the 24% tariff still in effect and Brazil\'s dominance in Chinese imports. <a href="https://www.oklahomafarmreport.com/2026/02/10/trump-tweet-sparks-soybean-rally-2026-biofuel-policy-primer/" target="_blank" class="source-inline">[Oklahoma Farm Report]</a>',
+                'USDA Prospective Plantings report due March 31 is the next major data event. Preliminary outlook signals a major acreage shift toward soybeans, driven by biofuel demand. <a href="https://markets.financialcontent.com/stocks/article/marketminute-2026-2-23-the-soybean-pivot-usda-2026-outlook-signals-major-acreage-shift-as-biofuel-demand-surges" target="_blank" class="source-inline">[MarketMinute]</a>'
+            ]
+        },
+        soybean_meal: {
+            title: 'Soybean Meal — March 2026 Updates',
+            points: [
+                'Soymeal futures advanced $7.50-$8.50 on March 9 alongside the broader soy complex rally driven by crude oil strength. March ZM at $318.80/short ton ($351/MT). <a href="https://www.farmprogress.com/markets-and-quotes/morning-market-review" target="_blank" class="source-inline">[Farm Progress]</a>',
+                'USDA Grain Processor report (March 6) showed U.S. domestic soymeal prices at $298-$327/ton across regions, declining $12-$16 from prior week. <a href="https://www.ams.usda.gov/mnreports/ams_3511.pdf" target="_blank" class="source-inline">[USDA AMS]</a>',
+                'Brazil\'s record soybean crush (forecast 61 MMT in 2025/26) adds to global meal supply, potentially capping price upside despite strong livestock demand. <a href="https://esmis.nal.usda.gov/sites/default/release-files/795765/wasde0226.pdf" target="_blank" class="source-inline">[USDA WASDE]</a>'
+            ]
+        }
+    },
+
+    // =========================================
+    // GLOBAL COMMODITY NEWS — Verified headlines with real URLs
+    // All sourced from trusted industry publications
+    // =========================================
+    globalNews: [
         {
-            title: 'Egypt\'s Supply Ministry sets new subsidized cooking oil prices for March 2026',
-            source: 'Ahram Online',
+            title: 'Palm oil prices spike as biofuel demand surges amid crude oil rally',
+            source: 'MarketMinute',
+            date: '2026-03-09',
+            category: 'Edible Oils',
+            url: 'https://markets.financialcontent.com/stocks/article/marketminute-2026-3-9-palm-oil-prices-spike-as-biofuel-demand-surges-amid-crude-rally'
+        },
+        {
+            title: 'CME Group announces first trades for South Asia Crude Palm Oil futures',
+            source: 'CME Group',
+            date: '2026-03-08',
+            category: 'Edible Oils',
+            url: 'https://www.cmegroup.com/media-room/press-releases/2026/3/08/cme_group_announcesfirsttradesforsouthasiacrudepalmoilfastmarket.html'
+        },
+        {
+            title: 'Tighter supply and strong Indian demand to support CPO prices in March, says MPOC',
+            source: 'Palm Oil Magazine',
             date: '2026-03-06',
             category: 'Edible Oils',
-            url: 'https://english.ahram.org.eg/'
+            url: 'https://www.palmoilmagazine.com/cpo-price/2026/03/06/tighter-supply-and-strong-indian-demand-to-support-cpo-prices-in-march-says-mpoc/'
         },
         {
-            title: 'CAPMAS: Egypt\'s edible oil imports rise 15% in January 2026, reaching $280M',
-            source: 'Enterprise',
+            title: 'Sugar prices near multi-year lows as global surplus holds; crude volatility adds uncertainty',
+            source: 'Vesper',
             date: '2026-03-05',
-            category: 'Edible Oils',
-            url: 'https://enterprise.press/en/'
-        },
-        {
-            title: 'Egyptian government extends sugar import tariff exemption through June 2026',
-            source: 'Daily News Egypt',
-            date: '2026-03-04',
             category: 'Sugar',
-            url: 'https://www.dailynewsegypt.com/'
+            url: 'https://vespertool.com/news/sugar-prices-near-multi-year-lows-as-global-surplus-holds-crude-volatility-adds-uncertainty'
         },
         {
-            title: 'Local soybean crushing capacity to expand by 20% as new Alexandria plant opens',
-            source: 'Enterprise',
-            date: '2026-03-02',
+            title: 'Soybean oil prices expected to rise in 2026-27 on biofuel demand surge',
+            source: 'Western Producer',
+            date: '2026-02-20',
             category: 'Soybeans',
-            url: 'https://enterprise.press/en/'
+            url: 'https://www.producer.com/markets/soybean-oil-prices-expected-to-rise-in-2026-27/'
         },
         {
-            title: 'Egypt\'s strategic sugar reserves reach 4.2 months of consumption — Supply Ministry',
-            source: 'Ahram Online',
-            date: '2026-02-28',
+            title: 'Commodities 2026: Firm demand to offset larger supplies in palm oil markets',
+            source: 'S&P Global',
+            date: '2025-12-18',
+            category: 'Edible Oils',
+            url: 'https://www.spglobal.com/energy/en/news-research/latest-news/agriculture/121825-commodities-2026-firm-demand-to-offset-larger-supplies-in-palm-oil-markets'
+        },
+        {
+            title: 'USDA Oilseeds: World Markets and Trade — global stocks at record 125.5 MMT',
+            source: 'USDA FAS',
+            date: '2026-01-12',
+            category: 'Soybeans',
+            url: 'https://www.fas.usda.gov/data/oilseeds-world-markets-and-trade-01122026'
+        }
+    ],
+
+    // =========================================
+    // LOCAL (EGYPTIAN) MARKET NEWS — Verified headlines
+    // Sources: Daily News Egypt, Enterprise, Ahram Online, The National
+    // =========================================
+    localNews: [
+        {
+            title: 'Egypt opens sugar export taps for first time in three years to drain 1 million ton glut',
+            source: 'Enterprise',
+            date: '2026-02-02',
             category: 'Sugar',
-            url: 'https://english.ahram.org.eg/'
+            url: 'https://enterpriseam.com/egypt/2026/02/02/egypt-opens-sugar-export-taps-for-first-time-in-three-years-to-drain-1-mn-ton-glut/'
+        },
+        {
+            title: 'Egypt considers trading sugar on commodity exchange to bolster market stability',
+            source: 'Daily News Egypt',
+            date: '2026-02-01',
+            category: 'Sugar',
+            url: 'https://www.dailynewsegypt.com/2026/02/01/egypt-considers-trading-sugar-on-commodity-exchange-to-bolster-market-stability/'
+        },
+        {
+            title: 'Egypt maintains safe food and fuel reserves amid regional developments, ministers say',
+            source: 'Daily News Egypt',
+            date: '2026-02-28',
+            category: 'General',
+            url: 'https://www.dailynewsegypt.com/2026/02/28/egypt-maintains-safe-food-fuel-reserves-amid-regional-developments-ministers-say/'
+        },
+        {
+            title: 'Ahlan Ramadan fairs offer cooking oil at 15-30% discounts; Egypt imports 97% of plant-based oils',
+            source: 'Ahram Online',
+            date: '2026-02-12',
+            category: 'Edible Oils',
+            url: 'https://english.ahram.org.eg/News/562197.aspx'
+        },
+        {
+            title: 'Egypt\'s non-oil exports rise 17% to $48.6B in 2025; food industry exports reach $6.8B',
+            source: 'Daily News Egypt',
+            date: '2026-01-27',
+            category: 'General',
+            url: 'https://www.dailynewsegypt.com/2026/01/27/egypts-non-oil-exports-rise-17-to-48-6bn-in-2025-as-trade-deficit-narrows/'
+        },
+        {
+            title: 'Rising global food and fuel prices amplify pressure on Egypt\'s import bills amid Suez disruptions',
+            source: 'The National',
+            date: '2026-03-02',
+            category: 'General',
+            url: 'https://www.thenationalnews.com/business/economy/2026/03/02/egypts-economy-in-crisis-as-financial-turmoil-grips-region/'
         }
     ],
 

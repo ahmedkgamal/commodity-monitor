@@ -552,6 +552,21 @@ body {
     background: var(--cib-orange);
 }
 
+/* Inline source links in analysis bullets */
+.source-inline {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--cib-blue);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.source-inline:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
 .chart-container {
     position: relative;
     height: 320px;
@@ -563,7 +578,7 @@ body {
 }
 
 /* =============================================
-   EGYPT NEWS SECTION
+   NEWS SECTIONS (Global & Local)
    ============================================= */
 .news-grid {
     display: grid;
