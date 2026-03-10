@@ -23,8 +23,10 @@
     // =========================================
     document.addEventListener('DOMContentLoaded', () => {
         initNavigation();
+        initKeyboardNav();
         loadData();
         showLanding();
+        renderLandingTickers();
         updateTimestamp();
     });
 
@@ -144,6 +146,7 @@
     }
 
     function renderIndustry(key) {
+        renderKPIStrip(key);
         if (key === 'agri') {
             renderDashboard();
             renderAnalysis();
@@ -343,7 +346,7 @@
             if (item.group && item.group !== currentGroup) {
                 currentGroup = item.group;
                 const groupRow = document.createElement('tr');
-                groupRow.innerHTML = `<td colspan="6" style="background:var(--bg-secondary);font-weight:700;font-size:0.82rem;color:var(--cib-blue);padding:10px 14px;letter-spacing:0.3px">${item.group}</td>`;
+                groupRow.innerHTML = `<td colspan="6" style="background:var(--bg-primary);font-weight:600;font-size:0.6875rem;color:var(--text-secondary);padding:10px 14px;letter-spacing:0.06em;text-transform:uppercase">${item.group}</td>`;
                 tbody.appendChild(groupRow);
             }
 
@@ -352,13 +355,17 @@
             const changeAbs = change ? change.absolute : null;
             const cls = changePct != null ? changeClass(changePct) : 'neutral';
 
+            // Conditional formatting for big moves (>5%)
+            const bigMove = changePct != null && Math.abs(changePct) > 5;
+            const bigCls = bigMove ? (changePct > 0 ? ' big-move-up' : ' big-move-down') : '';
+
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td style="font-weight:600">${item.name}</td>
                 <td class="price-value">${item.price != null ? formatPrice(item.price) : 'N/A'}</td>
                 <td class="price-unit">${item.unit || ''}</td>
-                <td><span class="change-badge ${cls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></td>
-                <td><span class="change-badge ${cls}">${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}</span></td>
+                <td><span class="change-badge ${cls}${bigCls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></td>
+                <td><span class="change-badge ${cls}${bigCls}">${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}</span></td>
                 <td><a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a></td>
             `;
             tbody.appendChild(row);
@@ -521,7 +528,8 @@
         const cfg = configMap[industryKey];
         if (!cfg || !cfg.globalNews) return;
 
-        const container = document.getElementById(industryKey + 'GlobalNewsGrid');
+        const containerId = industryKey + 'GlobalNewsGrid';
+        const container = document.getElementById(containerId);
         if (!container) return;
         container.innerHTML = '';
 
@@ -541,6 +549,8 @@
             `;
             container.appendChild(card);
         });
+
+        renderNewsWithFilters(containerId, cfg.globalNews);
     }
 
     function renderIndustryLocalNews(industryKey) {
@@ -553,7 +563,8 @@
         const cfg = configMap[industryKey];
         if (!cfg || !cfg.localNews) return;
 
-        const container = document.getElementById(industryKey + 'LocalNewsGrid');
+        const containerId = industryKey + 'LocalNewsGrid';
+        const container = document.getElementById(containerId);
         if (!container) return;
         container.innerHTML = '';
 
@@ -573,6 +584,8 @@
             `;
             container.appendChild(card);
         });
+
+        renderNewsWithFilters(containerId, cfg.localNews);
     }
 
     // =========================================
@@ -890,13 +903,13 @@
                     {
                         label: `${commodity.shortName} ${CONFIG.chart.lastYearLabel}`,
                         data: lastYearData,
-                        borderColor: '#8295a8',
-                        backgroundColor: 'rgba(130, 149, 168, 0.1)',
-                        borderWidth: 2,
+                        borderColor: '#6E6E73',
+                        backgroundColor: 'rgba(110, 110, 115, 0.08)',
+                        borderWidth: 1.5,
                         borderDash: [6, 4],
                         pointRadius: 3,
                         pointHoverRadius: 5,
-                        pointBackgroundColor: '#8295a8',
+                        pointBackgroundColor: '#6E6E73',
                         tension: 0.3,
                         fill: false
                     }
@@ -912,7 +925,7 @@
                 plugins: {
                     legend: {
                         labels: {
-                            color: '#4a5e72',
+                            color: '#6E6E73',
                             font: { family: "'Inter', sans-serif", size: 12 },
                             padding: 16,
                             usePointStyle: true,
@@ -920,10 +933,10 @@
                         }
                     },
                     tooltip: {
-                        backgroundColor: '#004A88',
+                        backgroundColor: '#1D1D1F',
                         titleColor: '#ffffff',
                         bodyColor: 'rgba(255,255,255,0.85)',
-                        borderColor: '#003466',
+                        borderColor: 'rgba(255,255,255,0.1)',
                         borderWidth: 1,
                         padding: 12,
                         cornerRadius: 8,
@@ -1043,6 +1056,8 @@
             `;
             container.appendChild(card);
         });
+
+        renderNewsWithFilters('globalNewsGrid', CONFIG.globalNews);
     }
 
     // =========================================
@@ -1069,6 +1084,8 @@
             `;
             container.appendChild(card);
         });
+
+        renderNewsWithFilters('localNewsGrid', CONFIG.localNews);
     }
 
     // =========================================
@@ -1095,6 +1112,214 @@
             `;
             tbody.appendChild(row);
         });
+    }
+
+    // =========================================
+    // KEYBOARD NAVIGATION — Accessibility
+    // =========================================
+    function initKeyboardNav() {
+        document.querySelectorAll('.industry-card').forEach(card => {
+            card.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    }
+
+    // =========================================
+    // LANDING PAGE TICKERS — Live price pills
+    // =========================================
+    function renderLandingTickers() {
+        // Agri tickers
+        const agriTickers = document.getElementById('tickers-agri');
+        if (agriTickers) {
+            const agriItems = [
+                { name: 'CPO', key: 'cpo' },
+                { name: 'SBO', key: 'soybean_oil' },
+                { name: 'Sugar', key: 'raw_sugar' }
+            ];
+            agriTickers.innerHTML = agriItems.map(item => {
+                const data = state.commodityData[item.key];
+                if (!data) return '';
+                const change = calcChange(data.today, data.yesterdayClose);
+                const pct = change ? change.percent : null;
+                const cls = pct != null ? changeClass(pct) : 'neutral';
+                const arrow = pct > 0 ? '&#9650;' : pct < 0 ? '&#9660;' : '';
+                const pctStr = pct != null ? (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%' : '';
+                return `<span class="ticker-item ${cls}"><span class="ticker-name">${item.name}</span> ${arrow} ${pctStr}</span>`;
+            }).join('');
+        }
+
+        // Oil & Gas tickers
+        const oilgasTickers = document.getElementById('tickers-oilgas');
+        if (oilgasTickers && typeof CONFIG_OILGAS !== 'undefined') {
+            const items = CONFIG_OILGAS.commodities.slice(0, 3);
+            oilgasTickers.innerHTML = items.map(item => {
+                const change = calcChange(item.price, item.prevPrice);
+                const pct = change ? change.percent : null;
+                const cls = pct != null ? changeClass(pct) : 'neutral';
+                const arrow = pct > 0 ? '&#9650;' : pct < 0 ? '&#9660;' : '';
+                const pctStr = pct != null ? (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%' : '';
+                const shortName = item.name.split(' ')[0];
+                return `<span class="ticker-item ${cls}"><span class="ticker-name">${shortName}</span> ${arrow} ${pctStr}</span>`;
+            }).join('');
+        }
+
+        // Petrochem tickers
+        const petrochemTickers = document.getElementById('tickers-petrochem');
+        if (petrochemTickers && typeof CONFIG_PETROCHEM !== 'undefined') {
+            const items = CONFIG_PETROCHEM.commodities.filter(c => !c.group || CONFIG_PETROCHEM.commodities.indexOf(c) < 5).slice(0, 3);
+            petrochemTickers.innerHTML = items.map(item => {
+                const change = calcChange(item.price, item.prevPrice);
+                const pct = change ? change.percent : null;
+                const cls = pct != null ? changeClass(pct) : 'neutral';
+                const arrow = pct > 0 ? '&#9650;' : pct < 0 ? '&#9660;' : '';
+                const pctStr = pct != null ? (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%' : '';
+                const shortName = item.name.split(' ')[0];
+                return `<span class="ticker-item ${cls}"><span class="ticker-name">${shortName}</span> ${arrow} ${pctStr}</span>`;
+            }).join('');
+        }
+
+        // Poultry tickers
+        const poultryTickers = document.getElementById('tickers-poultry');
+        if (poultryTickers && typeof CONFIG_POULTRY !== 'undefined') {
+            const items = CONFIG_POULTRY.commodities.slice(0, 3);
+            poultryTickers.innerHTML = items.map(item => {
+                const change = calcChange(item.price, item.prevPrice);
+                const pct = change ? change.percent : null;
+                const cls = pct != null ? changeClass(pct) : 'neutral';
+                const arrow = pct > 0 ? '&#9650;' : pct < 0 ? '&#9660;' : '';
+                const pctStr = pct != null ? (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%' : '';
+                const shortName = item.name.length > 12 ? item.name.substring(0, 10) + '..' : item.name;
+                return `<span class="ticker-item ${cls}"><span class="ticker-name">${shortName}</span> ${arrow} ${pctStr}</span>`;
+            }).join('');
+        }
+    }
+
+    // =========================================
+    // KPI STRIP — Top movers for each industry
+    // =========================================
+    function renderKPIStrip(industryKey) {
+        if (industryKey === 'agri') {
+            const container = document.getElementById('agriKpiStrip');
+            if (!container) return;
+
+            // Get all agri commodities with daily changes
+            const items = [];
+            Object.keys(CONFIG.commodities).forEach(key => {
+                const data = state.commodityData[key];
+                if (!data) return;
+                const change = calcChange(data.today, data.yesterdayClose);
+                if (change) {
+                    items.push({
+                        name: CONFIG.commodities[key].shortName,
+                        price: data.today,
+                        change: change
+                    });
+                }
+            });
+
+            // Sort by absolute % change (biggest movers first)
+            items.sort((a, b) => Math.abs(b.change.percent) - Math.abs(a.change.percent));
+
+            container.innerHTML = items.slice(0, 4).map(item => {
+                const cls = changeClass(item.change.percent);
+                const arrow = item.change.percent > 0 ? '&#9650;' : item.change.percent < 0 ? '&#9660;' : '';
+                return `
+                    <div class="kpi-card">
+                        <span class="kpi-card-label">${item.name}</span>
+                        <span class="kpi-card-value">$${formatPrice(item.price)}</span>
+                        <span class="kpi-card-change ${cls}">
+                            ${arrow} ${item.change.percent >= 0 ? '+' : ''}${item.change.percent.toFixed(2)}%
+                        </span>
+                    </div>
+                `;
+            }).join('');
+            return;
+        }
+
+        // Generic KPI strip for other industries
+        const configMap = {
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        if (!cfg) return;
+
+        const container = document.getElementById(industryKey + 'KpiStrip');
+        if (!container) return;
+
+        // Get items with changes, sort by biggest move
+        const movers = cfg.commodities
+            .filter(item => item.price != null && item.prevPrice != null)
+            .map(item => {
+                const change = calcChange(item.price, item.prevPrice);
+                return { name: item.name, price: item.price, unit: item.unit, change };
+            })
+            .filter(item => item.change)
+            .sort((a, b) => Math.abs(b.change.percent) - Math.abs(a.change.percent));
+
+        container.innerHTML = movers.slice(0, 4).map(item => {
+            const cls = changeClass(item.change.percent);
+            const arrow = item.change.percent > 0 ? '&#9650;' : item.change.percent < 0 ? '&#9660;' : '';
+            const shortName = item.name.length > 18 ? item.name.substring(0, 16) + '..' : item.name;
+            return `
+                <div class="kpi-card">
+                    <span class="kpi-card-label">${shortName}</span>
+                    <span class="kpi-card-value">${formatPrice(item.price)}</span>
+                    <span class="kpi-card-change ${cls}">
+                        ${arrow} ${item.change.percent >= 0 ? '+' : ''}${item.change.percent.toFixed(2)}%
+                    </span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // =========================================
+    // FILTER PILLS — Category filters for news
+    // =========================================
+    function renderNewsWithFilters(containerId, newsItems, renderCardFn) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Extract unique categories
+        const categories = [...new Set(newsItems.map(item => item.category))];
+
+        // Only add pills if there are 2+ categories
+        if (categories.length >= 2) {
+            let filterContainer = container.previousElementSibling;
+            if (!filterContainer || !filterContainer.classList.contains('filter-pills')) {
+                filterContainer = document.createElement('div');
+                filterContainer.className = 'filter-pills';
+                container.parentNode.insertBefore(filterContainer, container);
+            }
+
+            filterContainer.innerHTML = `<button class="filter-pill active" data-category="all">All</button>` +
+                categories.map(cat =>
+                    `<button class="filter-pill" data-category="${cat}">${cat}</button>`
+                ).join('');
+
+            filterContainer.querySelectorAll('.filter-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    filterContainer.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    const selectedCat = pill.getAttribute('data-category');
+
+                    container.querySelectorAll('.news-card').forEach(card => {
+                        if (selectedCat === 'all') {
+                            card.style.display = '';
+                        } else {
+                            const cardCat = card.querySelector('.news-category');
+                            card.style.display = (cardCat && cardCat.textContent === selectedCat) ? '' : 'none';
+                        }
+                    });
+                });
+            });
+        }
     }
 
     // =========================================
