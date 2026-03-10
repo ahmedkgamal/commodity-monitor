@@ -51,9 +51,18 @@
         const landing = document.getElementById('landing-page');
         if (landing) landing.style.display = '';
 
-        // Hide nav links (they're industry-specific)
+        // Hide nav links and toggle (they're industry-specific)
         const navLinks = document.getElementById('navLinks');
-        if (navLinks) navLinks.style.display = 'none';
+        if (navLinks) {
+            navLinks.style.display = 'none';
+            navLinks.classList.remove('open');
+        }
+        const navToggle = document.getElementById('navToggle');
+        if (navToggle) navToggle.style.display = 'none';
+
+        // Hide footer on landing (show only within industries)
+        const footer = document.getElementById('site-footer');
+        if (footer) footer.style.display = '';
 
         // Scroll to top
         window.scrollTo(0, 0);
@@ -76,9 +85,11 @@
         const container = document.getElementById('industry-' + key);
         if (container) container.classList.add('active');
 
-        // Show nav links
+        // Show nav links and toggle
         const navLinks = document.getElementById('navLinks');
         if (navLinks) navLinks.style.display = '';
+        const navToggle = document.getElementById('navToggle');
+        if (navToggle) navToggle.style.display = '';
 
         // Update nav links for this industry
         updateNavLinks(key);
