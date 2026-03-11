@@ -1,0 +1,27 @@
+{
+  "name": "commodity-monitor",
+  "version": "1.0.0",
+  "description": "CBG Industry Monitor - Commodity price tracking across four major industries",
+  "main": "index.js",
+  "scripts": {
+    "build": "cp index.html www/index.html && cp -r css www/ && cp -r js www/",
+    "cap:sync": "npx cap sync",
+    "cap:open:ios": "npx cap open ios",
+    "ios": "npm run build && npx cap sync ios && npx cap open ios"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:46631/git/ahmedkgamal/commodity-monitor"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/ios": "^8.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CBG Monitor">
+    <meta name="theme-color" content="#004A88">
     <title>CBG Industry Monitor — Multi-Industry Platform</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -553,5 +557,12 @@
     <script src="js/config-petrochem.js"></script>
     <script src="js/config-poultry.js"></script>
     <script src="js/app.js"></script>
+    <script type="module">
+        import { Capacitor } from 'https://esm.sh/@capacitor/core';
+        // Initialize Capacitor bridge when running as native app
+        if (Capacitor.isNativePlatform()) {
+            document.body.classList.add('native-app');
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+www/
+
+# iOS build artifacts
+ios/App/Pods/
+ios/App/build/
+ios/App/DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
