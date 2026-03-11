@@ -15,6 +15,30 @@
 const CONFIG = {
 
     // =========================================
+    // RED ALERTS — Critical negative developments
+    // =========================================
+    alerts: [
+        {
+            text: 'Indonesia raised crude palm oil export levies to 12.5% from March 1 and banned palm oil waste exports, tightening global edible oil supply as the government prioritizes domestic biodiesel mandates.',
+            source: 'Fastmarkets',
+            url: 'https://www.fastmarkets.com/insights/indonesia-restricts-crude-palm-oil-exports-waste/',
+            date: '2026-03-01'
+        },
+        {
+            text: 'Sugar prices jumped as crude oil surged above $90/bbl, raising ethanol parity and incentivizing Brazilian mills to divert sugarcane away from sugar production toward biofuel.',
+            source: 'Barchart',
+            url: 'https://markets.financialcontent.com/wss/article/barchart-2026-3-9-sugar-prices-jump-as-crude-oil-surges',
+            date: '2026-03-09'
+        },
+        {
+            text: 'U.S. soybean exports to China remained 76% below 2024 levels as retaliatory tariffs persist, with farmers facing a potential fourth consecutive year of losses amid rising input costs.',
+            source: 'American Soybean Association',
+            url: 'https://soygrowers.com/news-releases/the-rising-cost-squeeze-soybean-farmers-face-a-third-year-of-losses/',
+            date: '2026-03-03'
+        }
+    ],
+
+    // =========================================
     // API ENDPOINTS
     // =========================================
     apis: {

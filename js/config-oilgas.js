@@ -15,6 +15,30 @@
 const CONFIG_OILGAS = {
 
     // =========================================
+    // RED ALERTS — Critical negative developments
+    // =========================================
+    alerts: [
+        {
+            text: 'Strait of Hormuz effectively closed to commercial shipping after Iran threatened all vessel traffic, halting ~20 million b/d of crude oil transit and triggering the largest oil supply disruption in history.',
+            source: 'Bloomberg',
+            url: 'https://www.bloomberg.com/news/articles/2026-03-10/iran-war-oil-and-gas-supply-squeeze-and-strait-of-hormuz-disruption-explained',
+            date: '2026-03-10'
+        },
+        {
+            text: 'IEA convened an extraordinary meeting of member countries to discuss the largest coordinated strategic reserve release in history (300-400 million barrels) to stabilize markets after Brent spiked above $119/bbl.',
+            source: 'CNBC',
+            url: 'https://www.cnbc.com/2026/03/10/iea-g7-oil-iran-war-strait-hormuz.html',
+            date: '2026-03-10'
+        },
+        {
+            text: 'OPEC+ producers Saudi Arabia, Iraq, Kuwait, and UAE began involuntary production shut-ins as onshore storage filled up with no export route available through the blocked Strait of Hormuz.',
+            source: 'EIA',
+            url: 'https://www.eia.gov/outlooks/steo/report/global_oil.php',
+            date: '2026-03-09'
+        }
+    ],
+
+    // =========================================
     // COMMODITIES — Price Dashboard
     // =========================================
     commodities: [

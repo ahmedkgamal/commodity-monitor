@@ -1,5 +1,5 @@
 /* =============================================
-   COMMODITY PRICE MONITOR — Main Application
+   CBG INDUSTRY MONITOR — Main Application
    Multi-Industry Platform
    ============================================= */
 
@@ -70,7 +70,7 @@
         window.scrollTo(0, 0);
 
         // Update page title
-        document.title = 'Commodity Price Monitor — Multi-Industry Platform';
+        document.title = 'CBG Industry Monitor — Multi-Industry Platform';
     }
 
     function showIndustry(key) {
@@ -104,12 +104,12 @@
 
         // Update page title
         const titles = {
-            agri: 'Commodity Price Monitor — Oil & Commodities',
-            oilgas: 'Commodity Price Monitor — Oil & Gas',
-            petrochem: 'Commodity Price Monitor — Petrochemicals',
-            poultry: 'Commodity Price Monitor — Poultry'
+            agri: 'CBG Industry Monitor — Oil & Commodities',
+            oilgas: 'CBG Industry Monitor — Oil & Gas',
+            petrochem: 'CBG Industry Monitor — Petrochemicals',
+            poultry: 'CBG Industry Monitor — Poultry'
         };
-        document.title = titles[key] || 'Commodity Price Monitor';
+        document.title = titles[key] || 'CBG Industry Monitor';
     }
 
     function updateNavLinks(key) {
@@ -147,6 +147,7 @@
 
     function renderIndustry(key) {
         try {
+            renderAlerts(key);
             renderKPIStrip(key);
             if (key === 'agri') {
                 renderCompactDashboard(key);
@@ -327,6 +328,42 @@
     }
 
     // =========================================
+    // RENDER: RED ALERTS
+    // =========================================
+    function renderAlerts(industryKey) {
+        const configMap = {
+            agri: typeof CONFIG !== 'undefined' ? CONFIG : null,
+            oilgas: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null,
+            petrochem: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null,
+            poultry: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null
+        };
+
+        const cfg = configMap[industryKey];
+        const container = document.getElementById(industryKey + 'Alerts');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (!cfg || !cfg.alerts || cfg.alerts.length === 0) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'alerts-section section';
+
+        let html = '<div class="alerts-banner">';
+        html += '<div class="alerts-header"><span class="alerts-icon">&#9888;</span> Critical Alerts</div>';
+        html += '<ul class="alerts-list">';
+        cfg.alerts.forEach(alert => {
+            html += `<li class="alert-item">
+                <span class="alert-text">${alert.text}</span>
+                <a href="${alert.url}" target="_blank" rel="noopener" class="alert-source">${alert.source} (${formatDate(alert.date)}) &#8599;</a>
+            </li>`;
+        });
+        html += '</ul></div>';
+
+        wrapper.innerHTML = html;
+        container.appendChild(wrapper);
+    }
+
+    // =========================================
     // RENDER: COMPACT DASHBOARD (Oil & Gas, Petrochem, Poultry)
     // =========================================
     function renderCompactDashboard(industryKey) {
@@ -383,19 +420,21 @@
             const momChange = calcChange(item.avgThisMonth, item.avgLastMonth);
             const yoyChange = calcChange(item.avgYTD, item.avgLastYear);
 
-            // Date/live + source indicator
-            const dateLabel = item.dataDate === 'Live'
+            // Source indicator — stacked below the price number
+            const sourceLabel = item.dataDate === 'Live'
                 ? '<span class="data-live">Live</span>'
-                : '<a href="' + item.sourceUrl + '" target="_blank" rel="noopener" class="source-link">' + item.sourceName + '</a>'
+                : '<a href="' + (item.sourceUrl || '#') + '" target="_blank" rel="noopener" class="source-link">' + (item.sourceName || '') + '</a>'
                   + (item.dataDate ? '<span class="data-date">' + formatDate(item.dataDate) + '</span>' : '');
 
-            // Source label for avg columns
-            const avgSrc = item.avgSource ? '<span class="data-date">' + item.avgSource + '</span>' : '';
+            // Source label for avg columns — make clickable if sourceUrl exists
+            const avgSrc = item.avgSource
+                ? '<span class="data-date">' + (item.sourceUrl ? '<a href="' + item.sourceUrl + '" target="_blank" rel="noopener" class="source-link" style="font-size:inherit">' + item.avgSource + '</a>' : item.avgSource) + '</span>'
+                : '';
 
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td class="col-commodity">${item.name}</td>
-                <td class="price-value">${item.price != null ? formatPrice(item.price) : '—'}${dateLabel}</td>
+                <td class="price-value"><span class="price-number">${item.price != null ? formatPrice(item.price) : '—'}</span>${sourceLabel}</td>
                 <td class="price-value" style="color:var(--text-secondary)">${item.prevPrice != null ? formatPrice(item.prevPrice) : '—'}</td>
                 <td><span class="change-badge ${cls}${bigCls}">${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}</span></td>
                 <td>${item.avgThisMonth != null ? formatPrice(item.avgThisMonth) : '—'}${item.avgThisMonth != null ? avgSrc : ''}</td>

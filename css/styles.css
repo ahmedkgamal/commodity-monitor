@@ -1,5 +1,5 @@
 /* =============================================
-   COMMODITY PRICE MONITOR — Apple-esque Clean
+   CBG INDUSTRY MONITOR — Apple-esque Clean
    CIB Egypt: Congress Blue #004A88, Ecstasy Orange #F58420
    Vibe: Serene, trustworthy, premium
    ============================================= */
@@ -431,6 +431,94 @@ body {
     margin-top: 2px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+}
+
+/* Price number stacked above source */
+.price-number {
+    display: block;
+}
+
+/* =============================================
+   RED ALERTS BANNER
+   ============================================= */
+.alerts-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.alerts-section {
+    padding-top: 16px;
+    padding-bottom: 0;
+}
+
+.alerts-banner {
+    background: rgba(220, 38, 38, 0.04);
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    border-left: 4px solid var(--accent-red);
+    border-radius: var(--radius-lg);
+    padding: 18px 24px;
+}
+
+.alerts-header {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.alerts-icon {
+    font-size: 1rem;
+}
+
+.alerts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alert-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(220, 38, 38, 0.08);
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.alert-text {
+    flex: 1;
+    min-width: 200px;
+}
+
+.alert-source {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--accent-red);
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.alert-source:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
 
 /* =============================================

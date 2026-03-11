@@ -15,6 +15,30 @@
 const CONFIG_POULTRY = {
 
     // =========================================
+    // RED ALERTS — Critical negative developments
+    // =========================================
+    alerts: [
+        {
+            text: 'Live chicken prices surged 24% in under three weeks to EGP 110.60/kg ahead of Ramadan, with extreme regional disparities reaching EGP 190/kg in Matrouh while government deploys subsidized frozen imports at EGP 100/kg.',
+            source: 'Zawya',
+            url: 'https://www.zawya.com/en/economy/north-africa/poultry-prices-in-egypt-rise-ahead-of-ramadan-vutby0qn',
+            date: '2026-03-09'
+        },
+        {
+            text: 'Egypt confirmed 85 million birds infected with avian influenza as of February 2026, marking one of the country\'s most severe H5N1 outbreaks and threatening poultry supply and food security.',
+            source: 'FAO / Egyptian Ministry of Health',
+            url: 'https://www.fao.org/newsroom/story/Stamping-out-avian-flu-in-Egypt/en',
+            date: '2026-02-04'
+        },
+        {
+            text: 'Egyptian feed costs exploded as imported yellow corn surged EGP 1,900/ton in two weeks to EGP 14,600/ton and soybean meal jumped EGP 800/ton in a single day, driven by 12.8% EGP depreciation and Strait of Hormuz disruptions.',
+            source: 'Al Mal News',
+            url: 'https://almalnews.com/2102453/',
+            date: '2026-03-09'
+        }
+    ],
+
+    // =========================================
     // COMMODITIES — Price Dashboard
     // =========================================
     commodities: [

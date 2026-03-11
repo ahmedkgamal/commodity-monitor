@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commodity Price Monitor — Multi-Industry Platform</title>
+    <title>CBG Industry Monitor — Multi-Industry Platform</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
     <nav id="main-nav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-brand" onclick="window.APP && window.APP.showLanding()">
-                <span class="nav-icon">&#9679;</span> Commodity Monitor
+                <span class="nav-icon">&#9679;</span> CBG Monitor
             </div>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
@@ -38,7 +38,7 @@
          ============================================= -->
     <main id="main-content">
     <div id="landing-page">
-        <h1 class="landing-title">Commodity Price Monitor</h1>
+        <h1 class="landing-title">CBG Industry Monitor</h1>
         <p class="landing-subtitle">Select an industry to view real-time prices, analysis, news, and reports.</p>
         <div class="industry-grid">
             <div class="industry-card" onclick="window.APP.showIndustry('agri')" role="button" tabindex="0" aria-label="Open Oil and Commodities dashboard">
@@ -85,13 +85,16 @@
         <!-- Header -->
         <header id="site-header">
             <div class="header-content">
-                <h1>Commodity Price Monitor</h1>
+                <h1>CBG Industry Monitor</h1>
                 <p class="subtitle">Oil & Commodities &mdash; Daily Tracker</p>
                 <div class="last-updated" id="lastUpdated">
                     <span class="pulse-dot"></span> Last Updated: <span id="updateTimestamp">Loading...</span>
                 </div>
             </div>
         </header>
+
+        <!-- Red Alerts -->
+        <div class="alerts-container" id="agriAlerts"></div>
 
         <!-- KPI Strip — Top Movers -->
         <section id="agri-kpi" class="section" style="padding-bottom:0">
@@ -216,6 +219,9 @@
             <p>Crude Oil, Natural Gas, Refined Products & NGLs</p>
         </header>
 
+        <!-- Red Alerts -->
+        <div class="alerts-container" id="oilgasAlerts"></div>
+
         <!-- KPI Strip -->
         <section class="section" style="padding-bottom:0">
             <div class="kpi-strip" id="oilgasKpiStrip"></div>
@@ -322,6 +328,9 @@
             <h1>Petrochemicals Monitor</h1>
             <p>Feedstocks, Olefins, Polymers & Aromatics</p>
         </header>
+
+        <!-- Red Alerts -->
+        <div class="alerts-container" id="petrochemAlerts"></div>
 
         <!-- KPI Strip -->
         <section class="section" style="padding-bottom:0">
@@ -430,6 +439,9 @@
             <p>Egyptian Local Prices, Feed Inputs &amp; Global Benchmarks</p>
         </header>
 
+        <!-- Red Alerts -->
+        <div class="alerts-container" id="poultryAlerts"></div>
+
         <!-- KPI Strip -->
         <section class="section" style="padding-bottom:0">
             <div class="kpi-strip" id="poultryKpiStrip"></div>
@@ -532,7 +544,7 @@
     <footer id="site-footer">
         <div class="footer-content">
             <p class="footer-main">Data sources: USDA, ICE, CME, EIA, ICIS, World Bank, MPOB. Prices are indicative and may be delayed.</p>
-            <p class="footer-secondary">Commodity Price Monitor &copy; 2026. Multi-industry commodity tracking platform.</p>
+            <p class="footer-secondary">CBG Industry Monitor &copy; 2026. Multi-industry commodity tracking platform.</p>
         </div>
     </footer>
 

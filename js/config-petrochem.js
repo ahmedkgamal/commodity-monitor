@@ -17,6 +17,30 @@
 const CONFIG_PETROCHEM = {
 
     // =========================================
+    // RED ALERTS — Critical negative developments
+    // =========================================
+    alerts: [
+        {
+            text: 'Naphtha feedstock costs surged 18% in one week as the Strait of Hormuz crisis disrupted Middle East crude supply, pushing Asia CFR naphtha to $695/MT and squeezing cracker margins across Europe and Asia.',
+            source: 'Polymerupdate',
+            url: 'https://www.polymerupdate.com/News/Details/1447068',
+            date: '2026-03-07'
+        },
+        {
+            text: 'European chemical plant closures reached an unprecedented 17.2 Mt of announced capacity shutdowns, including nine steam crackers representing a 16% net reduction in European cracking capacity.',
+            source: 'Chemical & Engineering News',
+            url: 'https://cen.acs.org/business/economy/Europe-lights-chemical-plants/104/web/2026/01',
+            date: '2026-01-15'
+        },
+        {
+            text: 'China polymer overcapacity continues to flood Asian markets with low-cost PE and PP, eroding margins for producers globally as Chinese economic slowdown drives aggressive export volumes.',
+            source: 'ChemOrbis',
+            url: 'https://www.chemorbis.com/',
+            date: '2026-03-06'
+        }
+    ],
+
+    // =========================================
     // COMMODITIES — Price Dashboard
     // =========================================
     commodities: [
