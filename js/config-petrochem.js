@@ -31,7 +31,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'S&P Global Platts',
             sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: 695.00,
+            avgLastMonth: 670.00,
+            avgYTD: 673.33,
+            avgLastYear: 636.67,
+            avgSource: 'S&P Global Platts'
         },
         {
             name: 'Naphtha (NWE CIF)',
@@ -40,7 +45,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'S&P Global Platts',
             sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Naphtha (ME FOB)',
@@ -49,7 +59,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'S&P Global Platts',
             sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/naphtha.html',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Ethane (Mt Belvieu)',
@@ -58,7 +73,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'Intratec/CME',
             sourceUrl: 'https://www.intratec.us/solutions/primary-commodity-prices/commodity/ethane-prices',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- OLEFINS ---
         {
@@ -69,7 +89,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS/CME',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/petrochemicals/ethylene-cfr-ne-asia-icis.html',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: 850.00,
+            avgLastMonth: 835.00,
+            avgYTD: 835.00,
+            avgLastYear: 770.83,
+            avgSource: 'ICIS/CME'
         },
         {
             name: 'Ethylene (NWE FD)',
@@ -78,7 +103,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/ethylene/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Propylene (FE Asia CFR)',
@@ -87,7 +117,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/propylene/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- POLYMERS ---
         {
@@ -98,7 +133,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ChemOrbis',
             sourceUrl: 'https://www.chemorbis.com/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: 1010.00,
+            avgLastMonth: 1000.00,
+            avgYTD: 1000.00,
+            avgLastYear: 989.17,
+            avgSource: 'ChemOrbis'
         },
         {
             name: 'LDPE (SE Asia CFR)',
@@ -107,7 +147,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ChemOrbis',
             sourceUrl: 'https://www.chemorbis.com/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'LLDPE (SE Asia CFR)',
@@ -116,7 +161,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ChemOrbis',
             sourceUrl: 'https://www.chemorbis.com/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Polypropylene (SE Asia CFR)',
@@ -125,7 +175,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ChemOrbis',
             sourceUrl: 'https://www.chemorbis.com/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- AROMATICS (BTX) ---
         {
@@ -136,7 +191,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/benzene/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: 920.00,
+            avgLastMonth: 910.00,
+            avgYTD: 911.67,
+            avgLastYear: 868.75,
+            avgSource: 'ICIS'
         },
         {
             name: 'Toluene (NE Asia FOB)',
@@ -145,7 +205,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/toluene/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Xylene (NE Asia FOB)',
@@ -154,7 +219,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/xylenes/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- OTHER ---
         {
@@ -165,7 +235,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/butadiene/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Methanol (US Gulf)',
@@ -174,7 +249,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'Methanex',
             sourceUrl: 'https://www.methanex.com/our-business/pricing',
-            dataDate: '2026-03-01'
+            dataDate: '2026-03-01',
+            avgThisMonth: 480.00,
+            avgLastMonth: 475.00,
+            avgYTD: 473.33,
+            avgLastYear: 438.33,
+            avgSource: 'Methanex'
         },
         {
             name: 'MEG (NE Asia CFR)',
@@ -183,7 +263,12 @@ const CONFIG_PETROCHEM = {
             unit: '$/MT',
             sourceName: 'ICIS',
             sourceUrl: 'https://www.icis.com/explore/commodities/chemicals/ethylene-glycols/',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         }
     ],
 
@@ -398,6 +483,20 @@ const CONFIG_PETROCHEM = {
             date: '2026-02-28',
             url: 'https://enterprise.press/',
             category: 'Local Production'
+        },
+        {
+            title: '\u0633\u064A\u062F\u064A \u0643\u0631\u064A\u0631 \u0644\u0644\u0628\u062A\u0631\u0648\u0643\u064A\u0645\u0627\u0648\u064A\u0627\u062A \u062A\u0639\u0644\u0646 \u0639\u0646 \u062E\u0637\u0629 \u0644\u0632\u064A\u0627\u062F\u0629 \u0627\u0644\u0625\u0646\u062A\u0627\u062C 15% \u062E\u0644\u0627\u0644 2026',
+            source: 'Al Mal News',
+            date: '2026-03-01',
+            url: 'https://almalnews.com/',
+            category: 'Local Production'
+        },
+        {
+            title: '\u0627\u0631\u062A\u0641\u0627\u0639 \u062A\u0643\u0627\u0644\u064A\u0641 \u0627\u0633\u062A\u064A\u0631\u0627\u062F \u0627\u0644\u062E\u0627\u0645\u0627\u062A \u0627\u0644\u0628\u062A\u0631\u0648\u0643\u064A\u0645\u0627\u0648\u064A\u0629 \u0641\u064A \u0645\u0635\u0631 \u0645\u0639 \u0623\u0632\u0645\u0629 \u0645\u0636\u064A\u0642 \u0647\u0631\u0645\u0632',
+            source: 'Al Borsa News',
+            date: '2026-03-06',
+            url: 'https://www.alborsanews.com/',
+            category: 'Supply Chain'
         }
     ],
 

@@ -27,7 +27,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/kg',
             sourceName: 'Arab Finance/IDSC',
             sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989',
-            dataDate: '2026-03-10'
+            dataDate: '2026-03-10',
+            avgThisMonth: 110.60,
+            avgLastMonth: 97.00,
+            avgYTD: 98.87,
+            avgLastYear: 72.50,
+            avgSource: 'Arab Finance/IDSC'
         },
         {
             name: 'Live Chicken (Baladi)',
@@ -36,7 +41,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/kg',
             sourceName: 'Al-Ard',
             sourceUrl: 'https://www.elaard.com/129926',
-            dataDate: '2026-03-10'
+            dataDate: '2026-03-10',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Frozen Chicken (Imported)',
@@ -45,7 +55,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/kg',
             sourceName: 'Zawya',
             sourceUrl: 'https://www.zawya.com/en/economy/north-africa/poultry-prices-in-egypt-rise-ahead-of-ramadan-vutby0qn',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Chilled Chicken (Sasso)',
@@ -54,7 +69,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/kg',
             sourceName: 'Al-Ard',
             sourceUrl: 'https://www.elaard.com/129926',
-            dataDate: '2026-03-10'
+            dataDate: '2026-03-10',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Table Eggs (30-egg tray)',
@@ -63,7 +83,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/tray',
             sourceName: 'Arab Finance/IDSC',
             sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989',
-            dataDate: '2026-03-10'
+            dataDate: '2026-03-10',
+            avgThisMonth: 140.50,
+            avgLastMonth: 138.00,
+            avgYTD: 136.17,
+            avgLastYear: 107.58,
+            avgSource: 'Arab Finance/IDSC'
         },
         {
             name: 'Day-Old Chick (White)',
@@ -72,7 +97,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/chick',
             sourceName: 'El-Morshed',
             sourceUrl: 'https://www.elmorshdledwagn.com/prices/1',
-            dataDate: '2026-03-10'
+            dataDate: '2026-03-10',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- EGYPTIAN FEED INPUTS ---
         {
@@ -83,7 +113,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/ton',
             sourceName: 'Al Mal News',
             sourceUrl: 'https://almalnews.com/2102453/',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 14600.00,
+            avgLastMonth: 13500.00,
+            avgYTD: 13700.00,
+            avgLastYear: 11100.00,
+            avgSource: 'Al Mal News'
         },
         {
             name: 'White Corn (Local)',
@@ -92,7 +127,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/ton',
             sourceName: 'Al Mal News',
             sourceUrl: 'https://almalnews.com/2102453/',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Soybean Meal 44% (Local)',
@@ -101,7 +141,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/ton',
             sourceName: 'Al-Ard',
             sourceUrl: 'https://www.elaard.com/129897',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Soybean Meal 46% (Imported)',
@@ -110,7 +155,12 @@ const CONFIG_POULTRY = {
             unit: 'EGP/ton',
             sourceName: 'Al-Ard',
             sourceUrl: 'https://www.elaard.com/129897',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- GLOBAL FEED BENCHMARKS ---
         {
@@ -121,7 +171,12 @@ const CONFIG_POULTRY = {
             unit: '\u00A2/bu',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/grains/corn.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 447.00,
+            avgLastMonth: 445.00,
+            avgYTD: 444.00,
+            avgLastYear: 414.67,
+            avgSource: 'CME CBOT'
         },
         {
             name: 'Soybean Meal (CBOT)',
@@ -130,7 +185,12 @@ const CONFIG_POULTRY = {
             unit: '$/short ton',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         }
     ],
 
@@ -333,6 +393,27 @@ const CONFIG_POULTRY = {
             date: '2026-02-25',
             url: 'https://english.ahram.org.eg/',
             category: 'Local Policy'
+        },
+        {
+            title: '\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u062F\u0648\u0627\u062C\u0646 \u0648\u0627\u0644\u0628\u064A\u0636 \u0627\u0644\u064A\u0648\u0645: \u0627\u0644\u0641\u0631\u0627\u062E \u0627\u0644\u0628\u064A\u0636\u0627\u0621 \u062A\u0633\u062C\u0644 110 \u062C\u0646\u064A\u0647\u0627\u062A \u0644\u0644\u0643\u064A\u0644\u0648',
+            source: 'Al Mal News',
+            date: '2026-03-10',
+            url: 'https://almalnews.com/',
+            category: 'Egyptian Prices'
+        },
+        {
+            title: '\u0627\u0631\u062A\u0641\u0627\u0639 \u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0623\u0639\u0644\u0627\u0641 \u064A\u0636\u063A\u0637 \u0639\u0644\u0649 \u0645\u0646\u062A\u062C\u064A \u0627\u0644\u062F\u0648\u0627\u062C\u0646 \u0642\u0628\u064A\u0644 \u0634\u0647\u0631 \u0631\u0645\u0636\u0627\u0646',
+            source: 'Al Ahram',
+            date: '2026-03-09',
+            url: 'https://gate.ahram.org.eg/News/Economy/',
+            category: 'Feed Costs'
+        },
+        {
+            title: '\u0627\u0644\u062D\u0643\u0648\u0645\u0629 \u062A\u0637\u0631\u062D \u062F\u062C\u0627\u062C \u0645\u062C\u0645\u062F \u0628\u0640100 \u062C\u0646\u064A\u0647 \u0641\u064A \u0645\u0646\u0627\u0641\u0630 \u0627\u0644\u062A\u0645\u0648\u064A\u0646 \u0644\u0645\u0648\u0627\u062C\u0647\u0629 \u063A\u0644\u0627\u0621 \u0627\u0644\u0623\u0633\u0639\u0627\u0631',
+            source: 'Youm7',
+            date: '2026-03-08',
+            url: 'https://www.youm7.com/',
+            category: 'Government Policy'
         }
     ],
 

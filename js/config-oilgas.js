@@ -27,7 +27,12 @@ const CONFIG_OILGAS = {
             unit: '$/bbl',
             sourceName: 'ICE Futures',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/brent-crude-oil.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 90.33,
+            avgLastMonth: 76.00,
+            avgYTD: 79.61,
+            avgLastYear: 75.07,
+            avgSource: 'CME/ICE'
         },
         {
             name: 'WTI Crude',
@@ -36,7 +41,12 @@ const CONFIG_OILGAS = {
             unit: '$/bbl',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Dubai/Oman Crude',
@@ -45,7 +55,12 @@ const CONFIG_OILGAS = {
             unit: '$/bbl',
             sourceName: 'DME/Platts',
             sourceUrl: 'https://www.theice.com/products/34361119/Murban-Crude-Oil-Futures',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- NATURAL GAS ---
         {
@@ -56,7 +71,12 @@ const CONFIG_OILGAS = {
             unit: '$/MMBtu',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/natural-gas/natural-gas.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 2.92,
+            avgLastMonth: 3.45,
+            avgYTD: 4.70,
+            avgLastYear: 2.74,
+            avgSource: 'CME NYMEX'
         },
         {
             name: 'JKM LNG (Asia)',
@@ -65,7 +85,12 @@ const CONFIG_OILGAS = {
             unit: '$/MMBtu',
             sourceName: 'ICE/Platts',
             sourceUrl: 'https://www.theice.com/products/6753653/JKM-LNG-Platts-Future',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'TTF Natural Gas (EU)',
@@ -74,7 +99,12 @@ const CONFIG_OILGAS = {
             unit: '\u20AC/MWh',
             sourceName: 'ICE Endex',
             sourceUrl: 'https://www.investing.com/commodities/dutch-ttf-gas-c1-futures',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- REFINED PRODUCTS ---
         {
@@ -85,7 +115,12 @@ const CONFIG_OILGAS = {
             unit: '$/gal',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/refined-products/rbob-gasoline.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 3.05,
+            avgLastMonth: 2.72,
+            avgYTD: 2.76,
+            avgLastYear: 2.50,
+            avgSource: 'CME NYMEX'
         },
         {
             name: '3-2-1 Crack Spread',
@@ -94,7 +129,12 @@ const CONFIG_OILGAS = {
             unit: '$/bbl',
             sourceName: 'CME Group',
             sourceUrl: 'https://www.cmegroup.com/tools-information/quikstrike/crack-spread-calculator.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- NGLs ---
         {
@@ -105,7 +145,12 @@ const CONFIG_OILGAS = {
             unit: '$/gal',
             sourceName: 'CME/OPIS',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/petrochemicals/mont-belvieu-ethane-opis-5-decimals-swap.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'Propane (Mt Belvieu)',
@@ -114,7 +159,12 @@ const CONFIG_OILGAS = {
             unit: '$/gal',
             sourceName: 'EIA/FRED',
             sourceUrl: 'https://fred.stlouisfed.org/series/DPROPANEMBTX',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: 0.605,
+            avgLastMonth: 0.58,
+            avgYTD: 0.60,
+            avgLastYear: 0.56,
+            avgSource: 'EIA/FRED'
         },
         {
             name: 'Butane (Mt Belvieu)',
@@ -123,7 +173,12 @@ const CONFIG_OILGAS = {
             unit: '$/gal',
             sourceName: 'EIA/OPIS',
             sourceUrl: 'https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm',
-            dataDate: '2026-03-07'
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         // --- MARKET INDICATORS ---
         {
@@ -134,7 +189,12 @@ const CONFIG_OILGAS = {
             unit: 'rigs',
             sourceName: 'Baker Hughes',
             sourceUrl: 'https://rigcount.bakerhughes.com/',
-            dataDate: '2026-03-06'
+            dataDate: '2026-03-06',
+            avgThisMonth: 551,
+            avgLastMonth: 550,
+            avgYTD: 549.67,
+            avgLastYear: 558.92,
+            avgSource: 'Baker Hughes'
         },
         {
             name: 'EIA Crude Inventory',
@@ -143,7 +203,12 @@ const CONFIG_OILGAS = {
             unit: 'M bbl chg',
             sourceName: 'EIA',
             sourceUrl: 'https://www.eia.gov/petroleum/supply/weekly/',
-            dataDate: '2026-03-05'
+            dataDate: '2026-03-05',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         },
         {
             name: 'VLCC Tanker Rate (ME-Asia)',
@@ -152,7 +217,12 @@ const CONFIG_OILGAS = {
             unit: '$/day',
             sourceName: 'Platts',
             sourceUrl: 'https://www.spglobal.com/commodities/en/market-insights/topics/tanker-shipping.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: null
         }
     ],
 
@@ -383,6 +453,27 @@ const CONFIG_OILGAS = {
             date: '2026-03-04',
             url: 'https://oilreviewmiddleeast.com/',
             category: 'Market Analysis'
+        },
+        {
+            title: '\u0645\u0635\u0631 \u062A\u0631\u0641\u0639 \u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0628\u0646\u0632\u064A\u0646 \u0648\u0627\u0644\u0633\u0648\u0644\u0627\u0631 \u0628\u0646\u0633\u0628 \u062A\u0635\u0644 \u0625\u0644\u0649 17% \u0628\u0633\u0628\u0628 \u0627\u0631\u062A\u0641\u0627\u0639 \u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0646\u0641\u0637 \u0639\u0627\u0644\u0645\u064A\u0627\u064B',
+            source: 'Al Shorouk',
+            date: '2026-03-10',
+            url: 'https://www.shorouknews.com/',
+            category: 'Fuel Prices'
+        },
+        {
+            title: '\u0648\u0632\u064A\u0631 \u0627\u0644\u0628\u062A\u0631\u0648\u0644 \u064A\u0628\u062D\u062B \u062A\u0637\u0648\u064A\u0631 \u062D\u0642\u0648\u0644 \u0627\u0644\u063A\u0627\u0632 \u0627\u0644\u0637\u0628\u064A\u0639\u064A \u0645\u0639 \u0634\u0631\u0643\u0627\u062A \u062F\u0648\u0644\u064A\u0629 \u0641\u064A \u0634\u0631\u0642 \u0627\u0644\u0645\u062A\u0648\u0633\u0637',
+            source: 'Al Borsa News',
+            date: '2026-03-04',
+            url: 'https://www.alborsanews.com/',
+            category: 'Natural Gas'
+        },
+        {
+            title: '\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0628\u062A\u0631\u0648\u0644 \u0627\u0644\u064A\u0648\u0645: \u062E\u0627\u0645 \u0628\u0631\u0646\u062A \u064A\u0633\u062C\u0644 \u0623\u0639\u0644\u0649 \u0645\u0633\u062A\u0648\u0649 \u0645\u0646\u0630 \u0623\u0643\u062A\u0648\u0628\u0631 2023',
+            source: 'Youm7',
+            date: '2026-03-09',
+            url: 'https://www.youm7.com/',
+            category: 'Crude Oil'
         }
     ],
 

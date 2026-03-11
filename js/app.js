@@ -282,6 +282,9 @@
                             item.price = d.today;
                             item.dataDate = 'Live';
                         }
+                        // Sync FRED-computed averages into compact table
+                        if (d.avgYTD != null) item.avgYTD = d.avgYTD;
+                        if (d.avgLastYear != null) item.avgLastYear = d.avgLastYear;
                     }
                 });
             }
@@ -365,39 +368,51 @@
             if (item.group && item.group !== currentGroup) {
                 currentGroup = item.group;
                 const groupRow = document.createElement('tr');
-                groupRow.innerHTML = `<td colspan="6" style="background:var(--bg-primary);font-weight:600;font-size:0.6875rem;color:var(--text-secondary);padding:10px 14px;letter-spacing:0.06em;text-transform:uppercase">${item.group}</td>`;
+                groupRow.innerHTML = `<td colspan="11" style="background:var(--bg-primary);font-weight:600;font-size:0.6875rem;color:var(--text-secondary);padding:10px 14px;letter-spacing:0.06em;text-transform:uppercase">${item.group}</td>`;
                 tbody.appendChild(groupRow);
             }
 
+            // Daily change
             const change = calcChange(item.price, item.prevPrice);
             const changePct = change ? change.percent : null;
-            const changeAbs = change ? change.absolute : null;
             const cls = changePct != null ? changeClass(changePct) : 'neutral';
-
-            // Conditional formatting for big moves (>5%)
             const bigMove = changePct != null && Math.abs(changePct) > 5;
             const bigCls = bigMove ? (changePct > 0 ? ' big-move-up' : ' big-move-down') : '';
 
-            // Date/live indicator
+            // MoM and YoY changes
+            const momChange = calcChange(item.avgThisMonth, item.avgLastMonth);
+            const yoyChange = calcChange(item.avgYTD, item.avgLastYear);
+
+            // Date/live + source indicator
             const dateLabel = item.dataDate === 'Live'
                 ? '<span class="data-live">Live</span>'
-                : item.dataDate
-                    ? '<span class="data-date">' + formatDate(item.dataDate) + '</span>'
-                    : '';
+                : '<a href="' + item.sourceUrl + '" target="_blank" rel="noopener" class="source-link">' + item.sourceName + '</a>'
+                  + (item.dataDate ? '<span class="data-date">' + formatDate(item.dataDate) + '</span>' : '');
+
+            // Source label for avg columns
+            const avgSrc = item.avgSource ? '<span class="data-date">' + item.avgSource + '</span>' : '';
 
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td style="font-weight:600">${item.name}</td>
-                <td class="price-value">${item.price != null ? formatPrice(item.price) : '—'}</td>
-                <td class="price-unit">${item.unit || ''}</td>
-                <td><span class="change-badge ${cls}${bigCls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></td>
+                <td class="col-commodity">${item.name}</td>
+                <td class="price-value">${item.price != null ? formatPrice(item.price) : '—'}${dateLabel}</td>
+                <td class="price-value" style="color:var(--text-secondary)">${item.prevPrice != null ? formatPrice(item.prevPrice) : '—'}</td>
                 <td><span class="change-badge ${cls}${bigCls}">${changePct != null ? (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%' : '—'}</span></td>
-                <td><a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a>${dateLabel}</td>
+                <td>${item.avgThisMonth != null ? formatPrice(item.avgThisMonth) : '—'}${item.avgThisMonth != null ? avgSrc : ''}</td>
+                <td>${item.avgLastMonth != null ? formatPrice(item.avgLastMonth) : '—'}${item.avgLastMonth != null ? avgSrc : ''}</td>
+                <td>${momChange ? '<span class="change-badge ' + changeClass(momChange.percent) + '">' + (momChange.percent >= 0 ? '+' : '') + momChange.percent.toFixed(2) + '%</span>' : '—'}</td>
+                <td>${item.avgYTD != null ? formatPrice(item.avgYTD) : '—'}${item.avgYTD != null ? avgSrc : ''}</td>
+                <td>${item.avgLastYear != null ? formatPrice(item.avgLastYear) : '—'}${item.avgLastYear != null ? avgSrc : ''}</td>
+                <td>${yoyChange ? '<span class="change-badge ' + changeClass(yoyChange.percent) + '">' + (yoyChange.percent >= 0 ? '+' : '') + yoyChange.percent.toFixed(2) + '%</span>' : '—'}</td>
+                <td class="price-unit">${item.unit || ''}</td>
             `;
             tbody.appendChild(row);
 
             // Mobile card
             if (mobileContainer) {
+                const momCls = momChange ? changeClass(momChange.percent) : 'neutral';
+                const yoyCls = yoyChange ? changeClass(yoyChange.percent) : 'neutral';
+
                 const card = document.createElement('div');
                 card.className = 'mobile-card';
                 card.innerHTML = `
@@ -413,11 +428,42 @@
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top:10px;font-size:0.75rem;display:flex;justify-content:space-between;align-items:center">
-                        <span style="color:var(--text-muted)">Change: <span class="change-${cls}">${changeAbs != null ? (changeAbs >= 0 ? '+' : '') + formatPrice(changeAbs) : '—'}</span></span>
-                        <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link">${item.sourceName} &#8599;</a>
+                    <div class="mobile-card-grid">
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">Prev Close</span>
+                            <span class="mobile-card-value">${item.prevPrice != null ? formatPrice(item.prevPrice) : '—'}</span>
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">Avg This Mo</span>
+                            <span class="mobile-card-value">${item.avgThisMonth != null ? formatPrice(item.avgThisMonth) : '—'}</span>
+                            ${item.avgSource ? '<span class="mobile-card-source">' + item.avgSource + '</span>' : ''}
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">Avg Last Mo</span>
+                            <span class="mobile-card-value">${item.avgLastMonth != null ? formatPrice(item.avgLastMonth) : '—'}</span>
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">MoM Change</span>
+                            <span class="mobile-card-value change-${momCls}">${momChange ? (momChange.percent >= 0 ? '+' : '') + momChange.percent.toFixed(2) + '%' : '—'}</span>
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">Avg YTD</span>
+                            <span class="mobile-card-value">${item.avgYTD != null ? formatPrice(item.avgYTD) : '—'}</span>
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">Avg 2025</span>
+                            <span class="mobile-card-value">${item.avgLastYear != null ? formatPrice(item.avgLastYear) : '—'}</span>
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">YoY Change</span>
+                            <span class="mobile-card-value change-${yoyCls}">${yoyChange ? (yoyChange.percent >= 0 ? '+' : '') + yoyChange.percent.toFixed(2) + '%' : '—'}</span>
+                        </div>
+                        <div class="mobile-card-item">
+                            <span class="mobile-card-label">Source</span>
+                            <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="source-link" style="font-size:0.75rem">${item.sourceName} &#8599;</a>
+                        </div>
                     </div>
-                    ${dateLabel ? '<div style="margin-top:6px;font-size:0.6875rem;color:var(--text-muted)">' + (item.dataDate === 'Live' ? 'Live data' : 'As of ' + formatDate(item.dataDate)) + '</div>' : ''}
+                    ${item.dataDate ? '<div style="margin-top:6px;font-size:0.6875rem;color:var(--text-muted)">' + (item.dataDate === 'Live' ? 'Live data' : 'As of ' + formatDate(item.dataDate)) + '</div>' : ''}
                 `;
                 mobileContainer.appendChild(card);
             }
@@ -700,7 +746,7 @@
                     <span class="news-date">${formatDate(item.date)}</span>
                 </div>
                 <span class="news-category">${item.category}</span>
-                <h4 class="news-title">${item.title}</h4>
+                <h4 class="news-title" dir="auto">${item.title}</h4>
                 <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
                     Read full article &#8594;
                 </a>
@@ -735,7 +781,7 @@
                     <span class="news-date">${formatDate(item.date)}</span>
                 </div>
                 <span class="news-category">${item.category}</span>
-                <h4 class="news-title">${item.title}</h4>
+                <h4 class="news-title" dir="auto">${item.title}</h4>
                 <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
                     Read full article &#8594;
                 </a>
@@ -1028,7 +1074,7 @@
                     <span class="news-date">${formatDate(item.date)}</span>
                 </div>
                 <span class="news-category">${item.category}</span>
-                <h4 class="news-title">${item.title}</h4>
+                <h4 class="news-title" dir="auto">${item.title}</h4>
                 <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
                     Read full article &#8594;
                 </a>
@@ -1056,7 +1102,7 @@
                     <span class="news-date">${formatDate(item.date)}</span>
                 </div>
                 <span class="news-category">${item.category}</span>
-                <h4 class="news-title">${item.title}</h4>
+                <h4 class="news-title" dir="auto">${item.title}</h4>
                 <a href="${item.url}" target="_blank" rel="noopener" class="news-link">
                     Read full article &#8594;
                 </a>

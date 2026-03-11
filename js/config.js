@@ -368,7 +368,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'Investing.com',
             sourceUrl: 'https://www.investing.com/commodities/palm-oil-usd',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: 995.00,
+            avgYTD: 1000.00,
+            avgLastYear: 996.79,
+            avgSource: 'FRED/IMF + Indonesian Govt'
         },
         {
             name: 'Soybean Oil',
@@ -377,7 +382,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-oil.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 1421.00,
+            avgLastMonth: 1283.00,
+            avgYTD: 1197.00,
+            avgLastYear: 1076.78,
+            avgSource: 'FRED/IMF + Yahoo Finance'
         },
         {
             name: 'Sunflower Oil',
@@ -386,7 +396,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'Trading Economics',
             sourceUrl: 'https://tradingeconomics.com/commodity/sunflower-oil',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: null,
+            avgYTD: 1787.00,
+            avgLastYear: 1525.66,
+            avgSource: 'FRED/IMF'
         },
         // --- SUGAR ---
         {
@@ -397,7 +412,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'ICE Futures',
             sourceUrl: 'https://www.ice.com/products/23/Sugar-No-11-Futures/data',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 309.00,
+            avgLastMonth: 305.00,
+            avgYTD: 316.00,
+            avgLastYear: 374.25,
+            avgSource: 'FRED/IMF + Yahoo Finance'
         },
         {
             name: 'White Sugar (No. 5)',
@@ -406,7 +426,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'ICE London',
             sourceUrl: 'https://www.ice.com/products/37089080/White-Sugar-Futures/data',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: null,
+            avgLastMonth: 408.00,
+            avgYTD: 417.00,
+            avgLastYear: 474.25,
+            avgSource: 'ICE/CZApp'
         },
         // --- SOYBEANS ---
         {
@@ -417,7 +442,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 433.00,
+            avgLastMonth: 418.00,
+            avgYTD: 401.00,
+            avgLastYear: 380.68,
+            avgSource: 'FRED/IMF + Yahoo Finance'
         },
         {
             name: 'Soybean Meal',
@@ -426,7 +456,12 @@ const CONFIG = {
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
-            dataDate: '2026-03-09'
+            dataDate: '2026-03-09',
+            avgThisMonth: 345.00,
+            avgLastMonth: 341.00,
+            avgYTD: 314.00,
+            avgLastYear: 309.64,
+            avgSource: 'FRED/IMF + Yahoo Finance'
         }
     ],
 
@@ -671,6 +706,27 @@ const CONFIG = {
             date: '2026-03-02',
             category: 'General',
             url: 'https://www.thenationalnews.com/business/economy/2026/03/02/egypts-economy-in-crisis-as-financial-turmoil-grips-region/'
+        },
+        {
+            title: '\u0627\u0631\u062A\u0641\u0627\u0639 \u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0632\u064A\u0648\u062A \u0627\u0644\u0646\u0628\u0627\u062A\u064A\u0629 \u0641\u064A \u0627\u0644\u0623\u0633\u0648\u0627\u0642 \u0627\u0644\u0645\u0635\u0631\u064A\u0629 \u0645\u0639 \u0627\u0642\u062A\u0631\u0627\u0628 \u0634\u0647\u0631 \u0631\u0645\u0636\u0627\u0646',
+            source: 'Al Ahram',
+            date: '2026-03-08',
+            url: 'https://gate.ahram.org.eg/News/Economy/',
+            category: 'Edible Oils'
+        },
+        {
+            title: '\u0627\u0644\u0628\u0648\u0631\u0635\u0629 \u0627\u0644\u0633\u0644\u0639\u064A\u0629: \u0645\u0635\u0631 \u062A\u062F\u0631\u0633 \u0622\u0644\u064A\u0627\u062A \u062C\u062F\u064A\u062F\u0629 \u0644\u062A\u062F\u0627\u0648\u0644 \u0627\u0644\u0633\u0643\u0631 \u0648\u0627\u0644\u062D\u0628\u0648\u0628',
+            source: 'Al Borsa News',
+            date: '2026-03-05',
+            url: 'https://www.alborsanews.com/',
+            category: 'Sugar'
+        },
+        {
+            title: '\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0633\u0644\u0639 \u0627\u0644\u063A\u0630\u0627\u0626\u064A\u0629 \u0627\u0644\u064A\u0648\u0645: \u0627\u0631\u062A\u0641\u0627\u0639 \u0627\u0644\u0632\u064A\u0648\u062A \u0648\u062B\u0628\u0627\u062A \u0627\u0644\u0633\u0643\u0631 \u0641\u064A \u0627\u0644\u0623\u0633\u0648\u0627\u0642',
+            source: 'Al Masry Al Youm',
+            date: '2026-03-07',
+            url: 'https://www.almasryalyoum.com/',
+            category: 'General'
         }
     ],
 
