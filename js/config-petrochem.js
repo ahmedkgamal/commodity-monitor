@@ -104,6 +104,20 @@ const CONFIG_PETROCHEM = {
             avgLastYear: null,
             avgSource: null
         },
+        {
+            name: 'Propane FOB Bethouia',
+            price: 695.00,
+            prevPrice: 555.00,
+            unit: '$/MT',
+            sourceName: 'Argus Media',
+            sourceUrl: 'https://www.argusmedia.com/en/commodities/lpg',
+            dataDate: '2026-03-07',
+            avgThisMonth: null,
+            avgLastMonth: 545.00,
+            avgYTD: null,
+            avgLastYear: null,
+            avgSource: 'Argus LPG World'
+        },
         // --- OLEFINS ---
         {
             group: 'Olefins',
