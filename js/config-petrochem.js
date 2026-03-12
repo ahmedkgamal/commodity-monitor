@@ -107,15 +107,16 @@ const CONFIG_PETROCHEM = {
         {
             // Saudi Aramco Contract Price (CP) for Propane — monthly posted benchmark
             // Freely reported by Reuters/Zawya/Argaam each month
-            // Mar 2026: $545/MT (unchanged), Feb 2026: $545/MT, Jan 2026: $525/MT
+            // Feb 2026: $545/MT (Zawya confirmed), Jan 2026: $525/MT (MarketScreener confirmed)
+            // Mar 2026 CP: announced but exact figure behind paywalls — update when available
             name: 'Saudi Aramco Propane CP',
             price: 545.00,
-            prevPrice: 545.00,
+            prevPrice: 525.00,
             unit: '$/MT',
             sourceName: 'Zawya (Reuters)',
             sourceUrl: 'https://www.zawya.com/en/business/energy/saudi-aramco-and-sonatrach-raise-lpg-prices-for-february-by-1-5-s5kame65',
-            dataDate: '2026-03-01',
-            avgThisMonth: 545.00,
+            dataDate: '2026-02-01',
+            avgThisMonth: null,
             avgLastMonth: 545.00,
             avgYTD: null,
             avgLastYear: null,
