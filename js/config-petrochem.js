@@ -105,15 +105,18 @@ const CONFIG_PETROCHEM = {
             avgSource: null
         },
         {
+            // Propane FOB Bethouia (Arzew, Algeria) — key Mediterranean LPG benchmark
+            // Price is subscription-gated (Argus LPG World / S&P Platts LPGaswire)
+            // Fill in actual values from your Argus or Platts subscription
             name: 'Propane FOB Bethouia',
-            price: 695.00,
-            prevPrice: 555.00,
+            price: null,
+            prevPrice: null,
             unit: '$/MT',
             sourceName: 'Argus Media',
             sourceUrl: 'https://www.argusmedia.com/en/commodities/lpg',
-            dataDate: '2026-03-07',
+            dataDate: null,
             avgThisMonth: null,
-            avgLastMonth: 545.00,
+            avgLastMonth: null,
             avgYTD: null,
             avgLastYear: null,
             avgSource: 'Argus LPG World'
