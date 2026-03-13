@@ -4,7 +4,7 @@
    DATA SOURCES:
    - Monthly averages: FRED / IMF Primary Commodity Prices (free, public)
    - Current prices: CME, ICE, Bursa Malaysia via market feeds
-   - All data last verified: March 10, 2026
+   - All data last verified: March 12, 2026
 
    TO GET LIVE AUTO-UPDATING DATA:
    1. Register free at https://fred.stlouisfed.org/docs/api/api_key.html
@@ -237,7 +237,7 @@ const CONFIG = {
     //     Sunflower Oil: no verified Feb source → null
     //   Mar 2026 partial: 6 trading days (Mar 2-9) from Yahoo Finance
     //
-    // TODAY/YESTERDAY: Exchange settlement prices, Mar 9, 2026
+    // TODAY/YESTERDAY: Exchange settlement prices, Mar 12, 2026
     //   Sources: CME/CBOT, ICE Futures, Investing.com, Bursa Malaysia
     //
     // YEARLY AVERAGES: Calculated from verified FRED monthly data
@@ -249,13 +249,13 @@ const CONFIG = {
             // Source: https://www.investing.com/commodities/palm-oil
             // Feb 2026: Indonesian govt CPO reference price ~$995/MT
             // Source: https://palmoilmagazine.com/
-            yesterdayClose: 944.00,          // Bursa FCPO pre-spike close Mar 7 (~4,219 MYR open Mar 9)
-            today: 1068.57,                  // 4,774 MYR settlement × 0.2237 USD/MYR (Mar 9)
+            yesterdayClose: 1068.57,         // Bursa FCPO previous close
+            today: 1119.50,                  // Bursa FCPO May-26 settlement (Mar 12)
             avgThisMonth: null,              // Mar 2026 — no exchange ticker on Yahoo Finance
             avgLastMonth: 995.00,            // Feb 2026: Indonesian govt CPO reference price
             avgYTD: 1000.00,                 // (Jan $1,004 + Feb $995) / 2
             avgLastYear: 996.79,             // FRED 2025 avg: (1030+1067+1057+981+903+935+931+1026+1035+1038+977+981)/12
-            originalPrice: { value: 4774, unit: 'MYR/ton' },
+            originalPrice: { value: 4549, unit: 'MYR/ton' },
             // FRED/IMF monthly data (USD/MT) — Jan verified FRED, Feb from Indonesian govt
             monthlyThisYear: [1004, 995, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [1030, 1067, 1057, 981, 903, 935, 931, 1026, 1035, 1038, 977, 981],
@@ -268,13 +268,13 @@ const CONFIG = {
             // Feb 2026: Yahoo Finance ZLK26.CBT — 19 trading days avg = 58.19 c/lb = $1,282.90/MT
             // Mar 2026 partial: 6 trading days avg = 64.47 c/lb = $1,420.73/MT
             // Source: https://finance.yahoo.com/quote/ZLK26.CBT/history/
-            yesterdayClose: 1435.00,         // ~65.10 c/lb × 22.0462 (Mar 7 close)
-            today: 1534.50,                  // 69.61 c/lb × 22.0462 (CBOT May-26 settlement Mar 9)
+            yesterdayClose: 1448.60,         // 65.70 c/lb × 22.0462 (previous close)
+            today: 1467.99,                  // 66.58 c/lb × 22.0462 (CBOT May-26 settlement Mar 12)
             avgThisMonth: 1421.00,           // Mar 2026 partial (6 days): 64.47 c/lb × 22.0462 (Yahoo Finance)
             avgLastMonth: 1283.00,           // Feb 2026 full: 58.19 c/lb × 22.0462 (Yahoo Finance ZLK26)
             avgYTD: 1197.00,                 // (Jan $1,111 + Feb $1,283) / 2
             avgLastYear: 1076.78,            // FRED 2025 avg: (967+1011+937+1048+1075+1169+1180+1151+1108+1098+1099+1080)/12
-            originalPrice: { value: 69.61, unit: 'cents/lb' },
+            originalPrice: { value: 66.58, unit: 'cents/lb' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [1111, 1283, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [967, 1011, 937, 1048, 1075, 1169, 1180, 1151, 1108, 1098, 1099, 1080],
@@ -305,13 +305,13 @@ const CONFIG = {
             // Feb 2026: Yahoo Finance SBK26.NYB — 19 trading days avg = 13.81 c/lb = $304.50/MT
             // Mar 2026 partial: 6 trading days avg = 14.00 c/lb = $308.68/MT
             // Source: https://finance.yahoo.com/quote/SBK26.NYB/history/
-            yesterdayClose: 308.65,          // ~14.00 c/lb × 22.0462 (Mar 7)
-            today: 308.87,                   // 14.01 c/lb × 22.0462 (ICE Mar 9)
+            yesterdayClose: 314.16,          // 14.25 c/lb × 22.0462 (previous close)
+            today: 316.36,                   // 14.35 c/lb × 22.0462 (ICE May-26 settlement Mar 12)
             avgThisMonth: 309.00,            // Mar 2026 partial (6 days): 14.00 c/lb × 22.0462 (Yahoo Finance)
             avgLastMonth: 305.00,            // Feb 2026 full: 13.81 c/lb × 22.0462 (Yahoo Finance SBK26)
             avgYTD: 316.00,                  // (Jan $326 + Feb $305) / 2
             avgLastYear: 374.25,             // FRED 2025 avg: 16.97 c/lb × 22.0462
-            originalPrice: { value: 14.01, unit: 'cents/lb' },
+            originalPrice: { value: 14.35, unit: 'cents/lb' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [326, 305, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [417, 445, 420, 400, 384, 358, 361, 361, 348, 343, 322, 329],
@@ -325,8 +325,8 @@ const CONFIG = {
             // Source: https://www.ice.com/products/37089080/White-Sugar-Futures/data
             // Feb 2026: CZApp daily market commentaries partial (9 of 19 trading days) ~$408/MT
             // Source: https://www.czapp.com/
-            yesterdayClose: 410.00,          // ICE No.5 Mar 7 close
-            today: 412.40,                   // ICE No.5 May-26 settlement Mar 9
+            yesterdayClose: 412.20,          // ICE No.5 previous close
+            today: 412.40,                   // ICE No.5 May-26 settlement Mar 12
             avgThisMonth: null,              // Mar 2026 — no Yahoo Finance ticker for white sugar
             avgLastMonth: 408.00,            // Feb 2026: CZApp partial data (9 trading days avg)
             avgYTD: 417.00,                  // (Jan $426 + Feb $408) / 2
@@ -344,13 +344,13 @@ const CONFIG = {
             // Feb 2026: Yahoo Finance ZSK26.CBT — 19 trading days avg = 1,138.07 c/bu = $418.13/MT
             // Mar 2026 partial: 6 trading days avg = 1,179.17 c/bu = $433.23/MT
             // Source: https://finance.yahoo.com/quote/ZSK26.CBT/history/
-            yesterdayClose: 419.30,          // 1,141 c/bu × 0.3674 (Mar 7 close)
-            today: 418.17,                   // 1,138.50 c/bu × 0.3674 (CBOT Mar 9)
+            yesterdayClose: 446.07,          // 1,214.25 c/bu × 0.3674 (previous close)
+            today: 448.88,                   // 1,221.88 c/bu × 0.3674 (CBOT May-26 settlement Mar 12)
             avgThisMonth: 433.00,            // Mar 2026 partial (6 days): 1,179.17 c/bu × 0.3674 (Yahoo Finance)
             avgLastMonth: 418.00,            // Feb 2026 full: 1,138.07 c/bu × 0.3674 (Yahoo Finance ZSK26)
             avgYTD: 401.00,                  // (Jan $383 + Feb $418) / 2
             avgLastYear: 380.68,             // FRED 2025 avg: (378+382+369+378+388+384+375+373+369+372+410+392)/12
-            originalPrice: { value: 1138.50, unit: 'cents/bushel' },
+            originalPrice: { value: 1221.88, unit: 'cents/bushel' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [383, 418, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [378, 382, 369, 378, 388, 384, 375, 373, 369, 372, 410, 392],
@@ -363,13 +363,13 @@ const CONFIG = {
             // Feb 2026: Yahoo Finance ZMK26.CBT — 19 trading days avg = $309.68/st = $341.36/MT
             // Mar 2026 partial: 6 trading days avg = $312.85/st = $344.86/MT
             // Source: https://finance.yahoo.com/quote/ZMK26.CBT/history/
-            yesterdayClose: 337.14,          // $305.60/short ton × 1.10231 (Mar 7 close)
-            today: 351.36,                   // $318.80/short ton × 1.10231 (CBOT Mar 9)
+            yesterdayClose: 351.36,          // previous close
+            today: 346.68,                   // $314.50/short ton × 1.10231 (CBOT May-26 settlement Mar 12)
             avgThisMonth: 345.00,            // Mar 2026 partial (6 days): $312.85/st × 1.10231 (Yahoo Finance)
             avgLastMonth: 341.00,            // Feb 2026 full: $309.68/st × 1.10231 (Yahoo Finance ZMK26)
             avgYTD: 314.00,                  // (Jan $286 + Feb $341) / 2
             avgLastYear: 309.64,             // FRED 2025 avg: (333+328+326+322+319+313+246+281+326+298+319+306)/12
-            originalPrice: { value: 318.80, unit: 'USD/short ton' },
+            originalPrice: { value: 314.50, unit: 'USD/short ton' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [286, 341, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [333, 328, 326, 322, 319, 313, 246, 281, 326, 298, 319, 306],
@@ -387,12 +387,12 @@ const CONFIG = {
         {
             group: 'Edible Oils',
             name: 'Crude Palm Oil (CPO)',
-            price: 1068.57,          // Bursa FCPO May-26: 4,774 MYR × 0.2237 USD/MYR
-            prevPrice: 944.00,       // Mar 7 close
+            price: 1119.50,          // Bursa FCPO May-26 settlement (Mar 12)
+            prevPrice: 1068.57,      // previous close
             unit: 'USD/MT',
             sourceName: 'Investing.com',
             sourceUrl: 'https://www.investing.com/commodities/palm-oil-usd',
-            dataDate: '2026-03-09',
+            dataDate: '2026-03-12',
             avgThisMonth: null,
             avgLastMonth: 995.00,
             avgYTD: 1000.00,
@@ -401,12 +401,12 @@ const CONFIG = {
         },
         {
             name: 'Soybean Oil',
-            price: 1534.50,          // CBOT ZL May-26: 69.61 c/lb × 22.0462
-            prevPrice: 1435.00,      // Mar 7 close
+            price: 1467.99,          // CBOT ZL May-26: 66.58 c/lb × 22.0462
+            prevPrice: 1448.60,      // 65.70 c/lb × 22.0462 (previous close)
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-oil.html',
-            dataDate: '2026-03-09',
+            dataDate: '2026-03-12',
             avgThisMonth: 1421.00,
             avgLastMonth: 1283.00,
             avgYTD: 1197.00,
@@ -431,12 +431,12 @@ const CONFIG = {
         {
             group: 'Sugar',
             name: 'Raw Sugar (No. 11)',
-            price: 308.87,           // ICE No.11 May-26: 14.01 c/lb × 22.0462
-            prevPrice: 308.65,       // Mar 7 close
+            price: 316.36,           // ICE No.11 May-26: 14.35 c/lb × 22.0462
+            prevPrice: 314.16,       // 14.25 c/lb × 22.0462 (previous close)
             unit: 'USD/MT',
             sourceName: 'ICE Futures',
             sourceUrl: 'https://www.ice.com/products/23/Sugar-No-11-Futures/data',
-            dataDate: '2026-03-09',
+            dataDate: '2026-03-12',
             avgThisMonth: 309.00,
             avgLastMonth: 305.00,
             avgYTD: 316.00,
@@ -446,11 +446,11 @@ const CONFIG = {
         {
             name: 'White Sugar (No. 5)',
             price: 412.40,           // ICE London No.5 May-26 settlement
-            prevPrice: 410.00,       // Mar 7 close
+            prevPrice: 412.20,       // previous close
             unit: 'USD/MT',
             sourceName: 'ICE London',
             sourceUrl: 'https://www.ice.com/products/37089080/White-Sugar-Futures/data',
-            dataDate: '2026-03-09',
+            dataDate: '2026-03-12',
             avgThisMonth: null,
             avgLastMonth: 408.00,
             avgYTD: 417.00,
@@ -461,12 +461,12 @@ const CONFIG = {
         {
             group: 'Soybeans',
             name: 'Soybeans',
-            price: 418.17,           // CBOT ZS Mar-26: 1,138.50 c/bu × 0.3674
-            prevPrice: 419.30,       // Mar 7 close
+            price: 448.88,           // CBOT ZS May-26: 1,221.88 c/bu × 0.3674
+            prevPrice: 446.07,       // 1,214.25 c/bu × 0.3674 (previous close)
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean.html',
-            dataDate: '2026-03-09',
+            dataDate: '2026-03-12',
             avgThisMonth: 433.00,
             avgLastMonth: 418.00,
             avgYTD: 401.00,
@@ -475,12 +475,12 @@ const CONFIG = {
         },
         {
             name: 'Soybean Meal',
-            price: 351.36,           // CBOT ZM Mar-26: $318.80/st × 1.10231
-            prevPrice: 337.14,       // Mar 7 close
+            price: 346.68,           // CBOT ZM May-26: $314.50/st × 1.10231
+            prevPrice: 351.36,       // previous close
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
-            dataDate: '2026-03-09',
+            dataDate: '2026-03-12',
             avgThisMonth: 345.00,
             avgLastMonth: 341.00,
             avgYTD: 314.00,

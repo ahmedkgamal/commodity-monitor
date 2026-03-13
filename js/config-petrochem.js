@@ -7,7 +7,7 @@
    - Polymers: ChemOrbis, ICIS, Polymerupdate
    - Aromatics: ICIS, Platts
    - Other: Methanex (Methanol), ICIS (MEG)
-   - All data last verified: March 10, 2026
+   - All data last verified: March 12, 2026
 
    NOTE: Many petrochemical prices are subscription-gated.
    Prices shown are based on latest publicly available
