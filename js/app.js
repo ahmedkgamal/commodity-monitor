@@ -1360,37 +1360,42 @@
     // TIMESTAMP
     // =========================================
     function updateTimestamp() {
-        const el = document.getElementById('updateTimestamp');
-        if (!el) return;
+        // Map each industry to its config's commodity array
+        var industryConfigs = {
+            agri:      { cfg: typeof CONFIG !== 'undefined' ? CONFIG : null, key: 'compactCommodities' },
+            oilgas:    { cfg: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null, key: 'commodities' },
+            petrochem: { cfg: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null, key: 'commodities' },
+            poultry:   { cfg: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null, key: 'commodities' }
+        };
 
-        // Find the most recent dataDate across all configs
-        var latestDate = null;
-        var configs = [
-            { cfg: typeof CONFIG !== 'undefined' ? CONFIG : null, key: 'compactCommodities' },
-            { cfg: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null, key: 'commodities' },
-            { cfg: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null, key: 'commodities' },
-            { cfg: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null, key: 'commodities' }
-        ];
-        configs.forEach(function(c) {
-            if (!c.cfg || !c.cfg[c.key]) return;
-            c.cfg[c.key].forEach(function(item) {
+        // Update each industry's timestamp element independently
+        document.querySelectorAll('.update-timestamp').forEach(function(el) {
+            var industry = el.getAttribute('data-industry');
+            var ic = industryConfigs[industry];
+            if (!ic || !ic.cfg || !ic.cfg[ic.key]) {
+                el.textContent = 'No data';
+                return;
+            }
+
+            var latestDate = null;
+            ic.cfg[ic.key].forEach(function(item) {
                 if (item.dataDate) {
                     var d = new Date(item.dataDate + 'T00:00:00');
                     if (!latestDate || d > latestDate) latestDate = d;
                 }
             });
-        });
 
-        if (latestDate) {
-            el.textContent = latestDate.toLocaleDateString('en-US', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
-        } else {
-            el.textContent = 'No data';
-        }
+            if (latestDate) {
+                el.textContent = latestDate.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            } else {
+                el.textContent = 'No data';
+            }
+        });
     }
 
 })();

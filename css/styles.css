@@ -1120,6 +1120,10 @@ body {
     font-size: 0.9375rem;
 }
 
+.industry-header .last-updated {
+    margin-top: 14px;
+}
+
 .back-to-landing {
     display: inline-flex;
     align-items: center;
