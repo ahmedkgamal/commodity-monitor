@@ -1362,31 +1362,35 @@
     function updateTimestamp() {
         const el = document.getElementById('updateTimestamp');
         if (!el) return;
-        const now = new Date();
-        el.textContent = now.toLocaleString('en-US', {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
+
+        // Find the most recent dataDate across all configs
+        var latestDate = null;
+        var configs = [
+            { cfg: typeof CONFIG !== 'undefined' ? CONFIG : null, key: 'compactCommodities' },
+            { cfg: typeof CONFIG_OILGAS !== 'undefined' ? CONFIG_OILGAS : null, key: 'commodities' },
+            { cfg: typeof CONFIG_PETROCHEM !== 'undefined' ? CONFIG_PETROCHEM : null, key: 'commodities' },
+            { cfg: typeof CONFIG_POULTRY !== 'undefined' ? CONFIG_POULTRY : null, key: 'commodities' }
+        ];
+        configs.forEach(function(c) {
+            if (!c.cfg || !c.cfg[c.key]) return;
+            c.cfg[c.key].forEach(function(item) {
+                if (item.dataDate) {
+                    var d = new Date(item.dataDate + 'T00:00:00');
+                    if (!latestDate || d > latestDate) latestDate = d;
+                }
+            });
         });
 
-        setInterval(() => {
-            const t = new Date();
-            el.textContent = t.toLocaleString('en-US', {
+        if (latestDate) {
+            el.textContent = latestDate.toLocaleDateString('en-US', {
                 weekday: 'short',
                 month: 'short',
                 day: 'numeric',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true
+                year: 'numeric'
             });
-        }, 60000);
+        } else {
+            el.textContent = 'No data';
+        }
     }
 
 })();
