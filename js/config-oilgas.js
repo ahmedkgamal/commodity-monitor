@@ -6,7 +6,7 @@
    - Natural Gas: CME Henry Hub, ICE TTF, Platts JKM
    - NGLs: FRED/EIA Mont Belvieu spot prices
    - Market Indicators: Baker Hughes, EIA Weekly Petroleum Status
-   - All data last verified: March 12, 2026
+   - All data last verified: March 15, 2026
 
    NOTE: Oil markets are experiencing extreme volatility
    due to the Iran conflict and Strait of Hormuz disruption.
@@ -46,12 +46,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Crude Oil',
             name: 'Brent Crude',
-            price: 100.46,
-            prevPrice: 91.98,
+            price: 103.14,
+            prevPrice: 100.46,
             unit: '$/bbl',
             sourceName: 'ICE Futures',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/brent-crude-oil.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 90.33,
             avgLastMonth: 76.00,
             avgYTD: 79.61,
@@ -60,12 +60,12 @@ const CONFIG_OILGAS = {
         },
         {
             name: 'WTI Crude',
-            price: 95.73,
-            prevPrice: 87.25,
+            price: 98.71,
+            prevPrice: 95.73,
             unit: '$/bbl',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: null,
             avgLastMonth: null,
             avgYTD: null,
@@ -90,12 +90,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Natural Gas',
             name: 'Henry Hub Nat Gas',
-            price: 3.21,
-            prevPrice: 3.209,
+            price: 3.13,
+            prevPrice: 3.21,
             unit: '$/MMBtu',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/natural-gas/natural-gas.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 2.92,
             avgLastMonth: 3.45,
             avgYTD: 4.70,
@@ -118,12 +118,12 @@ const CONFIG_OILGAS = {
         },
         {
             name: 'TTF Natural Gas (EU)',
-            price: 50.90,
-            prevPrice: 49.99,
+            price: 49.69,
+            prevPrice: 50.90,
             unit: '\u20AC/MWh',
             sourceName: 'ICE Endex',
             sourceUrl: 'https://www.investing.com/commodities/dutch-ttf-gas-c1-futures',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-14',
             avgThisMonth: null,
             avgLastMonth: null,
             avgYTD: null,
@@ -134,12 +134,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Refined Products',
             name: 'RBOB Gasoline',
-            price: 2.9768,
-            prevPrice: 2.7883,
+            price: 3.0414,
+            prevPrice: 2.9768,
             unit: '$/gal',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/refined-products/rbob-gasoline.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 3.05,
             avgLastMonth: 2.72,
             avgYTD: 2.76,
@@ -178,8 +178,8 @@ const CONFIG_OILGAS = {
         },
         {
             name: 'Propane (Mt Belvieu)',
-            price: 0.740,
-            prevPrice: 0.663,
+            price: 0.745,
+            prevPrice: 0.740,
             unit: '$/gal',
             sourceName: 'EIA/FRED',
             sourceUrl: 'https://fred.stlouisfed.org/series/DPROPANEMBTX',
@@ -208,12 +208,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Market Indicators',
             name: 'Baker Hughes Rig Count',
-            price: 551,
-            prevPrice: 550,
+            price: 553,
+            prevPrice: 551,
             unit: 'rigs',
             sourceName: 'Baker Hughes',
             sourceUrl: 'https://rigcount.bakerhughes.com/',
-            dataDate: '2026-03-06',
+            dataDate: '2026-03-13',
             avgThisMonth: 551,
             avgLastMonth: 550,
             avgYTD: 549.67,
@@ -417,17 +417,17 @@ const CONFIG_OILGAS = {
             category: 'Market Indicators'
         },
         {
-            title: 'EIA: U.S. rig counts remain low as production efficiencies improve to record levels',
-            source: 'EIA',
-            date: '2026-02-27',
-            url: 'https://www.eia.gov/todayinenergy/detail.php?id=66645',
+            title: 'U.S. drilling activity rises as Baker Hughes rig count ticks up to 553 amid oil price surge',
+            source: 'FX.co',
+            date: '2026-03-13',
+            url: 'https://www.fx.co/en/forex-news/2935382',
             category: 'Market Indicators'
         },
         {
-            title: 'European gas market volatility puts continued pressure on competitiveness and cost of living — IEA',
-            source: 'IEA',
-            date: '2026-02-20',
-            url: 'https://www.iea.org/commentaries/european-gas-market-volatility-puts-continued-pressure-on-competitiveness-and-cost-of-living',
+            title: 'European gas prices jump by as much as 45% as Qatar stops LNG production',
+            source: 'Euronews',
+            date: '2026-03-02',
+            url: 'https://www.euronews.com/business/2026/03/02/european-gas-prices-jump-by-as-much-as-45-as-qatar-stops-lng-production',
             category: 'Natural Gas'
         }
     ],

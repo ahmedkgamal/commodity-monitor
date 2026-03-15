@@ -6,7 +6,7 @@
    - Feed Inputs (Egypt): Al Mal News, Al-Ard, Vetogate
    - Feed Inputs (Global): CME/CBOT (corn, soybean meal)
    - Market Indicators: USDA NASS, CAPMAS
-   - All data last verified: March 12, 2026
+   - All data last verified: March 15, 2026
 
    NOTE: Egyptian poultry prices are surging ahead of Ramadan 2026,
    driven by seasonal demand, rising feed costs, and EGP depreciation.
@@ -47,11 +47,11 @@ const CONFIG_POULTRY = {
             group: 'Egyptian Local Prices',
             name: 'Live Chicken (White)',
             price: 101.00,
-            prevPrice: 100.00,
+            prevPrice: 101.00,
             unit: 'EGP/kg',
-            sourceName: 'Arab Finance/IDSC',
-            sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989',
-            dataDate: '2026-03-12',
+            sourceName: 'Al-Masry Al-Youm',
+            sourceUrl: 'https://www.almasryalyoum.com/news/details/4222294',
+            dataDate: '2026-03-15',
             avgThisMonth: 110.60,
             avgLastMonth: 97.00,
             avgYTD: 98.87,
@@ -60,12 +60,12 @@ const CONFIG_POULTRY = {
         },
         {
             name: 'Live Chicken (Baladi)',
-            price: 120.00,
-            prevPrice: 125.00,
+            price: 125.00,
+            prevPrice: 120.00,
             unit: 'EGP/kg',
-            sourceName: 'Al-Ard',
-            sourceUrl: 'https://www.elaard.com/129926',
-            dataDate: '2026-03-12',
+            sourceName: 'Al-Masry Al-Youm',
+            sourceUrl: 'https://www.almasryalyoum.com/news/details/4222166',
+            dataDate: '2026-03-15',
             avgThisMonth: null,
             avgLastMonth: null,
             avgYTD: null,
@@ -88,12 +88,12 @@ const CONFIG_POULTRY = {
         },
         {
             name: 'Chilled Chicken (Sasso)',
-            price: 110.00,
-            prevPrice: 113.00,
+            price: 108.00,
+            prevPrice: 110.00,
             unit: 'EGP/kg',
-            sourceName: 'Al-Ard',
-            sourceUrl: 'https://www.elaard.com/129926',
-            dataDate: '2026-03-12',
+            sourceName: 'Al-Masry Al-Youm',
+            sourceUrl: 'https://www.almasryalyoum.com/news/details/4222166',
+            dataDate: '2026-03-15',
             avgThisMonth: null,
             avgLastMonth: null,
             avgYTD: null,
@@ -102,12 +102,12 @@ const CONFIG_POULTRY = {
         },
         {
             name: 'Table Eggs (30-egg tray)',
-            price: 118.00,
-            prevPrice: 115.50,
+            price: 125.00,
+            prevPrice: 118.00,
             unit: 'EGP/tray',
-            sourceName: 'Arab Finance/IDSC',
-            sourceUrl: 'https://www.arabfinance.com/en/news/newdetails/40989',
-            dataDate: '2026-03-12',
+            sourceName: 'Al-Masry Al-Youm',
+            sourceUrl: 'https://www.almasryalyoum.com/news/details/4222166',
+            dataDate: '2026-03-15',
             avgThisMonth: 140.50,
             avgLastMonth: 138.00,
             avgYTD: 136.17,
@@ -190,12 +190,12 @@ const CONFIG_POULTRY = {
         {
             group: 'Global Feed Benchmarks',
             name: 'Corn (CBOT Front-Month)',
-            price: 462.375,
-            prevPrice: 460.00,
+            price: 437.50,
+            prevPrice: 462.375,
             unit: '\u00A2/bu',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/grains/corn.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 447.00,
             avgLastMonth: 445.00,
             avgYTD: 444.00,
@@ -204,12 +204,12 @@ const CONFIG_POULTRY = {
         },
         {
             name: 'Soybean Meal (CBOT)',
-            price: 314.50,
-            prevPrice: 305.60,
+            price: 311.80,
+            prevPrice: 314.50,
             unit: '$/short ton',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: null,
             avgLastMonth: null,
             avgYTD: null,
@@ -364,18 +364,18 @@ const CONFIG_POULTRY = {
             category: 'Feed Grains'
         },
         {
-            title: 'Prospects for swine and poultry feed costs in 2026: corn $4.25\u2013$4.50, SBM $275\u2013$325',
-            source: 'farmdoc daily',
-            date: '2026-02-12',
-            url: 'https://farmdocdaily.illinois.edu/2026/02/prospects-for-swine-feed-costs-in-2026.html',
-            category: 'Feed Costs'
+            title: 'CBOT corn and soybean meal ease from Ramadan highs as WASDE shows ample global stocks',
+            source: 'CME CBOT',
+            date: '2026-03-11',
+            url: 'https://www.cmegroup.com/markets/agriculture/grains/corn.html',
+            category: 'Feed Grains'
         },
         {
-            title: 'Middle East poultry imports forecast to grow 4% in 2026 as regional population expands',
-            source: 'The Poultry Site',
-            date: '2026-02-18',
-            url: 'https://www.thepoultrysite.com/',
-            category: 'Trade'
+            title: 'أسعار الفراخ البيضاء والساسو وكرتونة البيض اليوم الأحد 15 مارس 2026 في بورصة الدواجن',
+            source: 'Al-Masry Al-Youm',
+            date: '2026-03-15',
+            url: 'https://www.almasryalyoum.com/news/details/4222166',
+            category: 'Egyptian Prices'
         }
     ],
 
@@ -412,11 +412,11 @@ const CONFIG_POULTRY = {
             category: 'Food Prices'
         },
         {
-            title: 'Egypt aims to boost local poultry production to reduce reliance on imported frozen chicken',
-            source: 'Ahram Online',
-            date: '2026-02-25',
-            url: 'https://english.ahram.org.eg/',
-            category: 'Local Policy'
+            title: 'أسعار الدواجن والبيض اليوم الأحد 15 مارس 2026: الفراخ البيضاء 101 جنيه والبيض الأبيض 125 جنيه',
+            source: 'Al-Masry Al-Youm',
+            date: '2026-03-15',
+            url: 'https://www.almasryalyoum.com/news/details/4222294',
+            category: 'Egyptian Prices'
         },
         {
             title: '\u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u062F\u0648\u0627\u062C\u0646 \u0648\u0627\u0644\u0628\u064A\u0636 \u0627\u0644\u064A\u0648\u0645: \u0627\u0644\u0641\u0631\u0627\u062E \u0627\u0644\u0628\u064A\u0636\u0627\u0621 \u062A\u0633\u062C\u0644 110 \u062C\u0646\u064A\u0647\u0627\u062A \u0644\u0644\u0643\u064A\u0644\u0648',

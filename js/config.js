@@ -4,7 +4,7 @@
    DATA SOURCES:
    - Monthly averages: FRED / IMF Primary Commodity Prices (free, public)
    - Current prices: CME, ICE, Bursa Malaysia via market feeds
-   - All data last verified: March 12, 2026
+   - All data last verified: March 15, 2026
 
    TO GET LIVE AUTO-UPDATING DATA:
    1. Register free at https://fred.stlouisfed.org/docs/api/api_key.html
@@ -237,7 +237,7 @@ const CONFIG = {
     //     Sunflower Oil: no verified Feb source → null
     //   Mar 2026 partial: 6 trading days (Mar 2-9) from Yahoo Finance
     //
-    // TODAY/YESTERDAY: Exchange settlement prices, Mar 12, 2026
+    // TODAY/YESTERDAY: Exchange settlement prices, Mar 15, 2026
     //   Sources: CME/CBOT, ICE Futures, Investing.com, Bursa Malaysia
     //
     // YEARLY AVERAGES: Calculated from verified FRED monthly data
@@ -263,18 +263,18 @@ const CONFIG = {
         },
         soybean_oil: {
             // FRED series PSOILUSDM — verified ✓
-            // Today: CME CBOT ZL May-26 at 69.61 c/lb (Mar 9 settlement)
+            // Today: CME CBOT ZL May-26 at 65.10 c/lb (Mar 15 open)
             // Source: https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-oil.html
             // Feb 2026: Yahoo Finance ZLK26.CBT — 19 trading days avg = 58.19 c/lb = $1,282.90/MT
             // Mar 2026 partial: 6 trading days avg = 64.47 c/lb = $1,420.73/MT
             // Source: https://finance.yahoo.com/quote/ZLK26.CBT/history/
-            yesterdayClose: 1448.60,         // 65.70 c/lb × 22.0462 (previous close)
-            today: 1467.99,                  // 66.58 c/lb × 22.0462 (CBOT May-26 settlement Mar 12)
+            yesterdayClose: 1467.99,         // 66.58 c/lb × 22.0462 (Mar 12 settlement)
+            today: 1435.21,                  // 65.10 c/lb × 22.0462 (CBOT May-26 open Mar 15)
             avgThisMonth: 1421.00,           // Mar 2026 partial (6 days): 64.47 c/lb × 22.0462 (Yahoo Finance)
             avgLastMonth: 1283.00,           // Feb 2026 full: 58.19 c/lb × 22.0462 (Yahoo Finance ZLK26)
             avgYTD: 1197.00,                 // (Jan $1,111 + Feb $1,283) / 2
             avgLastYear: 1076.78,            // FRED 2025 avg: (967+1011+937+1048+1075+1169+1180+1151+1108+1098+1099+1080)/12
-            originalPrice: { value: 66.58, unit: 'cents/lb' },
+            originalPrice: { value: 65.10, unit: 'cents/lb' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [1111, 1283, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [967, 1011, 937, 1048, 1075, 1169, 1180, 1151, 1108, 1098, 1099, 1080],
@@ -305,8 +305,8 @@ const CONFIG = {
             // Feb 2026: Yahoo Finance SBK26.NYB — 19 trading days avg = 13.81 c/lb = $304.50/MT
             // Mar 2026 partial: 6 trading days avg = 14.00 c/lb = $308.68/MT
             // Source: https://finance.yahoo.com/quote/SBK26.NYB/history/
-            yesterdayClose: 314.16,          // 14.25 c/lb × 22.0462 (previous close)
-            today: 316.36,                   // 14.35 c/lb × 22.0462 (ICE May-26 settlement Mar 12)
+            yesterdayClose: 316.36,          // 14.35 c/lb × 22.0462 (Mar 12 settlement)
+            today: 316.36,                   // 14.35 c/lb × 22.0462 (ICE May-26 confirmed Mar 15 — unchanged)
             avgThisMonth: 309.00,            // Mar 2026 partial (6 days): 14.00 c/lb × 22.0462 (Yahoo Finance)
             avgLastMonth: 305.00,            // Feb 2026 full: 13.81 c/lb × 22.0462 (Yahoo Finance SBK26)
             avgYTD: 316.00,                  // (Jan $326 + Feb $305) / 2
@@ -325,8 +325,8 @@ const CONFIG = {
             // Source: https://www.ice.com/products/37089080/White-Sugar-Futures/data
             // Feb 2026: CZApp daily market commentaries partial (9 of 19 trading days) ~$408/MT
             // Source: https://www.czapp.com/
-            yesterdayClose: 412.20,          // ICE No.5 previous close
-            today: 412.40,                   // ICE No.5 May-26 settlement Mar 12
+            yesterdayClose: 412.40,          // ICE No.5 Mar 12 settlement
+            today: 412.40,                   // ICE No.5 May-26 confirmed Mar 15 — unchanged
             avgThisMonth: null,              // Mar 2026 — no Yahoo Finance ticker for white sugar
             avgLastMonth: 408.00,            // Feb 2026: CZApp partial data (9 trading days avg)
             avgYTD: 417.00,                  // (Jan $426 + Feb $408) / 2
@@ -339,18 +339,18 @@ const CONFIG = {
         },
         soybeans: {
             // FRED series PSOYBUSDM — verified ✓
-            // Today: CME CBOT ZS Mar-26 at 1,138.50 c/bu (Mar 9)
+            // Today: CME CBOT ZS May-26 at 1,172.50 c/bu (Mar 15, Yahoo Finance delayed)
             // Source: https://www.cmegroup.com/markets/agriculture/oilseeds/soybean.html
             // Feb 2026: Yahoo Finance ZSK26.CBT — 19 trading days avg = 1,138.07 c/bu = $418.13/MT
             // Mar 2026 partial: 6 trading days avg = 1,179.17 c/bu = $433.23/MT
             // Source: https://finance.yahoo.com/quote/ZSK26.CBT/history/
-            yesterdayClose: 446.07,          // 1,214.25 c/bu × 0.3674 (previous close)
-            today: 448.88,                   // 1,221.88 c/bu × 0.3674 (CBOT May-26 settlement Mar 12)
+            yesterdayClose: 448.88,          // 1,221.88 c/bu × 0.3674 (Mar 12 settlement)
+            today: 430.78,                   // 1,172.50 c/bu × 0.3674 (CBOT May-26 Mar 15)
             avgThisMonth: 433.00,            // Mar 2026 partial (6 days): 1,179.17 c/bu × 0.3674 (Yahoo Finance)
             avgLastMonth: 418.00,            // Feb 2026 full: 1,138.07 c/bu × 0.3674 (Yahoo Finance ZSK26)
             avgYTD: 401.00,                  // (Jan $383 + Feb $418) / 2
             avgLastYear: 380.68,             // FRED 2025 avg: (378+382+369+378+388+384+375+373+369+372+410+392)/12
-            originalPrice: { value: 1221.88, unit: 'cents/bushel' },
+            originalPrice: { value: 1172.50, unit: 'cents/bushel' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [383, 418, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [378, 382, 369, 378, 388, 384, 375, 373, 369, 372, 410, 392],
@@ -358,18 +358,18 @@ const CONFIG = {
         },
         soybean_meal: {
             // FRED series PSMEAUSDM — verified ✓
-            // Today: CME CBOT ZM Mar-26 at $318.80/short ton (Mar 9)
+            // Today: CME CBOT ZM May-26 (ZMK26) at $311.80/short ton (Mar 15, Barchart)
             // Source: https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html
             // Feb 2026: Yahoo Finance ZMK26.CBT — 19 trading days avg = $309.68/st = $341.36/MT
             // Mar 2026 partial: 6 trading days avg = $312.85/st = $344.86/MT
             // Source: https://finance.yahoo.com/quote/ZMK26.CBT/history/
-            yesterdayClose: 351.36,          // previous close
-            today: 346.68,                   // $314.50/short ton × 1.10231 (CBOT May-26 settlement Mar 12)
+            yesterdayClose: 346.68,          // $314.50/short ton × 1.10231 (Mar 12 settlement)
+            today: 343.70,                   // $311.80/short ton × 1.10231 (CBOT May-26 Mar 15)
             avgThisMonth: 345.00,            // Mar 2026 partial (6 days): $312.85/st × 1.10231 (Yahoo Finance)
             avgLastMonth: 341.00,            // Feb 2026 full: $309.68/st × 1.10231 (Yahoo Finance ZMK26)
             avgYTD: 314.00,                  // (Jan $286 + Feb $341) / 2
             avgLastYear: 309.64,             // FRED 2025 avg: (333+328+326+322+319+313+246+281+326+298+319+306)/12
-            originalPrice: { value: 314.50, unit: 'USD/short ton' },
+            originalPrice: { value: 311.80, unit: 'USD/short ton' },
             // Jan: FRED verified; Feb: Yahoo Finance 19-day avg; Mar onward: null
             monthlyThisYear: [286, 341, null, null, null, null, null, null, null, null, null, null],
             monthlyLastYear: [333, 328, 326, 322, 319, 313, 246, 281, 326, 298, 319, 306],
@@ -401,12 +401,12 @@ const CONFIG = {
         },
         {
             name: 'Soybean Oil',
-            price: 1467.99,          // CBOT ZL May-26: 66.58 c/lb × 22.0462
-            prevPrice: 1448.60,      // 65.70 c/lb × 22.0462 (previous close)
+            price: 1435.21,          // CBOT ZL May-26: 65.10 c/lb × 22.0462 (Mar 15 open)
+            prevPrice: 1467.99,      // 66.58 c/lb × 22.0462 (Mar 12 settlement)
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-oil.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 1421.00,
             avgLastMonth: 1283.00,
             avgYTD: 1197.00,
@@ -431,12 +431,12 @@ const CONFIG = {
         {
             group: 'Sugar',
             name: 'Raw Sugar (No. 11)',
-            price: 316.36,           // ICE No.11 May-26: 14.35 c/lb × 22.0462
-            prevPrice: 314.16,       // 14.25 c/lb × 22.0462 (previous close)
+            price: 316.36,           // ICE No.11 May-26: 14.35 c/lb × 22.0462 (confirmed Mar 15)
+            prevPrice: 316.36,       // 14.35 c/lb × 22.0462 (Mar 12 settlement — unchanged)
             unit: 'USD/MT',
             sourceName: 'ICE Futures',
             sourceUrl: 'https://www.ice.com/products/23/Sugar-No-11-Futures/data',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 309.00,
             avgLastMonth: 305.00,
             avgYTD: 316.00,
@@ -445,12 +445,12 @@ const CONFIG = {
         },
         {
             name: 'White Sugar (No. 5)',
-            price: 412.40,           // ICE London No.5 May-26 settlement
-            prevPrice: 412.20,       // previous close
+            price: 412.40,           // ICE London No.5 May-26 confirmed Mar 15 — unchanged
+            prevPrice: 412.40,       // Mar 12 settlement — unchanged
             unit: 'USD/MT',
             sourceName: 'ICE London',
             sourceUrl: 'https://www.ice.com/products/37089080/White-Sugar-Futures/data',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: null,
             avgLastMonth: 408.00,
             avgYTD: 417.00,
@@ -461,12 +461,12 @@ const CONFIG = {
         {
             group: 'Soybeans',
             name: 'Soybeans',
-            price: 448.88,           // CBOT ZS May-26: 1,221.88 c/bu × 0.3674
-            prevPrice: 446.07,       // 1,214.25 c/bu × 0.3674 (previous close)
+            price: 430.78,           // CBOT ZS May-26: 1,172.50 c/bu × 0.3674 (Mar 15)
+            prevPrice: 448.88,       // 1,221.88 c/bu × 0.3674 (Mar 12 settlement)
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 433.00,
             avgLastMonth: 418.00,
             avgYTD: 401.00,
@@ -475,12 +475,12 @@ const CONFIG = {
         },
         {
             name: 'Soybean Meal',
-            price: 346.68,           // CBOT ZM May-26: $314.50/st × 1.10231
-            prevPrice: 351.36,       // previous close
+            price: 343.70,           // CBOT ZM May-26: $311.80/st × 1.10231 (Mar 15)
+            prevPrice: 346.68,       // $314.50/st × 1.10231 (Mar 12 settlement)
             unit: 'USD/MT',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/oilseeds/soybean-meal.html',
-            dataDate: '2026-03-12',
+            dataDate: '2026-03-15',
             avgThisMonth: 345.00,
             avgLastMonth: 341.00,
             avgYTD: 314.00,
@@ -662,25 +662,25 @@ const CONFIG = {
             url: 'https://vespertool.com/news/sugar-prices-near-multi-year-lows-as-global-surplus-holds-crude-volatility-adds-uncertainty'
         },
         {
-            title: 'Soybean oil prices expected to rise in 2026-27 on biofuel demand surge',
-            source: 'Western Producer',
-            date: '2026-02-20',
-            category: 'Soybeans',
-            url: 'https://www.producer.com/markets/soybean-oil-prices-expected-to-rise-in-2026-27/'
-        },
-        {
-            title: 'Commodities 2026: Firm demand to offset larger supplies in palm oil markets',
-            source: 'S&P Global',
-            date: '2025-12-18',
+            title: 'Palm oil prices spike as biofuel demand surges amid crude oil rally above $110/bbl',
+            source: 'FinancialContent',
+            date: '2026-03-09',
             category: 'Edible Oils',
-            url: 'https://www.spglobal.com/energy/en/news-research/latest-news/agriculture/121825-commodities-2026-firm-demand-to-offset-larger-supplies-in-palm-oil-markets'
+            url: 'https://markets.financialcontent.com/stocks/article/marketminute-2026-3-9-palm-oil-prices-spike-as-biofuel-demand-surges-amid-crude-rally'
         },
         {
-            title: 'USDA Oilseeds: World Markets and Trade — global stocks at record 125.5 MMT',
-            source: 'USDA FAS',
-            date: '2026-01-12',
-            category: 'Soybeans',
-            url: 'https://www.fas.usda.gov/data/oilseeds-world-markets-and-trade-01122026'
+            title: 'Indonesia sets March 2026 CPO reference price at USD 938.87/MT; export duties jump to $124/MT',
+            source: 'Palm Oil Magazine',
+            date: '2026-03-01',
+            category: 'Edible Oils',
+            url: 'https://www.palmoilmagazine.com/cpo-price/2026/03/01/indonesia-sets-march-2026-cpo-reference-price-at-usd-938-87-mt-export-duties-adjusted/'
+        },
+        {
+            title: 'Indonesia issues new ISPO regulation for palm oil bioenergy to support B40 biodiesel mandate',
+            source: 'Palm Oil Magazine',
+            date: '2026-03-11',
+            category: 'Edible Oils',
+            url: 'https://www.palmoilmagazine.com/regulation/2026/03/11/indonesia-issues-new-ispo-regulation-for-palm-oil-bioenergy-to-support-b40-biodiesel-and-strengthen-energy-security/'
         }
     ],
 
