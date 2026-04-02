@@ -4,6 +4,11 @@ on:
   schedule:
     # Run daily at 6:00 AM UTC (after US markets close, before Asia opens)
     - cron: '0 6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_prices.py'
+      - '.github/workflows/update-prices.yml'
   workflow_dispatch: # Allow manual trigger
 
 permissions:

@@ -298,8 +298,8 @@ def main():
     yahoo_data = fetch_yahoo_data()
 
     if not fred_data and not yahoo_data:
-        print("\nNo data fetched from any source. Exiting without update.")
-        sys.exit(1)
+        print("\nNo data fetched from any source — keeping existing prices.json unchanged.")
+        sys.exit(0)
 
     output = build_output(fred_data, yahoo_data)
 
