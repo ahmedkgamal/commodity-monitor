@@ -1,7 +1,110 @@
 {
-  "lastUpdated": null,
-  "agri": {},
-  "oilgas": {},
+  "lastUpdated": "2026-04-02T07:56:48Z",
+  "agri": {
+    "cpo": {
+      "monthlyThisYear": null,
+      "monthlyLastYear": null,
+      "avgYTD": null,
+      "avgLastYear": null,
+      "avgLastMonth": null,
+      "fredLatest": null,
+      "fredDate": null
+    },
+    "soybean_oil": {
+      "monthlyThisYear": null,
+      "monthlyLastYear": null,
+      "avgYTD": null,
+      "avgLastYear": null,
+      "avgLastMonth": null,
+      "fredLatest": null,
+      "fredDate": null,
+      "price": 1500.24,
+      "prevPrice": 1479.52,
+      "dataDate": "2026-04-02",
+      "rawPrice": 68.05
+    },
+    "sunflower_oil": {
+      "monthlyThisYear": null,
+      "monthlyLastYear": null,
+      "avgYTD": null,
+      "avgLastYear": null,
+      "avgLastMonth": null,
+      "fredLatest": null,
+      "fredDate": null
+    },
+    "raw_sugar": {
+      "monthlyThisYear": null,
+      "monthlyLastYear": null,
+      "avgYTD": null,
+      "avgLastYear": null,
+      "avgLastMonth": null,
+      "fredLatest": null,
+      "fredDate": null,
+      "price": 338.85,
+      "prevPrice": 337.09,
+      "dataDate": "2026-04-02",
+      "rawPrice": 15.37
+    },
+    "soybeans": {
+      "monthlyThisYear": null,
+      "monthlyLastYear": null,
+      "avgYTD": null,
+      "avgLastYear": null,
+      "avgLastMonth": null,
+      "fredLatest": null,
+      "fredDate": null,
+      "price": 430.41,
+      "prevPrice": 429.31,
+      "dataDate": "2026-04-02",
+      "rawPrice": 1171.5
+    },
+    "soybean_meal": {
+      "monthlyThisYear": null,
+      "monthlyLastYear": null,
+      "avgYTD": null,
+      "avgLastYear": null,
+      "avgLastMonth": null,
+      "fredLatest": null,
+      "fredDate": null,
+      "price": 349.43,
+      "prevPrice": 350.76,
+      "dataDate": "2026-04-02",
+      "rawPrice": 317.0
+    }
+  },
+  "oilgas": {
+    "Brent Crude": {
+      "price": 107.75,
+      "prevPrice": 101.16,
+      "dataDate": "2026-04-02"
+    },
+    "WTI Crude": {
+      "price": 106.39,
+      "prevPrice": 100.12,
+      "dataDate": "2026-04-02"
+    },
+    "Henry Hub Nat Gas": {
+      "price": 2.85,
+      "prevPrice": 2.82,
+      "dataDate": "2026-04-02"
+    },
+    "RBOB Gasoline": {
+      "price": 3.12,
+      "prevPrice": 3.09,
+      "dataDate": "2026-04-02"
+    }
+  },
   "petrochem": {},
-  "poultry": {}
+  "poultry": {
+    "Corn (CBOT Front-Month)": {
+      "price": 457.25,
+      "prevPrice": 454.25,
+      "dataDate": "2026-04-02"
+    },
+    "Soybean Meal (CBOT)": {
+      "price": 317.0,
+      "prevPrice": 318.2,
+      "dataDate": "2026-04-02"
+    }
+  }
 }
