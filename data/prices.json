@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-02T07:56:48Z",
+  "lastUpdated": "2026-04-03T08:37:43Z",
   "agri": {
     "cpo": {
       "monthlyThisYear": null,
@@ -18,10 +18,10 @@
       "avgLastMonth": null,
       "fredLatest": null,
       "fredDate": null,
-      "price": 1500.24,
+      "price": 1519.87,
       "prevPrice": 1479.52,
       "dataDate": "2026-04-02",
-      "rawPrice": 68.05
+      "rawPrice": 68.94
     },
     "sunflower_oil": {
       "monthlyThisYear": null,
@@ -40,10 +40,10 @@
       "avgLastMonth": null,
       "fredLatest": null,
       "fredDate": null,
-      "price": 338.85,
+      "price": 330.69,
       "prevPrice": 337.09,
       "dataDate": "2026-04-02",
-      "rawPrice": 15.37
+      "rawPrice": 15.0
     },
     "soybeans": {
       "monthlyThisYear": null,
@@ -53,10 +53,10 @@
       "avgLastMonth": null,
       "fredLatest": null,
       "fredDate": null,
-      "price": 430.41,
+      "price": 427.47,
       "prevPrice": 429.31,
       "dataDate": "2026-04-02",
-      "rawPrice": 1171.5
+      "rawPrice": 1163.5
     },
     "soybean_meal": {
       "monthlyThisYear": null,
@@ -66,30 +66,30 @@
       "avgLastMonth": null,
       "fredLatest": null,
       "fredDate": null,
-      "price": 349.43,
+      "price": 347.45,
       "prevPrice": 350.76,
       "dataDate": "2026-04-02",
-      "rawPrice": 317.0
+      "rawPrice": 315.2
     }
   },
   "oilgas": {
     "Brent Crude": {
-      "price": 107.75,
+      "price": 109.03,
       "prevPrice": 101.16,
       "dataDate": "2026-04-02"
     },
     "WTI Crude": {
-      "price": 106.39,
+      "price": 111.54,
       "prevPrice": 100.12,
       "dataDate": "2026-04-02"
     },
     "Henry Hub Nat Gas": {
-      "price": 2.85,
+      "price": 2.8,
       "prevPrice": 2.82,
       "dataDate": "2026-04-02"
     },
     "RBOB Gasoline": {
-      "price": 3.12,
+      "price": 3.29,
       "prevPrice": 3.09,
       "dataDate": "2026-04-02"
     }
@@ -97,12 +97,12 @@
   "petrochem": {},
   "poultry": {
     "Corn (CBOT Front-Month)": {
-      "price": 457.25,
+      "price": 452.25,
       "prevPrice": 454.25,
       "dataDate": "2026-04-02"
     },
     "Soybean Meal (CBOT)": {
-      "price": 317.0,
+      "price": 315.2,
       "prevPrice": 318.2,
       "dataDate": "2026-04-02"
     }
