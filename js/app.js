@@ -28,9 +28,6 @@
         showLanding();
         renderLandingTickers();
         updateTimestamp();
-
-        // Fetch live prices from auto-updated data file
-        fetchLivePrices();
     });
 
     // =========================================
@@ -301,115 +298,6 @@
             console.log('FRED data loaded successfully');
         } catch (error) {
             console.warn('Some FRED fetches failed, using cached data:', error);
-        }
-    }
-
-    // =========================================
-    // LIVE PRICE AUTO-UPDATE
-    // Fetches data/prices.json (written by GitHub Actions)
-    // and merges into the in-memory configs for display.
-    // =========================================
-    async function fetchLivePrices() {
-        try {
-            const resp = await fetch('data/prices.json');
-            if (!resp.ok) return;
-            const data = await resp.json();
-            if (!data.lastUpdated) return;
-
-            console.log('Live prices loaded:', data.lastUpdated);
-            applyLivePrices(data);
-        } catch (e) {
-            // data/prices.json not available or empty — use embedded data
-            console.log('No live prices available, using embedded data');
-        }
-    }
-
-    function applyLivePrices(data) {
-        let updated = false;
-
-        // --- Agri: update compactCommodities + sampleData ---
-        if (data.agri && CONFIG.compactCommodities) {
-            const agriKeyMap = {
-                'Crude Palm Oil (CPO)': 'cpo',
-                'Soybean Oil': 'soybean_oil',
-                'Sunflower Oil': 'sunflower_oil',
-                'Raw Sugar (No. 11)': 'raw_sugar',
-                'Soybeans': 'soybeans',
-                'Soybean Meal': 'soybean_meal'
-            };
-
-            CONFIG.compactCommodities.forEach(item => {
-                const key = agriKeyMap[item.name];
-                const live = key ? data.agri[key] : null;
-                if (!live) return;
-
-                if (live.price != null) {
-                    item.prevPrice = item.price;
-                    item.price = live.price;
-                    item.dataDate = live.dataDate || item.dataDate;
-                    updated = true;
-                }
-                if (live.avgYTD != null) item.avgYTD = live.avgYTD;
-                if (live.avgLastYear != null) item.avgLastYear = live.avgLastYear;
-                if (live.avgLastMonth != null) item.avgLastMonth = live.avgLastMonth;
-
-                // Also update sampleData for charts
-                const sd = CONFIG.sampleData[key];
-                if (sd) {
-                    if (live.price != null) {
-                        sd.yesterdayClose = sd.today;
-                        sd.today = live.price;
-                    }
-                    if (live.monthlyThisYear) sd.monthlyThisYear = live.monthlyThisYear;
-                    if (live.monthlyLastYear) sd.monthlyLastYear = live.monthlyLastYear;
-                    if (live.avgYTD != null) sd.avgYTD = live.avgYTD;
-                    if (live.avgLastYear != null) sd.avgLastYear = live.avgLastYear;
-                    if (live.avgLastMonth != null) sd.avgLastMonth = live.avgLastMonth;
-                }
-            });
-        }
-
-        // --- Oil & Gas ---
-        if (data.oilgas && typeof CONFIG_OILGAS !== 'undefined' && CONFIG_OILGAS.commodities) {
-            CONFIG_OILGAS.commodities.forEach(item => {
-                const live = data.oilgas[item.name];
-                if (!live) return;
-                if (live.price != null) {
-                    item.prevPrice = item.price;
-                    item.price = live.price;
-                    item.dataDate = live.dataDate || item.dataDate;
-                    updated = true;
-                }
-            });
-        }
-
-        // --- Poultry global benchmarks ---
-        if (data.poultry && typeof CONFIG_POULTRY !== 'undefined' && CONFIG_POULTRY.commodities) {
-            CONFIG_POULTRY.commodities.forEach(item => {
-                const live = data.poultry[item.name];
-                if (!live) return;
-                if (live.price != null) {
-                    item.prevPrice = item.price;
-                    item.price = live.price;
-                    item.dataDate = live.dataDate || item.dataDate;
-                    updated = true;
-                }
-            });
-        }
-
-        // Re-render the current view if data was updated
-        if (updated) {
-            // Reload state from updated config
-            Object.keys(CONFIG.commodities).forEach(key => {
-                state.commodityData[key] = CONFIG.sampleData[key];
-            });
-
-            if (state.currentIndustry) {
-                renderIndustry(state.currentIndustry);
-            }
-            renderLandingTickers();
-            updateTimestamp();
-            console.log('Dashboard updated with live prices');
         }
     }
 
