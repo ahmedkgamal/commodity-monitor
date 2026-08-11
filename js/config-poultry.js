@@ -6,7 +6,7 @@
    - Feed Inputs (Egypt): Al Mal News, Al-Ard, Vetogate
    - Feed Inputs (Global): CME/CBOT (corn, soybean meal)
    - Market Indicators: USDA NASS, CAPMAS
-   - All data last verified: 2026-08-10
+   - All data last verified: 2026-08-11
 
    NOTE: Egyptian poultry prices are surging ahead of Ramadan 2026,
    driven by seasonal demand, rising feed costs, and EGP depreciation.
@@ -190,12 +190,12 @@ const CONFIG_POULTRY = {
         {
             group: 'Global Feed Benchmarks',
             name: 'Corn (CBOT Front-Month)',
-            price: 464.25,
-            prevPrice: 439,
+            price: 462.25,
+            prevPrice: 438.25,
             unit: '\u00A2/bu',
             sourceName: 'CME CBOT',
             sourceUrl: 'https://www.cmegroup.com/markets/agriculture/grains/corn.html',
-            dataDate: '2026-08-10',
+            dataDate: '2026-08-11',
             avgThisMonth: 447.00,
             avgLastMonth: 445.00,
             avgYTD: 444.00,
