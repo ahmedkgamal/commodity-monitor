@@ -4,7 +4,7 @@
    DATA SOURCES:
    - Monthly averages: FRED / IMF Primary Commodity Prices (free, public)
    - Current prices: CME, ICE, Bursa Malaysia via market feeds
-   - All data last verified: 2026-08-15
+   - All data last verified: 2026-08-16
 
    TO GET LIVE AUTO-UPDATING DATA:
    1. Register free at https://fred.stlouisfed.org/docs/api/api_key.html
@@ -388,7 +388,7 @@ const CONFIG = {
             group: 'Edible Oils',
             name: 'Crude Palm Oil (CPO)',
             price: 365.97,          // auto-updated 2026-08-14
-            prevPrice: 370.82,      // previous: 340.28
+            prevPrice: 370.82,      // previous: 348.66
             unit: 'USD/MT',
             sourceName: 'Investing.com',
             sourceUrl: 'https://www.investing.com/commodities/palm-oil-usd',
