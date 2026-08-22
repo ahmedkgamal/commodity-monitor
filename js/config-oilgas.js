@@ -6,7 +6,7 @@
    - Natural Gas: CME Henry Hub, ICE TTF, Platts JKM
    - NGLs: FRED/EIA Mont Belvieu spot prices
    - Market Indicators: Baker Hughes, EIA Weekly Petroleum Status
-   - All data last verified: 2026-08-21
+   - All data last verified: 2026-08-22
 
    NOTE: Oil markets are experiencing extreme volatility
    due to the Iran conflict and Strait of Hormuz disruption.
@@ -46,7 +46,7 @@ const CONFIG_OILGAS = {
         {
             group: 'Crude Oil',
             name: 'Brent Crude',
-            price: 93.44,
+            price: 94.39,
             prevPrice: 93.78,
             unit: '$/bbl',
             sourceName: 'ICE Futures',
@@ -60,7 +60,7 @@ const CONFIG_OILGAS = {
         },
         {
             name: 'WTI Crude',
-            price: 86.33,
+            price: 87.06,
             prevPrice: 87.83,
             unit: '$/bbl',
             sourceName: 'CME NYMEX',
@@ -90,7 +90,7 @@ const CONFIG_OILGAS = {
         {
             group: 'Natural Gas',
             name: 'Henry Hub Nat Gas',
-            price: 2.76,
+            price: 2.77,
             prevPrice: 2.73,
             unit: '$/MMBtu',
             sourceName: 'CME NYMEX',
@@ -134,7 +134,7 @@ const CONFIG_OILGAS = {
         {
             group: 'Refined Products',
             name: 'RBOB Gasoline',
-            price: 3.0085,
+            price: 3.3479,
             prevPrice: 3.2629,
             unit: '$/gal',
             sourceName: 'CME NYMEX',
