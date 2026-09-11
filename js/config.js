@@ -4,7 +4,7 @@
    DATA SOURCES:
    - Monthly averages: FRED / IMF Primary Commodity Prices (free, public)
    - Current prices: CME, ICE, Bursa Malaysia via market feeds
-   - All data last verified: 2026-09-10
+   - All data last verified: 2026-09-11
 
    TO GET LIVE AUTO-UPDATING DATA:
    1. Register free at https://fred.stlouisfed.org/docs/api/api_key.html
@@ -249,8 +249,8 @@ const CONFIG = {
             // Source: https://www.investing.com/commodities/palm-oil
             // Feb 2026: Indonesian govt CPO reference price ~$995/MT
             // Source: https://palmoilmagazine.com/
-            yesterdayClose: 405.65,         // previous close
-            today: 432.77,                  // Bursa FCPO May-26 settlement (Mar 12)
+            yesterdayClose: 412.93,         // previous close
+            today: 429.9,                  // Bursa FCPO May-26 settlement (Mar 12)
             avgThisMonth: null,              // Mar 2026 — no exchange ticker on Yahoo Finance
             avgLastMonth: 995.00,            // Feb 2026: Indonesian govt CPO reference price
             avgYTD: 1000.00,                 // (Jan $1,004 + Feb $995) / 2
@@ -387,12 +387,12 @@ const CONFIG = {
         {
             group: 'Edible Oils',
             name: 'Crude Palm Oil (CPO)',
-            price: 432.77,          // auto-updated 2026-09-10
-            prevPrice: 405.65,      // previous: 390.55
+            price: 429.9,          // auto-updated 2026-09-11
+            prevPrice: 412.93,      // previous: 390.99
             unit: 'USD/MT',
             sourceName: 'Investing.com',
             sourceUrl: 'https://www.investing.com/commodities/palm-oil-usd',
-            dataDate: '2026-09-10',
+            dataDate: '2026-09-11',
             avgThisMonth: null,
             avgLastMonth: 995.00,
             avgYTD: 1000.00,
