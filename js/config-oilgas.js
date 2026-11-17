@@ -6,7 +6,7 @@
    - Natural Gas: CME Henry Hub, ICE TTF, Platts JKM
    - NGLs: FRED/EIA Mont Belvieu spot prices
    - Market Indicators: Baker Hughes, EIA Weekly Petroleum Status
-   - All data last verified: 2026-11-16
+   - All data last verified: 2026-11-17
 
    NOTE: Oil markets are experiencing extreme volatility
    due to the Iran conflict and Strait of Hormuz disruption.
@@ -46,12 +46,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Crude Oil',
             name: 'Brent Crude',
-            price: 93.35,
-            prevPrice: 95.84,
+            price: 93.09,
+            prevPrice: 92.44,
             unit: '$/bbl',
             sourceName: 'ICE Futures',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/brent-crude-oil.html',
-            dataDate: '2026-11-16',
+            dataDate: '2026-11-17',
             avgThisMonth: 90.33,
             avgLastMonth: 76.00,
             avgYTD: 79.61,
@@ -60,12 +60,12 @@ const CONFIG_OILGAS = {
         },
         {
             name: 'WTI Crude',
-            price: 86.62,
-            prevPrice: 88.56,
+            price: 86.39,
+            prevPrice: 85.72,
             unit: '$/bbl',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html',
-            dataDate: '2026-11-16',
+            dataDate: '2026-11-17',
             avgThisMonth: null,
             avgLastMonth: null,
             avgYTD: null,
@@ -90,12 +90,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Natural Gas',
             name: 'Henry Hub Nat Gas',
-            price: 3.15,
-            prevPrice: 3.23,
+            price: 3.1,
+            prevPrice: 3.12,
             unit: '$/MMBtu',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/natural-gas/natural-gas.html',
-            dataDate: '2026-11-16',
+            dataDate: '2026-11-17',
             avgThisMonth: 2.92,
             avgLastMonth: 3.45,
             avgYTD: 4.70,
@@ -134,12 +134,12 @@ const CONFIG_OILGAS = {
         {
             group: 'Refined Products',
             name: 'RBOB Gasoline',
-            price: 2.5215,
-            prevPrice: 2.6214,
+            price: 2.5216,
+            prevPrice: 2.5379,
             unit: '$/gal',
             sourceName: 'CME NYMEX',
             sourceUrl: 'https://www.cmegroup.com/markets/energy/refined-products/rbob-gasoline.html',
-            dataDate: '2026-11-16',
+            dataDate: '2026-11-17',
             avgThisMonth: 3.05,
             avgLastMonth: 2.72,
             avgYTD: 2.76,
